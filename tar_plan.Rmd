@@ -47,7 +47,7 @@ Load the data as a target to be used in the pipeline.
 
 targets$data_import <- list(
     
-    # Download data
+    # Download CSF data
     
     # tar_cue(mode = "never") means the target runs only when the targets cache is empty
     # download_data() checks if file exists in the location and skips the download
@@ -67,14 +67,20 @@ targets$data_import <- list(
     ),
    
 
-    # Read the data as targets
-
+    # Read CSF data as targets
     tar_target(
         data_csf,
         read_tsv(data_csf_download,
                  show_col_types = FALSE),
         format = "qs"
-    )
+    ),
+    
+    # Make documentation for CSF data
+        tar_target(
+        data_csf_documentation,
+        rmarkdown::render(here("Rmd", "data_csf_documentation.Rmd"),
+                          output_file = here("docs", "data_csf_documentation.html"))
+        )
 )
 
 
