@@ -5,11 +5,14 @@ output: html_document
 
 Initialize the list of targets.
 
-```{r setup}
+```{r tar_setup}
 knitr::opts_chunk$set(echo = TRUE)
 
 require(targets)
 require(here)
+require(tarchetypes)
+require(dplyr)
+
 
 targets <- list()
 ```
@@ -31,7 +34,8 @@ targets$documentation <- list(
     tar_target(
         tar_documentation,
         rmarkdown::render(tar_plan_file,
-                          output_file = here("docs", "plan_documentation.html"))
+                          output_file = here("docs", 
+                                             "plan_documentation.html"))
         )
 )
 
@@ -60,7 +64,9 @@ targets$data_import <- list(
         data_csf_download,
         download_data(
             url = "https://owncloud.cesnet.cz/index.php/s/HIm7FEYQIMfoBuu/download",
-            data_file = here("data", "data_raw", "czech_science_foundation.tsv")
+            data_file = here("data", 
+                             "data_raw", 
+                             "czech_science_foundation.tsv")
             ),
         format = "file",
         cue = tar_cue(mode = "never")
@@ -71,16 +77,23 @@ targets$data_import <- list(
     tar_target(
         data_csf,
         read_tsv(data_csf_download,
-                 show_col_types = FALSE),
-        format = "qs"
+                 show_col_types = FALSE)
     ),
     
     # Make documentation for CSF data
-        tar_target(
+    # moving rendered document to `docs` folder
+    # temporary hack until output path can be specified directly in `tar_render`
+    tar_render(
         data_csf_documentation,
-        rmarkdown::render(here("Rmd", "data_csf_documentation.Rmd"),
-                          output_file = here("docs", "data_csf_documentation.html"))
-        )
+        path = "Rmd/data_csf_documentation.Rmd"),
+    tar_target(
+        data_csf_documentation_move,
+        file.rename(data_csf_documentation %>% .[1],
+                    here("docs", "data_csf_documentation.html")
+                    ),
+         cue = tar_cue(mode = "always")
+    )
+    
 )
 
 
