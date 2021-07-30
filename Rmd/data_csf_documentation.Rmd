@@ -15,15 +15,19 @@ tar_load(data_csf)
 
 ```
 
-Observations: `r nrow(data_csf)`
+**Number of rows**: `r nrow(data_csf)`
 
-Variables: `r ncol(data_csf)`
+**Number of columns**: `r ncol(data_csf)`
 
-```{r head_view, echo=FALSE}
+**Number of unique projects**: `r length(unique(data_csf$project_code))`
+
+## Dataset preview
+
+```{r head_view, echo=FALSE, message=FALSE, warning=FALSE}
 
 data_csf %>%
     slice_head(n =5) %>% 
-    mutate(across(is.character, ~stringr::str_replace(.x,
+    mutate(across(where(is.character), ~stringr::str_replace(.x,
                                                       "(^.{20}).*",
                                                       "\\1 \\.\\.\\."
                                                       ))) %>% 
