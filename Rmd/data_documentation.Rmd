@@ -1,0 +1,215 @@
+---
+title: "Documentation for the Czech Science Foundation and L'Agence Nationale de la Recherche datasets"
+author: "Marc Bertin, Chérifa Boukacem-Zeghmouri, Radim Hladik "
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r data_csf_documentation_setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      root.dir = '/docs')
+library(targets)
+library(dplyr)
+library(tibble)
+
+tar_load(data_csf)
+tar_load(data_anr)
+```
+
+## Dimensions
+
+```{r dimensions, echo=FALSE}
+
+tibble::tibble(data = c("csf", "anr"),
+               n_rows = c(nrow(data_csf), nrow(data_anr)),
+               n_cols = c(ncol(data_csf), ncol(data_anr)),
+               projects = c(length(unique(data_csf$project_code)),
+                            length(unique(data_anr$code_du_projet))),
+               min_year = c(min(as.integer(data_csf$year_start), na.rm = TRUE),
+                            min(as.integer(data_anr$date_de_debut), na.rm = TRUE)),
+               max_year = c(max(as.integer(data_csf$year_start), na.rm = TRUE),
+                            max(as.integer(data_anr$date_de_debut), na.rm = TRUE))
+               ) %>% 
+    knitr::kable()
+
+```
+
+## Summaries
+
+### CSF data
+
+```{r sum_csf, echo=FALSE}
+summary(data_csf) 
+```
+
+### ANR data
+
+```{r sum_anr, echo=FALSE}
+summary(data_anr) 
+```
+
+## CSF Dataset preview
+
+```{r head_csf, echo=FALSE, message=FALSE, warning=FALSE}
+
+data_csf %>%
+    slice_head(n =5) %>% 
+    mutate(across(where(is.character), ~stringr::str_replace(.x,
+                                                      "(^.{20}).*",
+                                                      "\\1 \\.\\.\\."
+                                                      ))) %>% 
+    knitr::kable() 
+
+```
+
+### Variables - description
+
+-   `project_code` unique identifier of a project
+
+-   `title_cz` title of the project in Czech
+
+-   `title_eng` title of the project in English
+
+-   `provider` Identifier of the funding provider
+
+    -   **GA0** Czech Science Foundation
+
+-   `program_code` identifier of the competition program
+
+    -   **GA** Standard projects. 1993-ongoing
+
+    -   **GE** Eurocores
+
+    -   **GP** Postdoctoral projects. 1998-ongoing
+
+    -   **GC** International projects. 2007-ongoing
+
+    -   **GD** Doctoral projects. 2003-ongoing
+
+    -   **GB** Excellence support projects. 2012-2018
+
+    -   **GF** LEAD Agency international projects. 2015-ongoing
+
+    -   **GJ** Junior projects. **2015-ongoing**
+
+    -   **GX** Excellence projects. 2019-ongoimng
+
+-   `program_title` name of the competition program (in Czech)
+
+-   `disc_group` field of research according to original Czech
+    classification system (until 2017)
+
+-   `disc` primary research discipline according to original Czech
+    classification system (until 2017)
+
+-   `disc_secondary` secondary research discipline according to original
+    Czech classification system (until 2017), if multidisciplinary
+
+-   `disc_tertiary` tertiary research discipline according to original
+    Czech classification system (until 2017), if multidisciplinary
+
+-   `ford` field of research according to FORD (after 2017)
+
+-   `ford_secondary` field of research according to FORD (after 2017),
+    if multidisciplinary
+
+-   `ford_tertiary` field of research according to FORD (after 2017), if
+    multidisciplinary
+
+-   `year_start` first year of the project
+
+-   `year_end` final year of the project
+
+-   `research_category` classification of the type of research
+
+    -   **ZV** basic (fundamental) research
+
+-   `evaluation` evaluation of completed projects
+
+    -   **V** excellent
+
+    -   **U** - successful
+
+    -   **O** -unsuccessful, no contract breach
+
+    -   **S** - unsuccessful, contract breach
+
+    -   **NA** - missing
+
+-   `total` total amount of funding
+
+-   `national_public` amount of funding from national public resources
+
+-   `foreign_public` amount of funding from foreign resources
+
+-   `private_total` amount of funding from the private sector
+
+-   `other_public` amount of funding from other public resources
+
+-   `abstract` description of the project goals
+
+-   `keywords` keywords of the project
+
+## ANR Dataset preview
+
+```{r head_anr, echo=FALSE, message=FALSE, warning=FALSE}
+
+data_anr %>%
+    slice_head(n =5) %>% 
+    mutate(across(where(is.character), ~stringr::str_replace(.x,
+                                                      "(^.{20}).*",
+                                                      "\\1 \\.\\.\\."
+                                                      ))) %>% 
+    knitr::kable() 
+
+```
+
+### Variables - description
+
+-   `code_du_projet` [text] Code du projet
+
+-   `titre` [text] Titre
+
+-   `acronyme` [text] Acronyme
+
+-   `resume` [text] Résumé
+
+-   `annee_de_financement` [text] Année de financement
+
+-   `lien_projet` [text] Lien Projet
+
+-   `code_du_programme` [text] Code du programme
+
+-   `programme` [text] Programme
+
+-   `lien_programme` [text] Lien Programme
+
+-   `perspectives` [text] Perspectives
+
+-   `publications_et_brevets` [text] Publications et brevets
+
+-   `resultats` [text] Résultats
+
+-   `resume_de_la_soumission` [text] Résumé de la soumission
+
+-   `montant` [double] Montant
+
+-   `date_de_debut` [date] Date de début
+
+-   `duree_en_mois` [int] Durée en mois
+
+-   `coordinateur_du_projet` [text] Coordinateur du projet
+
+-   `identifiant_de_partenaire` [text] Identifiant de partenaire
+
+-   `type_d_identifiant` [text] Type d'identifiant
+
+-   `libelle_de_partenaire` [text] Libellé de partenaire
+
+-   `sigle_de_partenaire` [text] Sigle de partenaire
+
+-   `code_du_type_de_partenaire` [text] Code du type de partenaire
+
+-   `type_de_partenaire` [text] Type de partenaire

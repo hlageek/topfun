@@ -80,16 +80,36 @@ targets$data_import <- list(
                  show_col_types = FALSE)
     ),
     
-    # Make documentation for CSF data
-    # moving rendered document to `docs` folder
-    # temporary hack until output path can be specified directly in `tar_render`
-    tar_render(
-        data_csf_documentation,
-        path = "Rmd/data_csf_documentation.Rmd"),
     tar_target(
-        data_csf_documentation_move,
-        file.rename(data_csf_documentation %>% .[1],
-                    here("docs", "data_csf_documentation.html")
+        data_anr_download,
+        download_data(
+            url = "https://www.data.gouv.fr/fr/datasets/r/e8a473a5-12e4-4ead-ad77-aee3bfad48fd",
+            data_file = here("data", 
+                             "data_raw", 
+                             "agence_nationale_recherche.csv")
+            ),
+        format = "file",
+        cue = tar_cue(mode = "never")
+    ),
+    
+    tar_target(
+        data_anr,
+        read_csv2(data_anr_download,
+                  locale = locale("fr"),
+                 show_col_types = FALSE)
+    ),
+
+    # Make documentation for data
+    # moving rendered document to `docs` folder
+    # temporary hack until output path can be specified directly 
+    # in `tar_render`
+    tar_render(
+        data_documentation,
+        path = "Rmd/data_documentation.Rmd"),
+    tar_target(
+        data_documentation_move,
+        file.rename(data_documentation %>% .[1],
+                    here("docs", "data_documentation.html")
                     ),
          cue = tar_cue(mode = "always")
     )

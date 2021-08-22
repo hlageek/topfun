@@ -8,7 +8,8 @@ download_data <- function(url, data_file){
         
         download.file(
             url = url,
-            destfile = data_file
+            destfile = data_file,
+            mode = "wb"
         )
         
         data_time_stamp <- file.info(data_file)$ctime
