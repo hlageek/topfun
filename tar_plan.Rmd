@@ -25,12 +25,14 @@ This chunk renders the documented list of targets into html file and saves it to
 
 targets$documentation <- list(
     
+    # Register tar_plan.Rmd file as a target
     tar_target(
         tar_plan_file,
         here("tar_plan.Rmd"),
         format = "file"
         ),
-
+    
+    # Render tar_plan.Rmd into html
     tar_target(
         tar_documentation,
         rmarkdown::render(tar_plan_file,
@@ -60,6 +62,7 @@ targets$data_import <- list(
     # invalidate with targets::tar_invalidate(data_csf_download)
 
     
+    # Download CSF dataset
     tar_target(
         data_csf_download,
         download_data(
@@ -73,13 +76,14 @@ targets$data_import <- list(
     ),
    
 
-    # Read CSF data as targets
+    # Read CSF data as an R object
     tar_target(
         data_csf,
         read_tsv(data_csf_download,
                  show_col_types = FALSE)
     ),
     
+    # Download ANR dataset
     tar_target(
         data_anr_download,
         download_data(
@@ -92,6 +96,7 @@ targets$data_import <- list(
         cue = tar_cue(mode = "never")
     ),
     
+    # Read ANR data as an R object
     tar_target(
         data_anr,
         read_csv2(data_anr_download,
