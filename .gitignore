@@ -9,3 +9,5 @@ _targets
 *.utf8.md
 *.knit.md
 .DS_Store
+*.html
+
