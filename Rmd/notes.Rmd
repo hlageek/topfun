@@ -1,0 +1,35 @@
+---
+title: "notes"
+author: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## TODO
+
+-   [ ] Some exploratory analyses to describe the data
+
+    -   [ ] focus on missing values
+
+-   [ ] Translation for French project titles and abstracts
+
+
+## Ideas
+
+-   include EU Cordis dataset
+
+
+## Shared variables
+
+-   dates (duration) of projects
+
+    -   can be extracted from ANR code
+
+-   money - amount
+
+-   type of collaboration (private/public/research university)
+
+-   gender of PIs
