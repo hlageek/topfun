@@ -9,7 +9,7 @@ editor_options:
 
 ```{r data_csf_documentation_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      root.dir = '/docs')
+                      knitr::opts_knit$set(root.dir = '../'))
 library(targets)
 library(dplyr)
 library(tibble)

@@ -79,8 +79,7 @@ targets$data_import <- list(
     # Read CSF data as an R object
     tar_target(
         data_csf,
-        read_tsv(data_csf_download,
-                 show_col_types = FALSE)
+        read_tsv(data_csf_download)
     ),
     
     # Download ANR dataset
@@ -99,9 +98,10 @@ targets$data_import <- list(
     # Read ANR data as an R object
     tar_target(
         data_anr,
-        read_csv2(data_anr_download,
-                  locale = locale("fr"),
-                 show_col_types = FALSE)
+        read_delim(data_anr_download,
+                   delim = ";",
+                   locale = locale("fr",
+                                  decimal_mark = "."))
     ),
 
     # Make documentation for data
@@ -113,13 +113,71 @@ targets$data_import <- list(
         path = "Rmd/data_documentation.Rmd"),
     tar_target(
         data_documentation_move,
-        file.rename(data_documentation %>% .[1],
+        file.rename(data_documentation[1],
                     here("docs", "data_documentation.html")
                     ),
-         cue = tar_cue(mode = "always")
+        cue = tar_cue("always")
     )
     
 )
 
 
 ```
+
+
+# Languages overview
+
+```{r lang}
+
+targets$lang <- list(
+    
+    tar_target(anr_lang_desc,
+               detect_lang(data = data_anr,
+                           id = "code_du_projet",
+                           col = "resume",
+                           whitelist = c("fra", "eng"),
+                           keep_all = FALSE
+                           )
+               ),
+    
+    tar_target(csf_lang_desc,
+               detect_lang(data = data_csf,
+                           id = "project_code",
+                           col = "abstract",
+                           whitelist = c("ces", "eng"),
+                           keep_all = FALSE
+                           )
+    ),
+    
+    tar_target(data_anr_for_translation,
+        data_anr %>% 
+            filter(code_du_projet %in% 
+                              (anr_lang_desc %>% 
+                              filter(resume_lang == "fra") %>% 
+                              pull(code_du_projet))
+                          ) %>% 
+            mutate(source_text = 
+                       paste(titre,
+                             resume, 
+                             sep = ". "
+                             )
+                   ) %>% 
+            select(code_du_projet,
+                   source_text
+                   )
+               ),
+    
+    tar_target(data_anr_translated,
+               run_cubbitt_api(
+                   data_anr_for_translation %>% 
+                       slice_head(n = 5),
+                   col = "source_text",
+                   new_col = "resume_tr"),
+               cue = tar_cue("never")
+               )
+    
+    
+)
+
+```
+
