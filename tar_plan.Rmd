@@ -103,6 +103,27 @@ targets$data_import <- list(
                    locale = locale("fr",
                                   decimal_mark = "."))
     ),
+    
+    # Download CORDIS dataset
+    
+    tar_target(
+        data_erc_download,
+        download_data(
+            url = "https://cordis.europa.eu/data/cordis-fp7projects.csv",
+        data_file = here("data", 
+                             "data_raw", 
+                             "cordis-fp7projects.csv")
+        ),
+        format = "file",
+        cue = tar_cue(mode = "never")
+        
+    ),
+    
+    # Read ERC data as an R object
+    tar_target(
+        data_erc,
+        read_csv2(data_erc_download)
+    ),
 
     # Make documentation for data
     # moving rendered document to `docs` folder
@@ -170,7 +191,7 @@ targets$lang <- list(
     tar_target(data_anr_translated,
                run_cubbitt_api(
                    data_anr_for_translation %>% 
-                       slice_head(n = 5),
+                       slice_head(n = 5),# test on sample
                    col = "source_text",
                    new_col = "resume_tr"),
                cue = tar_cue("never")
@@ -180,4 +201,87 @@ targets$lang <- list(
 )
 
 ```
+
+
+# Comparative datasets
+
+
+```{r compare}
+
+targets$compare <- list(
+    
+    tar_target(data_anr_sel,
+               filter_anr(data_anr)
+               ),
+    
+    tar_target(data_csf_sel,
+               filter_csf(data_csf)
+               ),
+    
+    tar_target(data_erc_sel,
+               filter_erc(data_erc)
+               ),
+    
+    tar_target(data_all,
+               combine_anr_csf(data_anr_sel,
+                               data_csf_sel,
+                               data_erc_sel)),
+    
+    tar_target(data_all_type_plot,
+               plot_data_all_type(data_all)),
+    
+    tar_target(data_all_funding_plot,
+               plot_data_all_funding(data_all)),
+    
+    tar_target(data_all_mean_plot,
+               plot_data_all_mean(data_all)),
+    
+    tar_target(data_all_mean_yearlyplot,
+               plot_data_all_mean_yearly(data_all))
+    
+    
+    
+    
+)
+```
+
+# Text data for export
+
+```{r text_export}
+
+targets$text_export <- list(
+    
+    
+    tar_target(text_export_anr,
+               export_text_anr(data_anr_sel,
+                               anr_lang_desc),
+               format = "file")
+    
+    
+    
+)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

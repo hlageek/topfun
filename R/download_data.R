@@ -9,6 +9,7 @@ download_data <- function(url, data_file){
         download.file(
             url = url,
             destfile = data_file,
+            method = "curl",
             mode = "wb"
         )
         
