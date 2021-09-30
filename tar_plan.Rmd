@@ -255,9 +255,76 @@ targets$text_export <- list(
     tar_target(text_export_anr,
                export_text_anr(data_anr_sel,
                                anr_lang_desc),
+               format = "file"),
+    
+    tar_target(text_export_csf,
+               export_text_csf(data_csf_sel,
+                               csf_lang_desc),
+               format = "file"),
+    
+    tar_target(text_export_erc,
+               export_text_erc(data_erc_sel),
                format = "file")
     
     
+    
+)
+
+```
+
+# Load topic models
+
+```{r topic_models}
+
+targets$topic_models <- list(
+    
+    # ANR
+    tar_target(topic_model_anr_data,
+               download_data(
+            url = "https://owncloud.cesnet.cz/index.php/s/riibpYmTDiYVHZO/download",
+            data_file = here("data", 
+                             "data_raw", 
+                             "topic_model_202109292040.qs")
+            ),
+        format = "file",
+        cue = tar_cue(mode = "never")
+    ),
+    
+    tar_target(topic_model_anr,
+               qread(topic_model_anr_data),
+               format = "qs"),
+    
+    # CSF
+    tar_target(topic_model_csf_data,
+               download_data(
+            url = "https://owncloud.cesnet.cz/index.php/s/a3ZqLZ2ljfJtoHo/download",
+            data_file = here("data", 
+                             "data_raw", 
+                             "topic_model_202109300955.qs")
+            ),
+        format = "file",
+        cue = tar_cue(mode = "never")
+    ),
+    
+    tar_target(topic_model_csf,
+               qread(topic_model_csf_data),
+               format = "qs"),
+    
+    # ERC
+    tar_target(topic_model_erc_data,
+               download_data(
+            url = "https://owncloud.cesnet.cz/index.php/s/a3ZqLZ2ljfJtoHo/download",
+            data_file = here("data", 
+                             "data_raw", 
+                             "topic_model_202109300955.qs")
+            ),
+        format = "file",
+        cue = tar_cue(mode = "never")
+    ),
+    
+    tar_target(topic_model_erc,
+               qread(topic_model_erc_data),
+               format = "qs")
     
 )
 
