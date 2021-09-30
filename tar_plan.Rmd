@@ -86,7 +86,7 @@ targets$data_import <- list(
     tar_target(
         data_anr_download,
         download_data(
-            url = "https://www.data.gouv.fr/fr/datasets/r/e8a473a5-12e4-4ead-ad77-aee3bfad48fd",
+            url = "https://data.enseignementsup-recherche.gouv.fr//explore/dataset/fr-esr-aap-anr-projets-retenus-participants-identifies/download",
             data_file = here("data", 
                              "data_raw", 
                              "agence_nationale_recherche.csv")
@@ -313,10 +313,10 @@ targets$topic_models <- list(
     # ERC
     tar_target(topic_model_erc_data,
                download_data(
-            url = "https://owncloud.cesnet.cz/index.php/s/a3ZqLZ2ljfJtoHo/download",
+            url = "https://owncloud.cesnet.cz/index.php/s/WBMOFhftZDuWUhD/download",
             data_file = here("data", 
                              "data_raw", 
-                             "topic_model_202109300955.qs")
+                             "topic_model_202109301159.qs")
             ),
         format = "file",
         cue = tar_cue(mode = "never")

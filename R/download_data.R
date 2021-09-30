@@ -10,7 +10,7 @@ download_data <- function(url, data_file){
             url = url,
             destfile = data_file,
             method = "curl",
-            mode = "wb"
+            mode = "auto"
         )
         
         data_time_stamp <- file.info(data_file)$ctime
