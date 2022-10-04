@@ -5,17 +5,25 @@ output: html_document
 editor_options: 
   markdown: 
     wrap: 72
+params:
+    targets_store: "../_targets"
 ---
 
 ```{r data_csf_documentation_setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,
-                      knitr::opts_knit$set(root.dir = '../'))
+knitr::opts_chunk$set(echo = TRUE)
 library(targets)
 library(dplyr)
 library(tibble)
+```
 
-tar_load(data_csf)
-tar_load(data_anr)
+```{r setup_store, eval=FALSE, include=FALSE}
+# for interactive work only
+params$targets_store <- "_targets"
+```
+
+```{r load_targets}
+tar_load(data_csf, store = params$targets_store)
+tar_load(data_anr, store = params$targets_store)
 ```
 
 ## Dimensions
