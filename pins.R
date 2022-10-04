@@ -5,7 +5,7 @@ data_anr_df <- readr::read_delim("https://data.enseignementsup-recherche.gouv.fr
                            delim = ";",
                            locale = locale("fr",
                                            decimal_mark = "."))
-)
+
 data_erc_df <- readr::read_csv2("https://owncloud.cesnet.cz/index.php/s/wYTYM2o5Tj1xr8j/download")
 
 
