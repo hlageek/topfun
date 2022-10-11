@@ -1,4 +1,5 @@
 packages <- c("tarchetypes",
               "here",
               "tidyverse",
-              "qs")
+              "qs",
+              "pins")
