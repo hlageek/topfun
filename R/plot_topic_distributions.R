@@ -3,14 +3,19 @@
 #' .. content for \details{} ..
 #'
 #' @title
-#' @param topics
+#' @param topic_models_docs
 #' @param level
 #' @return
 #' @author hlageek
 #' @export
-plot_topic_distributions <- function(topics, level = 1) {
+plot_topic_distributions <- function(topic_models_docs, level = 1) {
 
-        topics %>%
+    topic_models_docs |> 
+        filter(level == level) |> 
+        select(agency,)
+
+        nest(data = c(level, name, topic))
+    topic_models_docs %>%
             pluck("doc_topics") %>% 
             pluck(level) %>% 
             mutate(across(where(is.numeric), na_if, 0)) %>% 

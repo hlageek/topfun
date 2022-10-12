@@ -46,5 +46,12 @@ data_files <- list.files(here::here("~/ownCloud/repos_data/topfun/data/data_raw/
                          full.names = TRUE) %>% 
     stringr::str_subset("qs") 
 
-pins::pin_upload(board = topfun_board, paths = data_files, name = "topic_models_per_agency", title = "Topic models of project abstracts per agency")
+pins::pin_upload(board = topfun_board, paths = data_files, 
+                 name = "topic_models_per_agency", 
+                 title = "Topic models of project abstracts per agency",
+                 metadata = list("topic_model_202109292040" = "ANR",
+                                 "topic_model_202109300955" = "CSF",
+                                 "topic_model_202109301159" = "ERC"),
+                 description = "Files in `qs` format containing list with topic models. Relationship to agencies is logged in metadata."
+                 )
 

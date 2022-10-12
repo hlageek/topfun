@@ -10,7 +10,8 @@ list(
                         get_pins_url(token = "XK2fMdo1eN1qYxt"),
                     data_erc = 
                         get_pins_url(token = "5LiU3bWv1X4Mu1i")
-                    ))
+                    )),
+               cue = tar_cue("always")
                ),
     # Download CSF dataset
     tar_target(data_csf,
