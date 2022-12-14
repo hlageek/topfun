@@ -1,0 +1,139 @@
+---
+title: "Overview of the data on French, Czech, and EU science funding agencies"
+format:
+  html:
+    toc: true
+execute:
+  echo: false
+params:
+  targets_store: "../_targets"
+---
+
+```{r setup}
+#| include: false
+library(targets)
+library(tidyverse, quietly = TRUE)
+```
+
+```{r setup_store}
+#| eval: false
+#| include: false
+params$targets_store <- "_targets"
+```
+
+## Combined dataset
+
+```{r combined_dataset}
+tar_load(data_all, store = params$targets_store)
+```
+
+Number of combined observations: `r nrow(data_all)`
+
+Variables: `r colnames(data_all)`
+
+### Data by countries and type of competition
+
+Split by country.
+```{r}
+data_all %>% count(country) %>% 
+    kableExtra::kable(format = "markdown")
+```
+
+Split by country and type of competition.
+```{r}
+data_all %>% count(country, type) %>% 
+    kableExtra::kable(format = "markdown")
+```
+
+Number of projects in each year by country and competition type.
+```{r}
+tar_read(data_all_type_plot, store = params$targets_store)
+```
+
+Amount of funding awarded in each year by country and competition type. For the Czech case, 1 EUR = 25 CZK conversion was used.
+```{r}
+tar_read(data_all_funding_plot, store = params$targets_store)
+```
+
+Mean amount of funding per project awarded in each year by country and competition type.
+```{r}
+tar_read(data_all_mean_plot, store = params$targets_store)
+```
+
+Mean amount of funding per one year of project duration awarded in each year by country and competition type.
+```{r}
+tar_read(data_all_mean_yearlyplot, store = params$targets_store)
+```
+
+## Topic models
+
+Top 5 words per topic.
+
+::: {.panel-tabset}
+### CSF topics.
+
+```{r csf_topic_plot}
+#| fig.height: 12
+#| fig.width: 9
+tar_read(topics_csf_plot_level_1, store = params$targets_store) +
+    facet_wrap(~topic, ncol = 6, scales = "free") +
+    theme(axis.text.x = element_blank(),
+          axis.title = element_blank())
+```
+
+### ERC topics.
+
+```{r erc_topic_plot}
+#| fig.height: 12
+#| fig.width: 9
+tar_read(topics_erc_plot_level_1, store = params$targets_store) +
+    facet_wrap(~topic, ncol = 6, scales = "free") +
+    theme(axis.text.x = element_blank(),
+          axis.title = element_blank())
+```
+
+### ANR topics.
+
+```{r anr_topic_plot}
+#| fig.height: 12
+#| fig.width: 9
+tar_read(topics_anr_plot_level_1, store = params$targets_store) +
+    facet_wrap(~topic, ncol = 6, scales = "free") +
+    theme(axis.text.x = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks.x = element_blank())
+```
+:::
+
+## Topic distributions
+
+The following graphs show histograms of topic values across documents. Heavy-tailed topics tend to be distinctive, whereas near-normally distributed topics tend to be uniformative.
+
+::: {.panel-tabset}
+### CSF topics.
+
+```{r csf_topic_distr_plot}
+#| fig.height: 12
+#| fig.width: 9
+tar_read(topic_distribution_plots, store = params$targets_store)[[3]] +
+    facet_wrap(~topic, scales = "free", ncol = 6)
+```
+
+### ERC topics.
+
+```{r erc_topic_distr_plot}
+#| fig.height: 12
+#| fig.width: 9
+tar_read(topic_distribution_plots, store = params$targets_store)[[2]] +
+    facet_wrap(~topic, scales = "free", ncol = 6)
+```
+
+### ANR topics.
+
+```{r anr_topic_distr_plot}
+#| fig.height: 12
+#| fig.width: 9
+tar_read(topic_distribution_plots, store = params$targets_store)[[1]] +
+    facet_wrap(~topic, scales = "free", ncol = 6)
+```
+:::
