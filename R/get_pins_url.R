@@ -24,15 +24,15 @@ get_pins_url <- function(base_url = "https://owncloud.cesnet.cz",
         url = paste0(base_url, "/", mid_url, "/", token),
         httr::add_headers(depth = 3),
         httr::authenticate(token, "") 
-    ) %>% 
-        httr::content() %>% 
-        xml2::xml_find_all(".//d:href") %>% 
-        xml2::xml_text() %>% 
-        stringr::str_subset(pattern) %>% 
-        stringr::str_replace(pattern, "") %>% 
-        paste0(base_url, .)
+        ) |>  
+        httr::content() |> 
+        xml2::xml_find_all(".//d:href") |> 
+        xml2::xml_text() |>  
+        stringr::str_subset(pattern) |>  
+        stringr::str_replace(pattern, "") 
+        
     
-    pins_url
+    paste0(base_url, pins_url)
 
 
 }
