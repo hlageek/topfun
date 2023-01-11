@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|82819c9d0622120d|||||||||||||||
+.Random.seed|object|a1907ffab76e1b74|||||||||||||||
 agency_data|stem|fdc89e8173116bb2|21e20c9e8c64f21f|c32fe902ab9df6eb|1932868877||t19276.3600989606s|e5d2926a8e144e03|390|rds|local|vector|||1.132||
 agency_data_board|object|4a97a513f7b34e4b|||||||||||||||
 anr_lang_desc|stem|0c479e101364c020|130f6e811951f0a7|611fc1e3dfda4f2c|-611289990||t19276.3666792431s|c6686fcc7282940d|10700780|rds|local|vector|||105.513||
@@ -16,17 +16,17 @@ data_all_funding_plot|stem|e072947b3cd3093b|a63402816f156ed9|56c9c33c42d18719|23
 data_all_mean_plot|stem|bf8aff442753f55c|cc89809ce6dc2ae6|fde4d6032dca2301|-1992518623||t19276.3667817725s|98b6cb33431179a4|5998109|rds|local|vector|||0.012||
 data_all_mean_yearlyplot|stem|88d90799039cc68e|b8e6c213d1546cef|56ff4d71c812fa35|-1776280843||t19276.3667944665s|90b526e89ead286a|5998145|rds|local|vector|||0.015||
 data_all_type_plot|stem|987a55c44f5bbc7e|7e814541324ad16c|d18e01cef334a250|-2134129420||t19276.3668075765s|6603ac77627627ee|5971600|rds|local|vector|||0.021||
-data_anr|stem|1e00b7819d3b45ca|a58bf5fc60ee95bd|34406993bbadfcff|-155593126||t19341.8831334333s|fe8ae5bb980da8fc|15532274|rds|local|vector|||3.592||
+data_anr|stem|1e00b7819d3b45ca|eac0e41237c0f048|3f2fea1473425bbe|-155593126||t19363.4243057169s|fe8ae5bb980da8fc|15532274|rds|local|vector|||6.404||
 data_anr_download|stem|2a4be89a04fab779|475de258385cedf0|f1ee3d08475e8a2b|1881486612|/Users/radimhladik/repos/topfun/data/data_raw/agence_nationale_recherche.csv|t18861.4553395318s|9d507ee5eb76ba5c|20675549|file|local|vector|||0.001||
-data_anr_for_translation|stem|765cdbeb7a589111|31f7e781dde64d7d|f2a0bc0a6f9c3171|-808471733||t19276.3667333526s|bcf340119dc7a2fa|10516032|rds|local|vector|||0.1||
+data_anr_for_translation|stem|765cdbeb7a589111|cef3c30e98eb2318|0d4477c8c87b4ad5|-808471733||t19363.4245152043s|bcf340119dc7a2fa|10516032|rds|local|vector|||0.14||
 data_anr_sel|stem|4911a2cc0dbdf49a|f2630d5cb514f7a1|ec0804b453962ca8|-1549939719||t19276.3666906501s|0a9122fecf543677|4601708|rds|local|vector|||0.084||
 data_anr_translated|stem|903aba2a53133e6f|6ee768b2ea766827|7d607b00c58543f1|-531930947||t19269.8964175309s|6c624b538f2df987|9906|rds|local|vector|||11.319||
-data_csf|stem|b4a28765ee082a4c|9b0a6b9d78632c26|34406993bbadfcff|1643629686||t19341.8831583409s|8bfa332f5014148a|4763142|rds|local|vector|||1.232||
+data_csf|stem|b4a28765ee082a4c|481256abd364650d|3f2fea1473425bbe|1643629686||t19363.4243397129s|8bfa332f5014148a|4763142|rds|local|vector|||1.985||
 data_csf_download|stem|7b81ead40af74245|68ef075f2fcba65a|f1ee3d08475e8a2b|780690032|/Users/radimhladik/repos/topfun/data/data_raw/czech_science_foundation.tsv|t18836.7648344752s|294cbda553908857|13896973|file|local|vector|||0.009||
 data_csf_sel|stem|422e376d0c1e0211|d86d783031d8c163|a765e9cd5dac0bb7|-1532993261||t19269.8866688406s|b3eea37d77fc8b80|1622214|rds|local|vector|||0.031||
 data_csf2|stem|e7059d78f5224f2b|d63ecce932686f7f|de844eb324b67646|-1019478737||t19276.3601159603s|f02b269bc80ae470|129|rds|local|vector|||1.333||
 data_documentation|stem|0d5c55e9449c2cc9|e51311601fd82cee|77624273dbbf42b8|492650701|Rmd/data_documentation.html*Rmd/data_documentation.Rmd|t19276.3667107654s|afca1211479195f1|653779|file|local|vector|||1.619||
-data_erc|stem|c7d0d50f8599cd30|729ef6ca7b23080b|34406993bbadfcff|-1105117965||t19341.8832401756s|4d545ebb031e4e70|19403784|rds|local|vector|||3.847||
+data_erc|stem|c7d0d50f8599cd30|7e3ace22c59816e5|3f2fea1473425bbe|-1105117965||t19363.4244579528s|4d545ebb031e4e70|19403784|rds|local|vector|||6.649||
 data_erc_download|stem|db8ed4ef857b223d|38fa04eb0b7acfe2|f1ee3d08475e8a2b|-920436159|/Users/radimhladik/repos/topfun/data/data_raw/cordis-fp7projects.csv|t19012.4773013186s|d748cc84c138dc04|57277323|file|local|vector|||0.64||
 data_erc_sel|stem|ae57005763ae1fe6|4607ca40435c5709|97f355820b83dd35|-1784716786||t19269.8860087947s|f0f04d9195ff6cbc|1907451|rds|local|vector|||0.056||
 data_overview|stem|3ac89987b468a1f7|f939f233d2c3d9b2|744f9dafe864766b|-683941813|Rmd/data_overview.html*Rmd/data_overview.qmd|t19334.4760423742s|4f3d875746f0116a|16833|file|local|vector|||66.258||
@@ -62,7 +62,7 @@ topic_model_erc_data|stem|695d9ae41244d28f|ca18f4fedb5ce91f|f1ee3d08475e8a2b|196
 topic_models_board|object|abfc678071d7fa25|||||||||||||||
 topic_models_combined|stem|51b8ce15e25d6dd9|a5bdeb801eae572d|b5448a933ab89568|-890673104||t19277.311344918s||3594995|rds|local|vector|||0.027|cols is now required when using unnest.Please use cols  cword_topics, doc_topics|In row 1, cant recycle input of size 21693 to size 2616.
 topic_models_docs|stem|b0fd0afdfef2b1fc|1570cfe94216b1a1|f9b8d20e4abcb72b|1649692186||t19278.3791895963s|45c5dd3bf5b8c4d6|2797416|rds|local|vector|||1.539||
-topic_models_files|stem|ec477b98b9f528dc|127a27534ef96016|b9073e5640b9a872|1309276230||t19341.88484829s|dd5db50a8149e5ce|152|rds|local|vector|||2.63||
+topic_models_files|stem|ec477b98b9f528dc|7c0ea4d75e38d148|73751e53e9fb3e81|1309276230||t19363.4244870925s|dd5db50a8149e5ce|152|rds|local|vector|||2.331||
 topic_models_words|stem|c9381838283e8c5c|ee1a47df35643faf|dd6ef36d1c9b6228|-1733648223||t19277.328973392s|50f931662788a99d|1079951|rds|local|vector|||0.038||
 topics_anr_plot_level_1|stem|baba31207505b915|8a837f54a63aaa82|30ef4da50104b4a9|898824969||t19276.3758932742s|b2e70ed0e7edbd22|1734014|qs|local|vector|||0.048||
 topics_csf_plot_level_1|stem|df0c9bb105503094|1d39d642eb677b32|e240d47d60091551|-1529101370||t19276.3758979241s|f4e09d1aed1a5ced|1955461|qs|local|vector|||0.029||

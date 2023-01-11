@@ -22,7 +22,7 @@ tar_unscript()
 
 Load required libraries and custom functions.
 
-```{targets globals, tar_globals = TRUE}
+```{r, engine='targets', label='globals', tar_globals = TRUE}
 # read custom functions and packages
 lapply(list.files(here::here("R"), full.names = TRUE), source)
 # lapply(packages, library, character.only = TRUE)
@@ -30,22 +30,22 @@ tar_option_set(packages = packages(),
                garbage_collection = TRUE)
 ```
 
-```{targets pin_board, tar_globals = TRUE}
+```{r, engine='targets', label='pin_board', tar_globals = TRUE}
     # Establish data board
 agency_data_board <- pins::board_url(c(
-                    data_csf = 
-                        get_pins_url(token = "AgsdIbheNFjtq4J"),
-                    data_anr = 
-                        get_pins_url(token = "XK2fMdo1eN1qYxt"),
-                    data_erc = 
-                        get_pins_url(token = "5LiU3bWv1X4Mu1i")
-                    ))
+  data_csf =
+    get_pins_url(token = "AgsdIbheNFjtq4J"),
+  data_anr =
+    get_pins_url(token = "XK2fMdo1eN1qYxt"),
+  data_erc =
+    get_pins_url(token = "5LiU3bWv1X4Mu1i")
+))
 
-       # Establish data board
-    topic_models_board <- pins::board_url(c(
-                    topic_models = 
-                        get_pins_url(token = "w34U5qzjpRSCpev")),
-                    )
+# Establish topic model board
+topic_models_board <- pins::board_url(c(
+  topic_models =
+    get_pins_url(token = "w34U5qzjpRSCpev")
+), )
 ```
 
 
@@ -55,27 +55,27 @@ This section downloads the raw data content from remote sources.
 
 The data are loaded so as to be used in the pipeline.
 
-```{targets data_import}
+```{r, engine='targets', label='data_import'}
 
 list(
     # Download CSF dataset
     tar_target(data_csf,
-               agency_data_board %>% 
-                   pins::pin_download("data_csf") %>% 
+               agency_data_board |> 
+                   pins::pin_download("data_csf") |> 
                    qs::qread()
     ),
     
     # Download ANR dataset
     tar_target(data_anr,
-               agency_data_board %>% 
-                   pins::pin_download("data_anr") %>% 
+               agency_data_board |> 
+                   pins::pin_download("data_anr") |> 
                    qs::qread()
     ),
    
     # Download CORDIS dataset
         tar_target(data_erc,
-               agency_data_board %>% 
-                   pins::pin_download("data_erc") %>% 
+               agency_data_board |> 
+                   pins::pin_download("data_erc") |> 
                    qs::qread()
     )
 
@@ -87,7 +87,7 @@ list(
 
 ### Data documentation
 
-```{targets data_documentation}
+```{r, engine='targets', label='data_documentation'}
     # Make documentation for data
     # moving rendered document to `docs` folder
     # temporary hack until output path can be specified directly 
@@ -104,7 +104,7 @@ list(
 
 Here we ensure that the text data - project abstracts - that we work with are either in English or in French. Automatic language detection is used for this purpose. In addition, French data are automatically translated into English. 
 
-```{targets lang}
+```{r, engine='targets', label='lang'}
 
 list(
     
@@ -127,18 +127,18 @@ list(
     ),
     
     tar_target(data_anr_for_translation,
-        data_anr %>% 
+        data_anr |> 
             filter(code_du_projet %in% 
-                              (anr_lang_desc %>% 
-                              filter(resume_lang == "fra") %>% 
+                              (anr_lang_desc |> 
+                              filter(resume_lang == "fra") |> 
                               pull(code_du_projet))
-                          ) %>% 
+                          ) |> 
             mutate(source_text = 
                        paste(titre,
                              resume, 
                              sep = ". "
                              )
-                   ) %>% 
+                   ) |> 
             select(code_du_projet,
                    source_text
                    )
@@ -146,7 +146,7 @@ list(
     
     tar_target(data_anr_translated,
                run_cubbitt_api(
-                   data_anr_for_translation %>% 
+                   data_anr_for_translation |> 
                        slice_head(n = 5),# test on sample
                    col = "source_text",
                    new_col = "resume_tr"),
@@ -172,7 +172,7 @@ A single, unified dataset for comparison is produced.
     
 Basic descriptive statistics are calculated and plotted.
 
-```{targets compare}
+```{r, engine='targets', label='compare'}
 
 list(
     
@@ -215,7 +215,7 @@ list(
 
 This section prepares text data to be exported as inputs for topic modeling. It uses only the projects that were selected for the comparative dataset.
 
-```{targets text_export}
+```{r, engine='targets', label='text_export'}
 
 list(
     
@@ -244,13 +244,13 @@ list(
 
 The following section contains topic models that were calculated on the basis of text exported in the text export section.
 
-```{targets topic_models_pins}
+```{r, engine='targets', label='topic_models_pins'}
 
 list(
     
  
     tar_target(topic_models_files,
-               suppressMessages( topic_models_board %>% 
+               suppressMessages( topic_models_board |> 
                                      pin_download("topic_models")
                                  )
                )
@@ -260,7 +260,7 @@ list(
 
 ```
 
-```{targets topic_models}
+```{r, engine='targets', label='topic_models'}
 list(# ANR
    tar_target(topic_model_anr,
               qs::qread(str_subset(topic_models_files, "topic_model_202109292040.qs"))
@@ -277,7 +277,7 @@ list(# ANR
 )
 ```
 
-```{targets topic_models_combined}
+```{r, engine='targets', label='topic_models_combined'}
 list(
   tar_target(topic_models_words, 
              combine_topic_models(models = list("anr" = topic_model_anr,
@@ -304,7 +304,7 @@ list(
 
 ## Plot topic models
 
-```{targets}
+```{r, engine='targets'}
 #| label: plot_topic_models
 
 list(
@@ -323,7 +323,7 @@ list(
 
 ## Plot topic distributions
 
-```{targets}
+```{r, engine='targets', label='topic_distribution_plots'}
 #| label: plot_topic_distributions
 
  list(
@@ -339,7 +339,7 @@ list(
 
 ## Calculate statistics on topics
 
-```{targets}
+```{r, engine='targets'}
 #| label: topic_stats
 
  list(
@@ -364,7 +364,8 @@ list(
 
 This section produces an initial report on the available data with basic descriptive statistics.
 
-```{targets data_overview}
+```{r, engine='targets'}
+#| label: data_overview
 
 list(
     tarchetypes::tar_quarto(data_overview,

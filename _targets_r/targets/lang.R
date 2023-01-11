@@ -20,18 +20,18 @@ list(
     ),
     
     tar_target(data_anr_for_translation,
-        data_anr %>% 
+        data_anr |> 
             filter(code_du_projet %in% 
-                              (anr_lang_desc %>% 
-                              filter(resume_lang == "fra") %>% 
+                              (anr_lang_desc |> 
+                              filter(resume_lang == "fra") |> 
                               pull(code_du_projet))
-                          ) %>% 
+                          ) |> 
             mutate(source_text = 
                        paste(titre,
                              resume, 
                              sep = ". "
                              )
-                   ) %>% 
+                   ) |> 
             select(code_du_projet,
                    source_text
                    )
@@ -39,7 +39,7 @@ list(
     
     tar_target(data_anr_translated,
                run_cubbitt_api(
-                   data_anr_for_translation %>% 
+                   data_anr_for_translation |> 
                        slice_head(n = 5),# test on sample
                    col = "source_text",
                    new_col = "resume_tr"),
