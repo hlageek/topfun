@@ -104,8 +104,8 @@ list(
 
 Here we ensure that the text data - project abstracts - that we work with are either in English or in French. Automatic language detection is used for this purpose. In addition, French data are automatically translated into English. 
 
-```{r, engine='targets', label='lang'}
 
+```{r, engine='targets', label='lang'}
 list(
     
     tar_target(anr_lang_desc,
