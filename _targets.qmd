@@ -7,6 +7,24 @@ format:
 
 ## Setup
 
+### Targets environment for project
+
+```{r}
+#| label: define_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "targets")
+```
+
+### Run project specific pipeline
+
+```{r}
+#| label: run_pipeline
+#| eval: false
+start <- Sys.time()
+targets::tar_make(script = "_targets.R", store = "_targets")
+Sys.time()-start
+```
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 options(tidyverse.quiet = TRUE)
@@ -14,7 +32,7 @@ options(tidyverse.quiet = TRUE)
 library(targets)
 library(tarchetypes)
 library(here)
-tar_unscript()
+tar_unscript(script = "_targets.R")
 ```
 
 

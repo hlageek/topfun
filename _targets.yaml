@@ -1,0 +1,6 @@
+targets:
+  script: _targets.R
+  store: _targets
+external:
+  script: _external.R
+  store: _external

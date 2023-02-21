@@ -2,7 +2,7 @@
 library(targets)
 lapply(
   X = list.files(
-    path = file.path("_targets_r", "globals"),
+    path = file.path("_external_r", "globals"),
     pattern = "\\.R$",
     full.names = TRUE,
     all.files = TRUE,
@@ -17,7 +17,7 @@ lapply(
 )
 lapply(
   X = list.files(
-    path = file.path("_targets_r", "targets"),
+    path = file.path("_external_r", "targets"),
     pattern = "\\.R$",
     full.names = TRUE,
     all.files = TRUE,

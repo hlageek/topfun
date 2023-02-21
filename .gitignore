@@ -11,3 +11,4 @@ _targets_*
 .DS_Store
 *.html
 
+_external_*
