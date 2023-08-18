@@ -66,7 +66,7 @@ list(
 )
 ```
 
-## HAL
+## PINS
 
 ```{r}
 #| engine: targets
@@ -83,6 +83,33 @@ list(
                  metadata = list("license" = "None")
                        ),
     format = "feather"
+  ),
+  tar_target(
+  name = anr_pin,
+    command = pin_data(board = topfun_board,
+                       src = "https://static.data.gouv.fr/resources/anr-01-projets-anr-dos-detail-des-projets-et-des-partenaires/20230705-101003/anr-dos-depuis-2010-projets-finances-20230705-projets.csv",
+                       src_format = "csv_fr",
+                       name = "data_anr_df_file", 
+                 title = "Agence nationale de la recherche Dataset",
+                 description = "A dataset of ANR funded projects obtained from https://www.data.gouv.fr/fr/datasets/r/87d29a24-392e-4a29-a009-83eddcff3e66.",
+                 metadata = list("license" = "Ouvert"), versioned = FALSE
+                       ),
+    format = "feather"
   )
+
+  
+)
+```
+
+
+## Manifest
+```{r}
+#| engine: targets
+#| label: update_manifest_pins
+list(
+  tar_target(
+    name = manifest_pins,
+    command = pins::write_board_manifest(topfun_board)
+    )
 )
 ```
