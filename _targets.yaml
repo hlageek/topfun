@@ -4,3 +4,6 @@ targets:
 external:
   script: _external.R
   store: _external
+pinboard:
+  script: _pinboard.R
+  store: _pinboard

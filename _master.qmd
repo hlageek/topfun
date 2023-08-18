@@ -1,0 +1,36 @@
+---
+title: "Master of projects"
+format:
+  html:
+    code-fold: true
+---
+
+## Get external data from HAL
+```{r}
+#| label: data_import
+#| eval: false
+start <- Sys.time()
+quarto::quarto_render("_external.qmd", quiet = TRUE)
+targets::tar_make(script = "_external.R", store = "_external")
+Sys.time()-start
+```
+
+## Process external data to create a pin board
+```{r}
+#| label: data_import
+#| eval: false
+start <- Sys.time()
+quarto::quarto_render("_data_.qmd", quiet = TRUE)
+targets::tar_make(script = "_data.R", store = "_data")
+Sys.time()-start
+```
+
+## Run main pipeline
+```{r}
+#| label: default_project
+#| eval: false
+start <- Sys.time()
+quarto::quarto_render("_targets.qmd", quiet = TRUE)
+targets::tar_make(script = "_targets.R", store = "_targets")
+Sys.time()-start
+```

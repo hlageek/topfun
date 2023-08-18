@@ -1,0 +1,88 @@
+---
+title: "External data sources"
+format: html
+---
+
+This sub-project is intended for the acquisition and processing of external data that are to be used as raw data in the default `targets` project.
+
+## Setup
+
+### Targets environment for subproject
+
+```{r}
+#| label: define_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "pinboard")
+```
+
+### Targets script setup
+
+```{r}
+#| label: setup
+#| include: false
+library(targets)
+tar_unscript(script = "_data.R")
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+
+### Targets globals
+
+We first define some global options/functions common to all targets.
+
+```{r}
+#| engine: targets
+#| label: globals
+#| tar_globals: true
+
+# read custom functions
+lapply(list.files(here::here("R"), full.names = TRUE), source)
+tar_option_set(packages = packages())
+```
+
+### Pinboard setup
+
+Path to where the pin board should be located on the local machine. This should be a folder on a connected ownCloud folder.
+```{r}
+#| engine: targets
+#| label: board_path
+#| tar_globals: true
+
+
+# PINS_BOARD var is defined in usethis::edit_r_environ("project")
+path_to_pin_board <- Sys.getenv("PINS_BOARD")
+```
+
+Register the pin board.
+
+```{r}
+#| engine: targets
+#| label: pin_board
+list(
+  tar_target(
+    name = topfun_board,
+    command = pins::board_folder(path_to_pin_board, versioned = FALSE)
+  )
+)
+```
+
+## HAL
+
+```{r}
+#| engine: targets
+#| label: pins
+list(
+  tar_target(
+    name = csf_pin,
+    command = pin_data(board = topfun_board,
+                       src = "https://owncloud.cesnet.cz/index.php/s/HIm7FEYQIMfoBuu/download",
+                       src_format = "tsv",
+                       name = "data_csf_df_file",
+                       title = "Czech Science Foundation Dataset",
+                 description = "A dataset of CSF funded projects obtained from the CEP database.",
+                 metadata = list("license" = "None")
+                       ),
+    format = "feather"
+  )
+)
+```
