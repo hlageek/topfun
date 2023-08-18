@@ -11,5 +11,6 @@ _targets_*
 .DS_Store
 *.html
 
+.Renviron
 _external_*
 _pinboard_*
