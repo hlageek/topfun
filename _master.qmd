@@ -20,8 +20,8 @@ Sys.time()-start
 #| label: data_import
 #| eval: false
 start <- Sys.time()
-quarto::quarto_render("_data_.qmd", quiet = TRUE)
-targets::tar_make(script = "_data.R", store = "_data")
+quarto::quarto_render("_pinboard.qmd", quiet = TRUE)
+targets::tar_make(script = "_pinboard.R", store = "_pinboard")
 Sys.time()-start
 ```
 
