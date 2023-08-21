@@ -1,10 +1,14 @@
 packages <- function() {
     
-    c("tarchetypes",
+    c(
       "franc",
       "here",
-      "tidyverse",
+      "janitor",
       "qs",
-      "pins")
+      "pins",
+      "tidyverse",
+      "tarchetypes",
+      "topicmodels"
+      )
     
 } 

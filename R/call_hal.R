@@ -7,8 +7,12 @@
 #' @return
 #' @author hlageek
 #' @export
-call_hal <- function(type, year) {
+call_hal <- function(type, year, run) {
 
+if (!run) { 
+   hal_data <- NULL
+} else {
+  
 hal_data <-  odyssey::hal_api()  |> 
    odyssey::hal_query("fr", field = "language_s") |>
    odyssey::hal_filter(year, field = "producedDateY_i") |> 
@@ -39,5 +43,6 @@ hal_data <-  odyssey::hal_api()  |>
    "funding_s"
    )) |> 
    odyssey::hal_search(limit = 10000)
-
+   } 
+   hal_data
 }
