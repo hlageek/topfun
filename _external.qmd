@@ -92,7 +92,7 @@ list(
   ),
   tar_target(
     name = hal,
-    command = call_hal(hal_types, hal_years),
+    command = call_hal(hal_types, hal_years, run = as.logical(Sys.getenv("API_RUN"))),
     pattern = cross(hal_types, hal_years)
 
   )
