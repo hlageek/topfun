@@ -13,4 +13,6 @@ _targets_*
 
 .Renviron
 _external_*
+_external.R
 _pinboard_*
+_pinboard.R

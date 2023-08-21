@@ -17,7 +17,9 @@ pin_data <- function(board = topfun_board, src = NULL, src_format = NULL, name =
                                  locale = locale("fr",
                                                  decimal_mark = ".")),
     "csv2" = readr::read_csv2(src)
- )
+ ) |> 
+ janitor::clean_names()
+ 
  data_df_file <- paste0(tempfile(), ".qs")
 
  qs::qsave(data_df, data_df_file) 
