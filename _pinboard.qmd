@@ -1,9 +1,9 @@
 ---
-title: "External data sources"
+title: "Initialize pinboard"
 format: html
 ---
 
-This sub-project is intended for the acquisition and processing of external data that are to be used as raw data in the default `targets` project.
+This subproject initializes pinboard required for the default `targets` project.
 
 ## Setup
 
@@ -21,7 +21,7 @@ Sys.setenv(TAR_PROJECT = "pinboard")
 #| label: setup
 #| include: false
 library(targets)
-tar_unscript(script = "_data.R")
+tar_unscript(script = "_pinboard.R")
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
@@ -40,76 +40,24 @@ lapply(list.files(here::here("R"), full.names = TRUE), source)
 tar_option_set(packages = packages())
 ```
 
-### Pinboard setup
-
-Path to where the pin board should be located on the local machine. This should be a folder on a connected ownCloud folder.
-```{r}
-#| engine: targets
-#| label: board_path
-#| tar_globals: true
-
-
-# PINS_BOARD var is defined in usethis::edit_r_environ("project")
-path_to_pin_board <- Sys.getenv("PINS_BOARD")
-```
-
-Register the pin board.
+## Pinboard setup
 
 ```{r}
 #| engine: targets
-#| label: pin_board
+#| label: pin_setup
 list(
-  tar_target(
-    name = topfun_board,
-    command = pins::board_folder(path_to_pin_board, versioned = FALSE)
-  )
+tar_target(
+    name = cache_path,
+    command = here::here("data", "data_raw"),
+    format = "file"
+),
+tar_target(
+    name = manifest_url,
+    command = Sys.getenv("MANIFEST_URL")
+),
+tar_target(
+    name = pinboard_src,
+    command = pins::board_url(manifest_url, cache = cache_path)
 )
-```
-
-## PINS
-
-```{r}
-#| engine: targets
-#| label: pins
-list(
-  tar_target(
-    name = csf_pin,
-    command = pin_data(board = topfun_board,
-                       src = "https://owncloud.cesnet.cz/index.php/s/HIm7FEYQIMfoBuu/download",
-                       src_format = "tsv",
-                       name = "data_csf_df_file",
-                       title = "Czech Science Foundation Dataset",
-                 description = "A dataset of CSF funded projects obtained from the CEP database.",
-                 metadata = list("license" = "None")
-                       ),
-    format = "feather"
-  ),
-  tar_target(
-  name = anr_pin,
-    command = pin_data(board = topfun_board,
-                       src = "https://static.data.gouv.fr/resources/anr-01-projets-anr-dos-detail-des-projets-et-des-partenaires/20230705-101003/anr-dos-depuis-2010-projets-finances-20230705-projets.csv",
-                       src_format = "csv_fr",
-                       name = "data_anr_df_file", 
-                 title = "Agence nationale de la recherche Dataset",
-                 description = "A dataset of ANR funded projects obtained from https://www.data.gouv.fr/fr/datasets/r/87d29a24-392e-4a29-a009-83eddcff3e66.",
-                 metadata = list("license" = "Ouvert"), versioned = FALSE
-                       ),
-    format = "feather"
-  )
-
-  
-)
-```
-
-
-## Manifest
-```{r}
-#| engine: targets
-#| label: update_manifest_pins
-list(
-  tar_target(
-    name = manifest_pins,
-    command = pins::write_board_manifest(topfun_board)
-    )
 )
 ```

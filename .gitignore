@@ -12,7 +12,11 @@ _targets_*
 *.html
 
 .Renviron
+_targets.R
+_targets_*
 _external_*
 _external.R
 _pinboard_*
 _pinboard.R
+_data_raw_*
+_data_raw.R

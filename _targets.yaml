@@ -4,6 +4,9 @@ targets:
 external:
   script: _external.R
   store: _external
+data_raw:
+  script: _data_raw.R
+  store: _data_raw
 pinboard:
   script: _pinboard.R
   store: _pinboard

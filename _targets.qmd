@@ -15,15 +15,6 @@ format:
 Sys.setenv(TAR_PROJECT = "targets")
 ```
 
-### Run project specific pipeline
-
-```{r}
-#| label: run_pipeline
-#| eval: false
-start <- Sys.time()
-targets::tar_make(script = "_targets.R", store = "_targets")
-Sys.time()-start
-```
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
@@ -48,22 +39,17 @@ tar_option_set(packages = packages(),
                garbage_collection = TRUE)
 ```
 
-```{r, engine='targets', label='pin_board', tar_globals = TRUE}
-    # Establish data board
-agency_data_board <- pins::board_url(c(
-  data_csf =
-    get_pins_url(token = "AgsdIbheNFjtq4J"),
-  data_anr =
-    get_pins_url(token = "XK2fMdo1eN1qYxt"),
-  data_erc =
-    get_pins_url(token = "5LiU3bWv1X4Mu1i")
-))
 
-# Establish topic model board
-topic_models_board <- pins::board_url(c(
-  topic_models =
-    get_pins_url(token = "w34U5qzjpRSCpev")
-), )
+
+```{r}
+#| engine: targets
+#| label: pinboard_import
+list(
+    tar_target(
+        name = pinboard,
+        command = tar_read("pinboard_src", store = "_pinboard")
+    )
+)
 ```
 
 
@@ -75,47 +61,35 @@ The data are loaded so as to be used in the pipeline.
 
 ```{r, engine='targets', label='data_import'}
 
-list(
-    # Download CSF dataset
-    tar_target(data_csf,
-               agency_data_board |> 
-                   pins::pin_download("data_csf") |> 
-                   qs::qread()
-    ),
+# list(
+#     # Download CSF dataset
+#     tar_target(data_csf,
+#                agency_data_board |> 
+#                    pins::pin_download("data_csf") |> 
+#                    qs::qread()
+#     ),
     
-    # Download ANR dataset
-    tar_target(data_anr,
-               agency_data_board |> 
-                   pins::pin_download("data_anr") |> 
-                   qs::qread()
-    ),
+#     # Download ANR dataset
+#     tar_target(data_anr,
+#                agency_data_board |> 
+#                    pins::pin_download("data_anr") |> 
+#                    qs::qread()
+#     ),
    
-    # Download CORDIS dataset
-        tar_target(data_erc,
-               agency_data_board |> 
-                   pins::pin_download("data_erc") |> 
-                   qs::qread()
-    )
+#     # Download CORDIS dataset
+#         tar_target(data_erc,
+#                agency_data_board |> 
+#                    pins::pin_download("data_erc") |> 
+#                    qs::qread()
+#     )
 
     
-)
+# )
 
 
 ```
 
-### Data documentation
 
-```{r, engine='targets', label='data_documentation'}
-    # Make documentation for data
-    # moving rendered document to `docs` folder
-    # temporary hack until output path can be specified directly 
-    # in `tar_render`
-    tarchetypes::tar_render(
-        data_documentation,
-        path = "Rmd/data_documentation.Rmd", 
-        params = list(targets_store = "_targets")
-    )
-```
 
 
 ## Language detection
@@ -124,55 +98,55 @@ Here we ensure that the text data - project abstracts - that we work with are ei
 
 
 ```{r, engine='targets', label='lang'}
-list(
+# list(
     
-    tar_target(anr_lang_desc,
-               detect_lang(data = data_anr,
-                           id = "code_du_projet",
-                           col = "resume",
-                           whitelist = c("fra", "eng"),
-                           keep_all = FALSE
-                           )
-               ),
+#     tar_target(anr_lang_desc,
+#                detect_lang(data = data_anr,
+#                            id = "code_du_projet",
+#                            col = "resume",
+#                            whitelist = c("fra", "eng"),
+#                            keep_all = FALSE
+#                            )
+#                ),
     
-    tar_target(csf_lang_desc,
-               detect_lang(data = data_csf,
-                           id = "project_code",
-                           col = "abstract",
-                           whitelist = c("ces", "eng"),
-                           keep_all = FALSE
-                           )
-    ),
+#     tar_target(csf_lang_desc,
+#                detect_lang(data = data_csf,
+#                            id = "project_code",
+#                            col = "abstract",
+#                            whitelist = c("ces", "eng"),
+#                            keep_all = FALSE
+#                            )
+#     ),
     
-    tar_target(data_anr_for_translation,
-        data_anr |> 
-            filter(code_du_projet %in% 
-                              (anr_lang_desc |> 
-                              filter(resume_lang == "fra") |> 
-                              pull(code_du_projet))
-                          ) |> 
-            mutate(source_text = 
-                       paste(titre,
-                             resume, 
-                             sep = ". "
-                             )
-                   ) |> 
-            select(code_du_projet,
-                   source_text
-                   )
-               ),
+#     tar_target(data_anr_for_translation,
+#         data_anr |> 
+#             filter(code_du_projet %in% 
+#                               (anr_lang_desc |> 
+#                               filter(resume_lang == "fra") |> 
+#                               pull(code_du_projet))
+#                           ) |> 
+#             mutate(source_text = 
+#                        paste(titre,
+#                              resume, 
+#                              sep = ". "
+#                              )
+#                    ) |> 
+#             select(code_du_projet,
+#                    source_text
+#                    )
+#                ),
     
-    tar_target(data_anr_translated,
-               run_cubbitt_api(
-                   data_anr_for_translation |> 
-                       slice_head(n = 5),# test on sample
-                   col = "source_text",
-                   new_col = "resume_tr"),
-               cue = tar_cue("never")
-               )
+#     tar_target(data_anr_translated,
+#                run_cubbitt_api(
+#                    data_anr_for_translation |> 
+#                        slice_head(n = 5),# test on sample
+#                    col = "source_text",
+#                    new_col = "resume_tr"),
+#                cue = tar_cue("never")
+#                )
     
     
-)
+# )
 
 ```
 
@@ -192,41 +166,41 @@ Basic descriptive statistics are calculated and plotted.
 
 ```{r, engine='targets', label='compare'}
 
-list(
+# list(
     
-    tar_target(data_anr_sel,
-               filter_anr(data_anr)
-               ),
+#     tar_target(data_anr_sel,
+#                filter_anr(data_anr)
+#                ),
     
-    tar_target(data_csf_sel,
-               filter_csf(data_csf)
-               ),
+#     tar_target(data_csf_sel,
+#                filter_csf(data_csf)
+#                ),
     
-    tar_target(data_erc_sel,
-               filter_erc(data_erc)
-               ),
+#     tar_target(data_erc_sel,
+#                filter_erc(data_erc)
+#                ),
     
-    tar_target(data_all,
-               combine_anr_csf(data_anr_sel,
-                               data_csf_sel,
-                               data_erc_sel)),
-    # number of projects
-    tar_target(data_all_type_plot,
-               plot_data_all_type(data_all)),
-    # funding amounts - absolute
-    tar_target(data_all_funding_plot,
-               plot_data_all_funding(data_all)),
-    # funding amounts - normalized by number of projects
-    tar_target(data_all_mean_plot,
-               plot_data_all_mean(data_all)),
-    # funding amounts - normalized by number of projects and their duration in years
-    tar_target(data_all_mean_yearlyplot,
-               plot_data_all_mean_yearly(data_all))
-    
-    
+#     tar_target(data_all,
+#                combine_anr_csf(data_anr_sel,
+#                                data_csf_sel,
+#                                data_erc_sel)),
+#     # number of projects
+#     tar_target(data_all_type_plot,
+#                plot_data_all_type(data_all)),
+#     # funding amounts - absolute
+#     tar_target(data_all_funding_plot,
+#                plot_data_all_funding(data_all)),
+#     # funding amounts - normalized by number of projects
+#     tar_target(data_all_mean_plot,
+#                plot_data_all_mean(data_all)),
+#     # funding amounts - normalized by number of projects and their duration in years
+#     tar_target(data_all_mean_yearlyplot,
+#                plot_data_all_mean_yearly(data_all))
     
     
-)
+    
+    
+# )
 ```
 
 ## Text data for export
@@ -235,26 +209,26 @@ This section prepares text data to be exported as inputs for topic modeling. It 
 
 ```{r, engine='targets', label='text_export'}
 
-list(
+# list(
     
     
-    tar_target(text_export_anr,
-               export_text_anr(data_anr_sel,
-                               anr_lang_desc),
-               format = "file"),
+#     tar_target(text_export_anr,
+#                export_text_anr(data_anr_sel,
+#                                anr_lang_desc),
+#                format = "file"),
     
-    tar_target(text_export_csf,
-               export_text_csf(data_csf_sel,
-                               csf_lang_desc),
-               format = "file"),
+#     tar_target(text_export_csf,
+#                export_text_csf(data_csf_sel,
+#                                csf_lang_desc),
+#                format = "file"),
     
-    tar_target(text_export_erc,
-               export_text_erc(data_erc_sel),
-               format = "file")
+#     tar_target(text_export_erc,
+#                export_text_erc(data_erc_sel),
+#                format = "file")
     
     
     
-)
+# )
 
 ```
 
@@ -264,58 +238,58 @@ The following section contains topic models that were calculated on the basis of
 
 ```{r, engine='targets', label='topic_models_pins'}
 
-list(
+# list(
     
  
-    tar_target(topic_models_files,
-               suppressMessages( topic_models_board |> 
-                                     pin_download("topic_models")
-                                 )
-               )
+#     tar_target(topic_models_files,
+#                suppressMessages( topic_models_board |> 
+#                                      pin_download("topic_models")
+#                                  )
+#                )
     
     
-)
+# )
 
 ```
 
 ```{r, engine='targets', label='topic_models'}
-list(# ANR
-   tar_target(topic_model_anr,
-              qs::qread(str_subset(topic_models_files, "topic_model_202109292040.qs"))
-    ),
+# list(# ANR
+#    tar_target(topic_model_anr,
+#               qs::qread(str_subset(topic_models_files, "topic_model_202109292040.qs"))
+#     ),
     
-    # CSF
-    tar_target(topic_model_csf,
-              qs::qread(str_subset(topic_models_files, "topic_model_202109300955.qs"))
-    ),
-    # ERC
-   tar_target(topic_model_erc,
-              qs::qread(str_subset(topic_models_files, "topic_model_202109301159.qs"))
-    )
-)
+#     # CSF
+#     tar_target(topic_model_csf,
+#               qs::qread(str_subset(topic_models_files, "topic_model_202109300955.qs"))
+#     ),
+#     # ERC
+#    tar_target(topic_model_erc,
+#               qs::qread(str_subset(topic_models_files, "topic_model_202109301159.qs"))
+#     )
+# )
 ```
 
 ```{r, engine='targets', label='topic_models_combined'}
-list(
-  tar_target(topic_models_words, 
-             combine_topic_models(models = list("anr" = topic_model_anr,
-                                                "erc" = topic_model_erc,
-                                                "csf" = topic_model_csf
-                                             ),
-                                  dim = "word_topics")
-             ),
-    tar_target(topic_models_docs, 
-             combine_topic_models(models = list("anr" = topic_model_anr,
-                                                "erc" = topic_model_erc,
-                                                "csf" = topic_model_csf
-                                             ),
-                                  dim = "doc_topics") |> 
-                 pivot_longer(cols = starts_with("topic"),
-                              names_to = "topic",
-                              values_to = "weight",
-                              values_drop_na = TRUE)
-             )
-)
+# list(
+#   tar_target(topic_models_words, 
+#              combine_topic_models(models = list("anr" = topic_model_anr,
+#                                                 "erc" = topic_model_erc,
+#                                                 "csf" = topic_model_csf
+#                                              ),
+#                                   dim = "word_topics")
+#              ),
+#     tar_target(topic_models_docs, 
+#              combine_topic_models(models = list("anr" = topic_model_anr,
+#                                                 "erc" = topic_model_erc,
+#                                                 "csf" = topic_model_csf
+#                                              ),
+#                                   dim = "doc_topics") |> 
+#                  pivot_longer(cols = starts_with("topic"),
+#                               names_to = "topic",
+#                               values_to = "weight",
+#                               values_drop_na = TRUE)
+#              )
+# )
 
 ```
 
@@ -325,17 +299,17 @@ list(
 ```{r, engine='targets'}
 #| label: plot_topic_models
 
-list(
-    tar_target(topics_csf_plot_level_1,
-               plot_topics(topic_model_csf, level = 1L),
-               format = "qs"),
-        tar_target(topics_erc_plot_level_1,
-               plot_topics(topic_model_erc, level = 1L),
-               format = "qs"),
-        tar_target(topics_anr_plot_level_1,
-               plot_topics(topic_model_anr, level = 1L),
-               format = "qs")
-)
+# list(
+#     tar_target(topics_csf_plot_level_1,
+#                plot_topics(topic_model_csf, level = 1L),
+#                format = "qs"),
+#         tar_target(topics_erc_plot_level_1,
+#                plot_topics(topic_model_erc, level = 1L),
+#                format = "qs"),
+#         tar_target(topics_anr_plot_level_1,
+#                plot_topics(topic_model_anr, level = 1L),
+#                format = "qs")
+# )
 
 ```
 
@@ -344,14 +318,14 @@ list(
 ```{r, engine='targets', label='topic_distribution_plots'}
 #| label: plot_topic_distributions
 
- list(
+#  list(
               
 
-    tar_target(topic_distribution_plots,
-               plot_topic_distributions(topic_models_docs, level = 1),
-               format = "qs")
+#     tar_target(topic_distribution_plots,
+#                plot_topic_distributions(topic_models_docs, level = 1),
+#                format = "qs")
     
-)
+# )
 
 ```
 
@@ -360,21 +334,21 @@ list(
 ```{r, engine='targets'}
 #| label: topic_stats
 
- list(
+#  list(
               
 
-    tar_target(topics_diversity,
-               calc_topics_diversity(topic_models_docs, level = 1),
-               format = "qs"),
-    tar_target(topics_diversity_exp,
-               calc_topics_diversity_exp(topics_diversity, data_all),
-               format = "qs"),
-    tar_target(topics_diversity_plots,
-               plot_topics_diversity_exp(topics_diversity_exp)
-               )
+#     tar_target(topics_diversity,
+#                calc_topics_diversity(topic_models_docs, level = 1),
+#                format = "qs"),
+#     tar_target(topics_diversity_exp,
+#                calc_topics_diversity_exp(topics_diversity, data_all),
+#                format = "qs"),
+#     tar_target(topics_diversity_plots,
+#                plot_topics_diversity_exp(topics_diversity_exp)
+#                )
     
     
-)
+# )
 
 ```
 
@@ -385,11 +359,11 @@ This section produces an initial report on the available data with basic descrip
 ```{r, engine='targets'}
 #| label: data_overview
 
-list(
-    tarchetypes::tar_quarto(data_overview,
-                            here::here("Rmd/data_overview.qmd"),
-                            execute_params = list(targets_store = "_targets"))
-)
+# list(
+#     tarchetypes::tar_quarto(data_overview,
+#                             here::here("Rmd/data_overview.qmd"),
+#                             execute_params = list(targets_store = "_targets"))
+# )
 
 ```
 

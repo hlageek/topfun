@@ -5,7 +5,13 @@ format:
     code-fold: true
 ---
 
-## Get external data from HAL
+## HAL API
+
+This is obsolete code for quering HAL API. There is no need to run this subproject anymore.
+
+- __Run__: No.
+- __Requirement__: The subproject requires `API_RUN=TRUE` to be set in `.Renviron` file.
+
 ```{r}
 #| label: data_import
 #| eval: false
@@ -15,7 +21,30 @@ targets::tar_make(script = "_external.R", store = "_external")
 Sys.time()-start
 ```
 
-## Process external data to create a pin board
+## Raw data
+
+This code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.
+
+- __Run__: Not required.
+- __Requirement__: The subproject requires `PINS_BOARD=PATH_TO_PINBOARD` to be set in `.Renviron` file.
+
+
+```{r}
+#| label: data_import
+#| eval: false
+start <- Sys.time()
+quarto::quarto_render("_data_raw.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_raw.R", store = "_data_raw")
+Sys.time()-start
+```
+
+## Pinboard
+
+This code needs to be run only if data sources change and need to be updated. In principle, this is not required except when initializing the project. 
+
+- __Run__: When initializing the analytical work or when checking for updated data inputs.
+- __Requirement__: The subproject requires `MANIFEST_URL=URL/_pins.yaml` to be set in `.Renviron` file.
+
 ```{r}
 #| label: data_import
 #| eval: false
@@ -26,6 +55,12 @@ Sys.time()-start
 ```
 
 ## Run main pipeline
+
+This is the default pipeline. It serves for analysis of the raw data stored in the pinboard. 
+
+- __Run__: Every time analysis is updated.
+- __Requirement__: Pinboard source needs to be established by compiling the pinboard subproject at least once.
+
 ```{r}
 #| label: default_project
 #| eval: false
