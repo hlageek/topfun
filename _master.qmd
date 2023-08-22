@@ -43,7 +43,7 @@ Sys.time()-start
 This code needs to be run only if data sources change and need to be updated. In principle, this is not required except when initializing the project. 
 
 - __Run__: When initializing the analytical work or when checking for updated data inputs.
-- __Requirement__: The subproject requires `MANIFEST_URL=URL/_pins.yaml` to be set in `.Renviron` file.
+- __Requirement__: The subproject requires `MANIFEST_URL=URL/_pins.yaml` to be set in `.Renviron` file. Requires internet connection.
 
 ```{r}
 #| label: data_import
@@ -59,7 +59,7 @@ Sys.time()-start
 This is the default pipeline. It serves for analysis of the raw data stored in the pinboard. 
 
 - __Run__: Every time analysis is updated.
-- __Requirement__: Pinboard source needs to be established by compiling the pinboard subproject at least once.
+- __Requirement__: Pinboard source needs to be established by compiling the pinboard subproject at least once. 
 
 ```{r}
 #| label: default_project
