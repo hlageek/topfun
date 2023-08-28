@@ -25,3 +25,5 @@ colnames(anr_2005_df)
 colnames(anr_2005_partners_df)
 nrow(anr_2005_df)
 nrow(anr_2005_partners_df)
+
+pins::board_folder(here::here("data", "data_raw"))
