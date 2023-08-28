@@ -58,6 +58,20 @@ tar_target(
 tar_target(
     name = pinboard_src,
     command = pins::board_url(manifest_url, cache = cache_path)
+),
+tar_target(
+    name = pin_names,
+    command = pins::pin_list(pinboard_src)[grepl("data", pins::pin_list(pinboard_src))]
+),
+tar_target(
+    name = pin_cache,
+    command = pins::pin_download(pinboard_src, name = pin_names),
+    pattern = map(pin_names), 
+    iteration = "list"
+),
+tar_target(
+    name = pin_files,
+    command = convert_pins(pinboard_src, pin_names)
 )
 )
 ```

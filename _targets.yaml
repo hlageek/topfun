@@ -10,3 +10,6 @@ data_raw:
 pinboard:
   script: _pinboard.R
   store: _pinboard
+topmodel:
+  script: _topmodel.R
+  store: _topmodel
