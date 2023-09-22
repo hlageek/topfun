@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|2076f3ab4b77824a|||||||||||||||
+.Random.seed|object|210cb61fee190651|||||||||||||||
 agency_data|stem|fdc89e8173116bb2|21e20c9e8c64f21f|c32fe902ab9df6eb|1932868877||t19276.3600989606s|e5d2926a8e144e03|390|rds|local|vector|||1.132||
 agency_data_board|object|404244ffb1fe7b7b|||||||||||||||
 anr_lang_desc|stem|786bbfa6f32d8d8e|130f6e811951f0a7|b11da57a3217e0b5|-611289990||t19585.4566550926s|1c8d4e22a400e9e2|10700785|rds|local|vector|||135.702||
@@ -11,25 +11,27 @@ call_hal|function|07b61f32b9ba7911|||||||||||||||
 combine_anr_csf|function|0b457eacfcada3af|||||||||||||||
 combine_topic_models|function|7ba932b679b170cd|||||||||||||||
 compute_diversity|function|cb5a46851ddec4f4|||||||||||||||
+convert_pins|function|9cf530e939b33903|||||||||||||||
 csf_lang_desc|stem|95ff686c651cc766|271e6e8b4eabc402|b6ba75eb5c235d76|-2001322884||t19585.4550347222s|7d22fd3232d7076b|3535351|rds|local|vector|||57.946||
 data_all|stem|81e6865bcf471dd8|b48b90d6f4d3a85a|f9ac28e6ec5a43cd|-1004549426||t19585.4568402778s|14e0380cfb3f1f42|5920913|rds|local|vector|||0.039||
 data_all_funding_plot|stem|72eaf353ab9c2f01|a63402816f156ed9|db0abaa2bc461ce7|23533694||t19585.4569212963s|8fc09dfdb50ea612|6036250|rds|local|vector|||0.033||
 data_all_mean_plot|stem|b98a1460bcd10ad7|cc89809ce6dc2ae6|fc31761c6ad5ef0b|-1992518623||t19585.4569560185s|3ab0ff91f61578fd|6036363|rds|local|vector|||0.013||
 data_all_mean_yearlyplot|stem|41c4f8d287733530|b8e6c213d1546cef|456949762b7cb84e|-1776280843||t19585.4569791667s|fb5abc74380d4610|6036394|rds|local|vector|||0.021||
 data_all_type_plot|stem|57e436f529a846af|7e814541324ad16c|1bd0c87fb28fe1ef|-2134129420||t19585.4569444444s|2c89f2b8583e736e|5988672|rds|local|vector|||0.022||
-data_anr|stem|9564e18bdb17ae75|eac0e41237c0f048|72e9c2d26b7e579d|-155593126||t19585.4414236111s||15532282|rds|local|vector|||1.301||object agency_data_board not found
+data_anr|stem|860f553b0adfed25|bc7e6be597283690|3584c108edcb3d7d|-155593126||t19622.628705147s|e5f6a77d8d2faf2a|56950066|feather|local|vector|||0.97||
 data_anr_download|stem|2a4be89a04fab779|475de258385cedf0|f1ee3d08475e8a2b|1881486612|/Users/radimhladik/repos/topfun/data/data_raw/agence_nationale_recherche.csv|t18861.4553395318s|9d507ee5eb76ba5c|20675549|file|local|vector|||0.001||
 data_anr_for_translation|stem|e5cc39932a271a83|cef3c30e98eb2318|61afa0e44374edd9|-808471733||t19585.4568171296s|74b8cbb0165f6841|10516035|rds|local|vector|||0.094||
 data_anr_sel|stem|cf2b202d9c1ae165|f2630d5cb514f7a1|3c8aedace5e89ea9|-1549939719||t19585.4550578704s|f07e46c3a11edda3|4601712|rds|local|vector|||0.068||
 data_anr_translated|stem|903aba2a53133e6f|6ee768b2ea766827|7d607b00c58543f1|-531930947||t19269.8964175309s|6c624b538f2df987|9906|rds|local|vector|||11.319||
-data_csf|stem|a4aaa4e87aea0f06|481256abd364650d|62e83415d9263a89|1643629686||t19585.4413773148s|640d5ba5e8c79a5c|4763145|rds|local|vector|||0.275||
+data_csf|stem|fba7832fcd192294|f3c0a56703f1feb0|3584c108edcb3d7d|1643629686||t19622.6286850073s|88c2600a6ba1a0d5|8076826|feather|local|vector|||0.069||
 data_csf_download|stem|7b81ead40af74245|68ef075f2fcba65a|f1ee3d08475e8a2b|780690032|/Users/radimhladik/repos/topfun/data/data_raw/czech_science_foundation.tsv|t18836.7648344752s|294cbda553908857|13896973|file|local|vector|||0.009||
 data_csf_sel|stem|c18f53ff0af46dcb|d86d783031d8c163|29aa48b08a3a1b1c|-1532993261||t19585.4415162037s|0cae22748b9af5d8|1622216|rds|local|vector|||0.045||
 data_csf2|stem|e7059d78f5224f2b|d63ecce932686f7f|de844eb324b67646|-1019478737||t19276.3601159603s|f02b269bc80ae470|129|rds|local|vector|||1.333||
 data_documentation|stem|0be57e23eaa04d06|e51311601fd82cee|fa143c5a3f46f4a0|492650701|Rmd/data_documentation.html*Rmd/data_documentation.Rmd|t19585.4566898148s|4b6ffec1a3fafdd3|759751|file|local|vector|||2.289||
-data_erc|stem|c106f767101059bd|7e3ace22c59816e5|62e83415d9263a89|-1105117965||t19585.4414814815s|ce6f86d1b17bdc05|19403780|rds|local|vector|||0.727||
+data_erc|stem|aa83d471c5bdf045|116a13b28e3f26ad|3584c108edcb3d7d|-1105117965||t19622.6286776459s|8365a1342e9e2f46|32234866|feather|local|vector|||0.561||
 data_erc_download|stem|db8ed4ef857b223d|38fa04eb0b7acfe2|f1ee3d08475e8a2b|-920436159|/Users/radimhladik/repos/topfun/data/data_raw/cordis-fp7projects.csv|t19012.4773013186s|d748cc84c138dc04|57277323|file|local|vector|||0.64||
 data_erc_sel|stem|f758bb2c502a2092|4607ca40435c5709|ffcc776579c7a40e|-1784716786||t19585.4567013889s|479b9ab91586a3ce|1907452|rds|local|vector|||0.022||
+data_files|stem|2c00dfebe1e02aab|45846cc12fc27927|ede16628050022ad|31038078||t19622.6252490367s|c5c1cb6336c0d677|1043|rds|local|vector|||1.676||
 data_overview|stem|da4ccd3049fabdff|279b7ae05a342a5e|6ce7681e27b7e6ea|-683941813|Rmd/data_overview.html*Rmd/data_overview.qmd|t19585.4867592593s|eb38eef8dc82c762|22546|file|local|vector|||153.775||
 detect_lang|function|cfe42bbc491f0f61|||||||||||||||
 download_data|function|97fb4018b50622ec|||||||||||||||
@@ -42,7 +44,7 @@ filter_erc|function|c4aa269d40ecc37d|||||||||||||||
 get_pins_url|function|039035352eabd36d|||||||||||||||
 packages|function|3751cb8162a1e841|||||||||||||||
 pin_data|function|0df6a6d0e9db2883|||||||||||||||
-pinboard|stem|0f58633e3e630390|3cede3caee86a187|ede16628050022ad|-1895391000||t19591.4325077769s|e97ee2b5702171b1|410|rds|local|vector|||1.525||
+pinboard|stem|7369775be90f37be|3cede3caee86a187|ede16628050022ad|-1895391000||t19622.621046323s|ea2260188cc65c1a|407|rds|local|vector|||1.684||
 plot_data_all_funding|function|93dc7e1f6fa92c2c|||||||||||||||
 plot_data_all_mean|function|d04e552b4037e3cd|||||||||||||||
 plot_data_all_mean_yearly|function|e5f0e8ef2897a828|||||||||||||||
@@ -51,6 +53,7 @@ plot_topic_distributions|function|e238bf2985da103b|||||||||||||||
 plot_topics|function|b25c0477125ee646|||||||||||||||
 plot_topics_diversity_exp|function|6a8e01daee1031c0|||||||||||||||
 plot_topics_shannon_exp|function|96cb86635824095b|||||||||||||||
+read_corpus|function|0ba97fd475e812fc|||||||||||||||
 run_cubbitt_api|function|f6064c6663c8ebf8|||||||||||||||
 text_export_anr|stem|9166bf0eb5bc02a2|ee683c9a113df7d4|07b7f0cd6a9d377c|1912945018|/Volumes/CardDisk/repos_backup/topfun/data/data_derived/corpus_anr.tsv|t19585.4568287037s|f5c73fb154a96930|8114233|file|local|vector|||0.586||
 text_export_csf|stem|ee6b2ad686bcb07d|ffed7cfe14f6f8a2|23135c95025358c1|330769296|/Volumes/CardDisk/repos_backup/topfun/data/data_derived/corpus_csf.tsv|t19585.4567824074s|ccaca1eca7c8aedd|3815091|file|local|vector|||0.407||
