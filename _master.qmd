@@ -54,23 +54,6 @@ quarto::quarto_render("_pinboard.qmd", quiet = TRUE)
 targets::tar_make(script = "_pinboard.R", store = "_pinboard")
 ```
 
-
-## Topic model
-
-As topic model requires some data pre-processing, we make it is own subproject.
-
-- __Run__: Needs to be run only once, unless the input data changes.
-- __Requirement__: 
-  - Pinboard source needs to be established by compiling the pinboard subproject at least once.
-
-
-```{r}
-#| label: default_project
-#| eval: false
-quarto::quarto_render("_topmodel.qmd", quiet = TRUE)
-targets::tar_make(script = "_topmodel.R", store = "_topmodel")
-```
-
 ## Run main pipeline
 
 This is the default pipeline. It serves for analysis of the raw data stored in the pinboard. 

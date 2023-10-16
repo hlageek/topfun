@@ -57,7 +57,7 @@ tar_target(
 ),
 tar_target(
     name = pinboard_src,
-    command = pins::board_url(manifest_url, cache = cache_path)
+    command = pins::board_url(manifest_url, cache = cache_path, use_cache_on_failure = TRUE)
 ),
 tar_target(
     name = pin_names,
