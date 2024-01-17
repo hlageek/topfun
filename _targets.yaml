@@ -1,15 +1,30 @@
 targets:
   script: _targets.R
-  store: _targets
-external:
-  script: _external.R
-  store: _external
-data_raw:
-  script: _data_raw.R
-  store: _data_raw
-pinboard:
-  script: _pinboard.R
-  store: _pinboard
-topmodel:
-  script: _topmodel.R
-  store: _topmodel
+  store: targets
+data_czech:
+  script: _data_czech.R
+  store: data_czech
+data_french:
+  script: _data_french.R
+  store: data_french
+data_swiss:
+  script: _data_swiss.R
+  store: data_swiss
+data_eu:
+  script: _data_eu.R
+  store: data_eu
+data_process:
+  script: _data_data_process.R
+  store: data_process
+data_topmodel:
+  script: _data_topmodel.R
+  store: data_topmodel
+data_export:
+  script: _data_export.R
+  store: data_export
+data_import:
+  script: _data_import.R
+  store: data_import
+data_analyze:
+  script: _data_analyze.R
+  store: data_analyze

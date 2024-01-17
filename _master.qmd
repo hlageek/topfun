@@ -1,20 +1,32 @@
 ---
-title: "Master of projects"
+title: "Main TOPFUN pipeline"
 format:
   html:
     code-fold: true
+    number-sections: true
 ---
 
-## HAL API
+# Data {#sec-data}
 
-This is obsolete code for quering HAL API. There is no need to run this subproject anymore.
+- __Requirements__: 
+  - Set `API_RUN=TRUE` in `.Renviron`.
 
-- __Run__: No.
-- __Requirement__: 
-  - `API_RUN=TRUE` to be set in `.Renviron` file.
+This section is intended for obtaining data, processing data, and producing topic models. All relevant outputs get exported into their respective pinboards. [Code in this section needs to be run only by the project administrators.]{style="color: red"}
+
+## Get raw data {#sec-data_get}
+
+### Czech data (`data_czech` subproject)
+
+### French data (`data_french` subproject)
+
+### Swiss data (`data_swiss` subproject)
+
+### EU data (`data_eu` subproject)
+
+
 
 ```{r}
-#| label: data_import
+#| label: data_getport 
 #| eval: false
 start <- Sys.time()
 quarto::quarto_render("_external.qmd", quiet = TRUE)
@@ -22,29 +34,50 @@ targets::tar_make(script = "_external.R", store = "_external")
 Sys.time()-start
 ```
 
-## Raw data
+## Process data  (`data_process` subproject) {#sec-data_process}
+
+
+- __Requirements__: 
+  - @sec-data_get must be completed.
+  
 
 This code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.
 
-- __Run__: Not required.
-- __Requirement__: 
-  - `PINS_BOARD=PATH_TO_PINBOARD` to be set in `.Renviron` file
 
 
 ```{r}
-#| label: data_import
+#| label: data_export
 #| eval: false
 quarto::quarto_render("_data_raw.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_raw.R", store = "_data_raw")
 ```
+## Produce topic model  (`data_topmodel` subproject) {#sec-data_topmodel}
 
-## Pinboard
+- __Requirements__: 
+  - @sec-data_process must be completed.
+
+
+## Export pins  (`data_export` subproject)
+
+- __Requirements__: 
+  -  @sec-data_get must be completed.
+  -  @sec-data_process must be completed.
+  -  @sec-data_topmodel must be completed.
+  - Set `PINS_BOARD=PATH_TO_PINBOARD` in `.Renviron`.
 
 This code needs to be run only if data sources change and need to be updated. In principle, this is not required except when initializing the project. 
 
-- __Run__: When initializing the analytical project or when checking for updated data inputs.
-- __Requirement__:
-  - `MANIFEST_URL=URL/_pins.yaml` to be set in `.Renviron` file. 
+
+# Analysis (`_targets`  default)
+
+Code in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.
+
+## (Re)Import pins (`data_import` subproject) {#sec-data_import}
+
+Here we reimport data processed and produced in @sec-data
+
+- __Requirements__:
+  -  Set `MANIFEST_URL=URL/_pins.yaml` in `.Renviron`. 
   - internet connection.
 
 ```{r}
@@ -54,17 +87,17 @@ quarto::quarto_render("_pinboard.qmd", quiet = TRUE)
 targets::tar_make(script = "_pinboard.R", store = "_pinboard")
 ```
 
-## Run main pipeline
+## Analyze data (`data_analyze` subproject)
+
+- __Requirements__: 
+  -  @sec-data_import must be completed
 
 This is the default pipeline. It serves for analysis of the raw data stored in the pinboard. 
 
-- __Run__: Every time analysis is updated.
-- __Requirement__: 
-  - Pinboard source needs to be established by compiling the pinboard subproject at least once. 
-  - Topic model subproject must be compiled.
+## Report results
 
 ```{r}
-#| label: default_project
+#| label: quarto-projects
 #| eval: false
 quarto::quarto_render("_targets.qmd", quiet = TRUE)
 targets::tar_make(script = "_targets.R", store = "_targets")

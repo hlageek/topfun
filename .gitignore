@@ -22,3 +22,4 @@ _data_raw_*
 _data_raw.R
 _topmodel_*
 _topomodel.R
+_master_files/*
