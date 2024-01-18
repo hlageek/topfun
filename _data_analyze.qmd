@@ -1,0 +1,56 @@
+---
+title: "Analyze data"
+subtitle: "`data_analyze` subproject."
+format: html
+---
+
+This subproject initializes pinboard required for the default `targets` project.
+
+## Setup
+
+### Targets environment for subproject
+
+```{r}
+#| label: set_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "data_analyze")
+```
+
+### Targets script setup
+
+```{r}
+#| label: setup
+#| include: false
+library(targets)
+tar_unscript(script = "_data_analyze.R")
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+
+### Targets globals
+
+We first define some global options/functions common to all targets.
+
+```{r}
+#| engine: targets
+#| label: globals
+#| tar_globals: true
+
+# read custom functions
+lapply(list.files(here::here("R"), full.names = TRUE), source)
+tar_option_set(packages = packages())
+```
+
+## Code
+
+```{r}
+#| engine: targets
+#| label: data_analyze-code
+#| tar_interactive: true
+list(
+    tar_target(
+        name = test2,
+        command = sum(1+1)
+    )
+)
+```

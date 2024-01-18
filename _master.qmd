@@ -83,8 +83,8 @@ Here we reimport data processed and produced in @sec-data
 ```{r}
 #| label: data_import
 #| eval: false
-quarto::quarto_render("_pinboard.qmd", quiet = TRUE)
-targets::tar_make(script = "_pinboard.R", store = "_pinboard")
+quarto::quarto_render("_data_import.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_import.R", store = "_data_import")
 ```
 
 ## Analyze data (`data_analyze` subproject)
@@ -92,13 +92,14 @@ targets::tar_make(script = "_pinboard.R", store = "_pinboard")
 - __Requirements__: 
   -  @sec-data_import must be completed
 
+```{r}
+#| label: quarto-projects
+#| eval: false
+quarto::quarto_render("_data_analyze.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_analyze.R", store = "_data_analyze")
+```
+
 This is the default pipeline. It serves for analysis of the raw data stored in the pinboard. 
 
 ## Report results
 
-```{r}
-#| label: quarto-projects
-#| eval: false
-quarto::quarto_render("_targets.qmd", quiet = TRUE)
-targets::tar_make(script = "_targets.R", store = "_targets")
-```
