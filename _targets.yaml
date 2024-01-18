@@ -1,15 +1,9 @@
-data_czech:
-  script: _data_czech.R
-  store: _data_czech
-data_french:
-  script: _data_french.R
-  store: _data_french
-data_swiss:
-  script: _data_swiss.R
-  store: _data_swiss
-data_eu:
-  script: _data_eu.R
-  store: _data_eu
+data_get:
+  script: _data_get.R
+  store: _data_get
+data_api:
+  script: _data_api.R
+  store: _data_api
 data_process:
   script: _data_data_process.R
   store: _data_process

@@ -9,8 +9,10 @@
 #' @export
 call_hal <- function(type, year, run) {
 
-if (!run) { 
-   hal_data <- NULL
+if(!isTRUE(run)) {
+  warning_msg <- "The `run` argument is set to FALSE. Perhaps you do not have API_RUN set to TRUE in .Revinron?"
+  hal_data <- warning_msg
+  warning(warning_msg)
 } else {
   
 hal_data <-  odyssey::hal_api()  |> 
@@ -43,6 +45,7 @@ hal_data <-  odyssey::hal_api()  |>
    "funding_s"
    )) |> 
    odyssey::hal_search(limit = 10000)
-   } 
+}
    hal_data
+
 }

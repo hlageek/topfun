@@ -6,44 +6,66 @@ format:
     number-sections: true
 ---
 
+The overall project is organized into several subprojects and divided into two sections.
+The first section contains code to get raw data from public sources and perform basic preprocessing.
+The second section builds on the preprocessed data and focuses on analysis and reporting.
+The section are only connected via a _pinboard_ of data that are exported in @sec-data one and reimported in @sec-sec-analysis. 
+
+As a consequence, only project administrator needs to run the first section and collaborators can work only in the subprojects of section two.
+Several environmental variables need to be defined in `.Revinron` file.
+When working only in @sec-analysis, only the _url_ of the _pinboard_ needs to be defined.
+
+
 # Data {#sec-data}
 
-- __Requirements__: 
-  - Set `API_RUN=TRUE` in `.Renviron`.
-
-This section is intended for obtaining data, processing data, and producing topic models. All relevant outputs get exported into their respective pinboards. [Code in this section needs to be run only by the project administrators.]{style="color: red"}
+This section is intended for obtaining data, processing data, and producing topic models.
+All relevant outputs get exported into their respective pinboards.
+[Code in this section needs to be run only by the project administrators.]{style="color: red"}
 
 ## Get raw data {#sec-data_get}
 
-### Czech data (`data_czech` subproject)
+### Call APIs (`data_api` subproject)
 
-### French data (`data_french` subproject)
+- __Requirements__: 
+  - Set `API_RUN=TRUE` in `.Renviron` to call APIs.
 
-### Swiss data (`data_swiss` subproject)
+```{r}
+#| label: data_get_api
+#| eval: false
+quarto::quarto_render("_data_api.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_api.R", store = "_data_api")
+```
 
-### EU data (`data_eu` subproject)
+### Download data (`data_get` subproject)
 
+- __Requirements__: 
+  - Set `URL_CSF=URL` in `.Renviron`.
+  - Set `URL_ANR_2010=URL` in `.Renviron`.
+  - Set `URL_ANR_2009=URL` in `.Renviron`.
+  - Set `URL_CSF=URL` in `.Renviron`.
+  - Set `URL_ANR_2010=URL` in `.Renviron`.
+  - Set `URL_ANR_2010_P=URL` in `.Renviron`.
+  - Set `URL_ANR_2009=URL` in `.Renviron`.
+  - Set `URL_ANR_2009_P=URL` in `.Renviron`.
+  - Set `URL_EU_EUROPE=URL` in `.Renviron`.
+  - Set `URL_EU_2020=URL` in `.Renviron`.
+  - Set `URL_EU_FP7=URL` in `.Renviron`.
+  - Set `URL_SNSF=URL` in `.Renviron`.
 
 
 ```{r}
-#| label: data_getport 
+#| label: data_get_downloads 
 #| eval: false
-start <- Sys.time()
-quarto::quarto_render("_external.qmd", quiet = TRUE)
-targets::tar_make(script = "_external.R", store = "_external")
-Sys.time()-start
+quarto::quarto_render("_data_get.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_get.R", store = "_data_get")
 ```
 
 ## Process data  (`data_process` subproject) {#sec-data_process}
 
-
 - __Requirements__: 
   - @sec-data_get must be completed.
   
-
 This code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.
-
-
 
 ```{r}
 #| label: data_export
@@ -68,7 +90,7 @@ targets::tar_make(script = "_data_raw.R", store = "_data_raw")
 This code needs to be run only if data sources change and need to be updated. In principle, this is not required except when initializing the project. 
 
 
-# Analysis (`_targets`  default)
+# Analysis (default) {#sec-analysis}
 
 Code in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.
 

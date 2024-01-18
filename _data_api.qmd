@@ -1,0 +1,72 @@
+---
+title: "API calls"
+subtitle: "`data_api` subproject."
+format: html
+---
+
+This subproject will call various APIs.
+
+# Setup
+
+## Targets environment for subproject
+
+```{r}
+#| label: set_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "data_api")
+```
+
+## Targets script setup
+
+```{r}
+#| label: setup
+#| include: false
+library(targets)
+tar_unscript(script = "_data_api.R")
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+
+## Targets globals
+
+We first define some global options/functions common to all targets.
+
+```{r}
+#| engine: targets
+#| label: globals
+#| tar_globals: true
+
+# read custom functions
+lapply(list.files(here::here("R"), full.names = TRUE), source)
+tar_option_set(packages = packages())
+```
+
+# HAL
+
+```{r}
+#| engine: targets
+#| label: hal
+list(
+  tar_target(
+    name = hal_types,
+    command = c("ART", "COUV", "COMM", "OUV")
+  ),
+  tar_target(
+    name = hal_years,
+    command = seq(2008, 2012, 1)
+  ),
+  tar_target(
+    name = hal,
+    command = call_hal(hal_types, hal_years, run = as.logical(Sys.getenv("API_RUN"))),
+    pattern = cross(hal_types, hal_years)
+
+  )
+)
+```
+
+# Exit
+```{r}
+#| label: unset_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "main")
+```

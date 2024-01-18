@@ -1,0 +1,173 @@
+---
+title: "Download raw data"
+subtitle: "`data_get` subproject."
+format: html
+---
+
+This subproject will call various APIs.
+
+# Setup
+
+## Targets environment for subproject
+
+```{r}
+#| label: set_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "data_get")
+```
+
+## Targets script setup
+
+```{r}
+#| label: setup
+#| include: false
+library(targets)
+tar_unscript(script = "_data_get.R")
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+
+## Targets globals
+
+We first define some global options/functions common to all targets.
+
+```{r}
+#| engine: targets
+#| label: globals
+#| tar_globals: true
+
+# read custom functions
+lapply(list.files(here::here("R"), full.names = TRUE), source)
+tar_option_set(packages = packages())
+
+url_csf <- Sys.getenv("URL_CSF")
+url_anr_2010 <- Sys.getenv("URL_ANR_2010")
+url_anr_2010_p <- Sys.getenv("URL_ANR_2010_P")
+url_anr_2009 <- Sys.getenv("URL_ANR_2009")
+url_anr_2009_p <- Sys.getenv("URL_ANR_2009_P")
+url_eu_europe  <- Sys.getenv("URL_EU_EUROPE")
+url_eu_2020 <- Sys.getenv("URL_EU_2020")
+url_eu_fp7 <- Sys.getenv("URL_EU_FP7")
+url_snsf <- Sys.getenv("URL_SNSF")
+
+
+
+
+
+```
+
+# Targets
+
+## Czech Science Foundation
+
+```{r}
+#| engine: targets
+#| label: csf
+list(
+  tar_target(
+    name = csf_data_raw,
+    command = readr::read_tsv(url_csf,  show_col_types = FALSE),
+    format = "qs"
+  )
+)
+```
+
+## Agence nationale de la recherche
+
+```{r}
+#| engine: targets
+#| label: anr
+list(
+  tarchetypes::tar_download(
+    name = anr_download_files,
+    urls = c(url_anr_2010, url_anr_2009, url_anr_2010_p, url_anr_2009_p),
+    paths = paste0(
+        here::here("data", "data_raw"), 
+        .Platform$file.sep,  
+        c("anr_2010", "anr_2009", "anr_2010_p", "anr_2009_p"), 
+        ".csv")
+  ),
+  tar_target(
+    name = anr_data_raw_2010,
+    command = readr::read_delim(anr_download_files[1],
+                                 delim = ";",
+                                 locale = locale("fr",
+                                                 decimal_mark = "."),
+                                                 show_col_types = FALSE) |> 
+                                                 janitor::clean_names()|> 
+                                                 dplyr::mutate(source = "since2010"),
+    format = "qs"
+  ),
+  tar_target(
+    name = anr_data_raw_2009,
+    command = readr::read_delim(anr_download_files[2],
+                                 delim = ";",
+                                 locale = locale("fr",
+                                                 decimal_mark = "."),
+                                show_col_types = FALSE) |> 
+                                                 janitor::clean_names() |> 
+                                                 dplyr::mutate(source = "before2009"),
+    format = "qs"
+  ),
+  tar_target(
+    name = anr_data_raw,
+    command = dplyr::bind_rows(
+        anr_data_raw_2010,
+        anr_data_raw_2009
+    ),
+    format = "qs"
+  )
+)
+```
+
+## CORDIS
+
+```{r}
+#| engine: targets
+#| label: cordis
+list(
+  tarchetypes::tar_download(
+    name = eu_download_files_zip,
+    urls = c(url_eu_europe, url_eu_2020, url_eu_fp7),
+    paths = paste0(
+        here::here("data", "data_raw"), 
+        .Platform$file.sep,  
+        c("eu_europe", "eu_horizon", "eu_fp7"), 
+        ".zip"),
+    method = "curl",
+    mode = "wb"
+  ),
+  tar_target(
+    name = eu_download_files,
+    command = unzip_eu_files(eu_download_files_zip),
+    format = "file" 
+  )
+)
+```
+
+## Swiss National Science Foundation
+
+```{r}
+#| engine: targets
+#| label: snsf
+list(
+  tarchetypes::tar_download(
+    name = snsf_download_files,
+    urls = c(url_snsf),
+    paths = paste0(
+        here::here("data", "data_raw"), 
+        .Platform$file.sep,  
+        c("snsf"), 
+        ".csv"),
+    method = "curl",
+    mode = "w"
+  )
+)
+```
+
+# Exit
+```{r}
+#| label: unset_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "main")
+```

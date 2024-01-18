@@ -36,3 +36,57 @@ targets::tar_manifest()
 targets::tar_script(script = "_data_import.R")
 tar_config_get("script")
 targets::tar_destroy("all", store = "_targets")
+
+
+library(httr)
+library(jsonlite)
+
+# Base URL for the NWOpen-API projects endpoint
+base_url <- "https://nwopen-api.nwo.nl/NWOpen-API/api/Projects"
+
+# Initialize variables for pagination
+page <- 1
+per_page <- 100 # Adjust per_page as needed within the API's allowed range
+all_projects <- list()
+
+# Function to fetch a single page of projects
+get_projects_page <- function(page, per_page) {
+  # Construct the API request URL with pagination parameters
+  api_url <- paste0(base_url, "?page=", page, "&per_page=", per_page)
+  
+  # Make the GET request
+  response <- GET(api_url)
+  
+  # Check if the request was successful and parse the JSON response
+  if (http_status(response)$category == "success") {
+    content <- content(response, as = "text")
+    json_data <- fromJSON(content)
+    return(json_data$projects)
+  } else {
+    warning("Failed to retrieve data from the API for page ", page)
+    return(NULL)
+  }
+}
+
+# Fetch all pages of projects
+repeat {
+  cat("Fetching page", page, "\n")
+  projects_page <- get_projects_page(page, per_page)
+  
+  # If no projects are returned, we've reached the end
+  if (is.null(projects_page) || length(projects_page) == 0) {
+    break
+  }
+  
+  # Append the current page of projects to the all_projects list
+  all_projects <- c(all_projects, projects_page)
+  
+  # Increment the page number for the next request
+  page <- page + 1
+}
+
+# Extract project IDs from all projects
+project_ids <- sapply(all_projects, function(project) project$project_id)
+
+# Print the list of project IDs
+print(project_ids)
