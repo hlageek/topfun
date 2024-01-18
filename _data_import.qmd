@@ -49,7 +49,17 @@ tar_option_set(packages = packages())
 list(
     tar_target(
         name = test3,
-        command = sum(3+5)
+        command = sum(3+9)
+    ),
+    tar_target(
+        name = import_test4,
+        command = sum(3+6)
     )
 )
+```
+
+```{r}
+#| label: unset_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "main")
 ```

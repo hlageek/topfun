@@ -46,11 +46,20 @@ tar_option_set(packages = packages())
 ```{r}
 #| engine: targets
 #| label: data_analyze-code
-#| tar_interactive: true
 list(
     tar_target(
         name = test2,
         command = sum(1+1)
+    ),
+    tar_target(
+        name = test_analyze5,
+        command = sum(1+1)
     )
 )
+```
+
+```{r}
+#| label: unset_project
+#| include: false
+Sys.setenv(TAR_PROJECT = "main")
 ```

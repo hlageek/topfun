@@ -13,7 +13,7 @@ _targets_*
 
 .Renviron
 _targets.R
-_targets_*
+_targets/*
 _external_*
 _external.R
 _pinboard_*
@@ -24,9 +24,12 @@ _topmodel_*
 _topomodel.R
 _master_files/*
 
+_data_analyze/*
 _data_analyze_*
+_data_import/*
 _data_import_*
 _data_analyze_*
 _data_import_*
 
 
+_targets/meta/meta

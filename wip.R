@@ -28,7 +28,7 @@ nrow(anr_2005_partners_df)
 
 pins::board_folder(here::here("data", "data_raw"))
 
-targets::tar_read(test3, store = "_targets")
+targets::tar_read(import_test4, store = "_data_import")
 targets::tar_config_get("store")
 targets::tar_destroy("all")
 targets::tar_visnetwork()
