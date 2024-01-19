@@ -90,3 +90,79 @@ project_ids <- sapply(all_projects, function(project) project$project_id)
 
 # Print the list of project IDs
 print(project_ids)
+gepris_url <- "https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&bewilligungsStatus=&bundesland=DEU%23&context=projekt&einrichtungsart=-1&fachgebiet=%23&findButton=historyCall&gefoerdertIn=&ggsHunderter=0&hitsPerPage=50&index=1&nurProjekteMitAB=false&oldGgsHunderter=0&oldfachgebiet=%23&pemu=24&peu=%23&task=doKatalog&teilprojekte=true&zk_transferprojekt=false"
+
+gepris_entrypage <- rvest::read_html(gepris_url)
+
+max_page <- gepris_entrypage |>
+  rvest::html_elements("div.pagination") |>
+  rvest::html_text(trim = TRUE) |>
+  stringr::str_extract("\\s\\d*$") |>
+  trimws() |>
+  as.integer()
+
+
+subsequent_pages <- paste0(
+  unlist(strsplit(gepris_url, "index=1"))[1],
+  "index=",
+  seq(50, 50 * max_page - 1, 50),
+  unlist(strsplit(gepris_url, "index=1"))[2]
+)
+
+project_links <- purrr::map(tail(subsequent_pages), .f = function(x) {
+  partial_link <- rvest::read_html(x) |>
+    rvest::html_nodes("div.results") |>
+    rvest::html_elements("h2") |>
+    rvest::html_nodes("a") |>
+    rvest::html_attr("href")
+
+  paste0("https://gepris.dfg.de", partial_link, "?language=en")
+})
+
+
+res_df <- purrr::map_df(unlist(project_links), .f = function(x) {
+  record_page <- rvest::read_html(x)
+
+  res <- tibble::tibble(
+    project_url = x,
+    title = record_page |>
+      rvest::html_node("div.details") |>
+      rvest::html_node("h1.facelift") |>
+      rvest::html_text(trim = TRUE),
+    applicant = record_page |>
+      rvest::html_node("div.details") |>
+      rvest::html_node("a.intern") |>
+      rvest::html_text(trim = TRUE),
+    applicant_url = record_page |>
+      rvest::html_node("div.details") |>
+      rvest::html_node("a.intern") |>
+      rvest::html_attr("href"),
+    subject_area = record_page |>
+      rvest::html_node("div.details") |>
+      rvest::html_node("div.firstUnderAntragsbeteiligte") |>
+      rvest::html_node(".value") |>
+      rvest::html_text(trim = TRUE),
+    term = record_page |>
+      rvest::html_node("div.details") |>
+      rvest::html_node("div.firstUnderAntragsbeteiligte") |>
+      rvest::html_element(xpath = "//div[span[contains(., 'Term')]]/span[@class='value']") |>
+      rvest::html_text(trim = TRUE),
+    abstract = record_page |>
+      rvest::html_node("#projektbeschreibung") |>
+      rvest::html_node("#projekttext") |>
+      rvest::html_text(trim = TRUE),
+    program = record_page |>
+      rvest::html_node("#projektbeschreibung") |>
+      rvest::html_node(".value") |>
+      rvest::html_text(trim = TRUE)
+  )
+  Sys.sleep(0.2)
+
+  return(res)
+})
+
+scrape_dfg(
+      gepris_url = "https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&bewilligungsStatus=&bundesland=DEU%23&context=projekt&einrichtungsart=-1&fachgebiet=%23&findButton=historyCall&gefoerdertIn=&ggsHunderter=0&hitsPerPage=50&index=1&nurProjekteMitAB=false&oldGgsHunderter=0&oldfachgebiet=%23&pemu=24&peu=%23&task=doKatalog&teilprojekte=true&zk_transferprojekt=false",
+      outfile = here::here("data", "data_raw", "dfg.tsv"), 
+      run = TRUE
+      )
