@@ -62,7 +62,7 @@ tar_target(
     command = scrape_dfg_projects(
       gepris_catalogue = dfg_catalogue_tsv,
       outfile = here::here("data", "data_raw", "dfg_projects.tsv"), 
-      sleep_time = 5
+      sleep_time = 5,
       run = as.logical(Sys.getenv("API_RUN")) #
       ),
     format = "file"

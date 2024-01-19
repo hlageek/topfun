@@ -37,7 +37,7 @@ subsequent_pages <- paste0(
   unlist(strsplit(gepris_url, "index=1"))[2]
 )
 
-purrr::walk(c(gepris_url, subsequent_pages)[1:2], .f = function(x) {
+purrr::walk(c(gepris_url, subsequent_pages), .f = function(x) {
 
    Sys.sleep(sleep_time)
 
