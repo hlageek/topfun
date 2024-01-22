@@ -1,5 +1,5 @@
 ---
-title: "Orchestaration File"
+title: "Orchestration File"
 format:
   html:
     code-fold: true
@@ -89,7 +89,7 @@ This code needs to be run only if data sources change and need to be updated. Yo
 quarto::quarto_render("_data_raw.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_raw.R", store = "_data_raw")
 ```
-### Produce topic model {#sec-data_topmodel}
+### Build topic model {#sec-data_topmodel}
 
 - __Subproject name__:
   - `data_topmodel` 
