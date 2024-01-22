@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TOPFUN Project Documentation - 3&nbsp; API calls</title>
+<title>TOPFUN Project Documentation - 3&nbsp; Obtain data from external sources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./_data_api.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">API calls</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./_data_api.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Obtain data from external sources</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -155,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./_data_api.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">API calls</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Obtain data from external sources</span></span></a>
   </div>
 </li>
     </ul>
@@ -170,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">3.1</span> Setup</a>
   <ul class="collapse">
-  <li><a href="#set-targets-for-subproject" id="toc-set-targets-for-subproject" class="nav-link" data-scroll-target="#set-targets-for-subproject"><span class="header-section-number">3.1.1</span> Set <code>targets</code> for subproject</a></li>
+  <li><a href="#set-environment-for-subproject" id="toc-set-environment-for-subproject" class="nav-link" data-scroll-target="#set-environment-for-subproject"><span class="header-section-number">3.1.1</span> Set environment for subproject</a></li>
   <li><a href="#initialize-targets-script" id="toc-initialize-targets-script" class="nav-link" data-scroll-target="#initialize-targets-script"><span class="header-section-number">3.1.2</span> Initialize <code>targets</code> script</a></li>
   <li><a href="#define-targets-globals" id="toc-define-targets-globals" class="nav-link" data-scroll-target="#define-targets-globals"><span class="header-section-number">3.1.3</span> Define <code>targets</code> globals</a></li>
   </ul></li>
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">API calls</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Obtain data from external sources</span></h1>
 <p class="subtitle lead"><code>data_api</code> subproject.</p>
 </div>
 
@@ -207,8 +207,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This subproject will call various APIs.</p>
 <section id="setup" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">3.1</span> Setup</h2>
-<section id="set-targets-for-subproject" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="set-targets-for-subproject"><span class="header-section-number">3.1.1</span> Set <code>targets</code> for subproject</h3>
+<section id="set-environment-for-subproject" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="set-environment-for-subproject"><span class="header-section-number">3.1.1</span> Set environment for subproject</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"data_api"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
