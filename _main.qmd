@@ -6,13 +6,14 @@ format:
     number-sections: true
 ---
 
-The orchestration file can be used to sequentally compile individual subprojects from a single space.
+The orchestration file `_main.qmd` can be used to sequentally compile individual subprojects from a single space.
 
-The overall project is organized into several subprojects and divided into two sections.
-The first section contains code to get raw data from public sources and perform basic preprocessing.
-The second section builds on the preprocessed data and focuses on analysis and reporting.
-The two sections are only connected via a _pinboard_ of data that are exported in @sec-data one and reimported in @sec-analysis. 
-As a consequence, only the project administrator needs to run the first section and collaborators can focus on the subprojects in section two.
+The project is composed of multiple subprojects and is divided into two main sections.
+The first section entails the execution of code to obtain raw data from publicly available sources and conduct initial preprocessing.
+Conversely, the second section builds upon the preprocessed data, centering on analysis and reporting.
+The connection between the two sections is facilitated by a _pinboard_ of data, which is exported in @sec-data and reimported in @sec-analysis.
+Consequently, solely the project administrator is responsible for running the first section, while collaborators can concentrate on the subprojects within section two.
+
 
 Several environmental variables need to be defined in `.Revinron` file.
 For working exclusively in @sec-analysis, only the _url_ of the _pinboard_ needs to be defined.

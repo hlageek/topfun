@@ -8,7 +8,7 @@ book:
   chapters:
     - index.qmd
     - part: "Subprojects orchestration via main file"
-    - _master.qmd
+    - _main.qmd
     - part: "Subprojects"
     - _data_api.qmd
 

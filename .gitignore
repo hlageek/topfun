@@ -23,6 +23,7 @@ _data_raw.R
 _topmodel_*
 _topomodel.R
 _master_files/*
+_main_files/*
 
 _data_analyze/*
 _data_analyze_*
