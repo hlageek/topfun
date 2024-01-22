@@ -25,26 +25,26 @@
     "href": "_main.html#sec-analysis",
     "title": "2  Orchestration File",
     "section": "2.2 Analysis (default)",
-    "text": "2.2 Analysis (default)\n\nSubproject name:\n\nmain\n\nRequirements:\n\nSee requirements for Section 2.2.1 and Section 2.2.2.\n\n\nThis is the default pipeline. It serves for analysis of the raw data previously exported onto a pinboard.\nCode in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.\n\n2.2.1 (Re)Import pins\nHere we reimport data processed and produced in Section 2.1\n\nSubproject name:\n\ndata_import\n\nRequirements:\n\nSet MANIFEST_URL=URL/_pins.yaml in .Renviron.\ninternet connection.\n\n\n\n\nCode\nquarto::quarto_render(\"_data_import.qmd\", quiet = TRUE)\ntargets::tar_make(script = \"_data_import.R\", store = \"_data_import\")\n\n\n\n\n2.2.2 Analyze data\n\nSubproject name:\n\ndata_analyze\n\nRequirements:\n\nSection 2.2.1 must be completed\n\n\n\n\nCode\nquarto::quarto_render(\"_data_analyze.qmd\", quiet = TRUE)\ntargets::tar_make(script = \"_data_analyze.R\", store = \"_data_analyze\")\n\n\n\n\n2.2.3 Report results\n\n\n2.2.4 Publish docs\ngit subtree push --prefix _book origin gh-pages From: https://gist.github.com/cobyism/4730490"
+    "text": "2.2 Analysis (default)\n\nSubproject name:\n\nmain\n\nRequirements:\n\nSee requirements for Section 2.2.1 and Section 2.2.2.\n\n\nThis is the default pipeline. It serves for analysis of the raw data previously exported onto a pinboard.\nCode in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.\n\n2.2.1 (Re)Import pins\nHere we reimport data processed and produced in Section 2.1\n\nSubproject name:\n\ndata_import\n\nRequirements:\n\nSet MANIFEST_URL=URL/_pins.yaml in .Renviron.\ninternet connection.\n\n\n\n\nCode\nquarto::quarto_render(\"_data_import.qmd\", quiet = TRUE)\ntargets::tar_make(script = \"_data_import.R\", store = \"_data_import\")\n\n\n\n\n2.2.2 Analyze data\n\nSubproject name:\n\ndata_analyze\n\nRequirements:\n\nSection 2.2.1 must be completed\n\n\n\n\nCode\nquarto::quarto_render(\"_data_analyze.qmd\", quiet = TRUE)\ntargets::tar_make(script = \"_data_analyze.R\", store = \"_data_analyze\")\n\n\n\n\n2.2.3 Report results\n\n\n2.2.4 Publish docs\n\n\nCode\n#From: https://gist.github.com/cobyism/4730490\nsystem(\"git subtree push --prefix _book origin gh-pages\")"
   },
   {
     "objectID": "_data_api.html#setup",
     "href": "_data_api.html#setup",
-    "title": "3  API calls",
+    "title": "3  Obtain data from external sources",
     "section": "3.1 Setup",
-    "text": "3.1 Setup\n\n3.1.1 Set targets for subproject\n\nSys.setenv(TAR_PROJECT = \"data_api\")\n\n\n\n3.1.2 Initialize targets script\n\nlibrary(targets)\ntar_unscript(script = \"_data_api.R\")\nknitr::opts_chunk$set(collapse = TRUE, comment = \"#&gt;\")\n\n\n\n3.1.3 Define targets globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n#&gt; Establish _data_api.R and _data_api_r/globals/globals.R."
+    "text": "3.1 Setup\n\n3.1.1 Set environment for subproject\n\nSys.setenv(TAR_PROJECT = \"data_api\")\n\n\n\n3.1.2 Initialize targets script\n\nlibrary(targets)\ntar_unscript(script = \"_data_api.R\")\nknitr::opts_chunk$set(collapse = TRUE, comment = \"#&gt;\")\n\n\n\n3.1.3 Define targets globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n#&gt; Establish _data_api.R and _data_api_r/globals/globals.R."
   },
   {
     "objectID": "_data_api.html#targets",
     "href": "_data_api.html#targets",
-    "title": "3  API calls",
+    "title": "3  Obtain data from external sources",
     "section": "3.2 Targets",
     "text": "3.2 Targets\n\n3.2.1 DFG - Gepris\n\nlist(\n  tar_target(\n    name = dfg_catalogue_tsv,\n    command = scrape_dfg_catalogue(\n      gepris_url = \"https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&bewilligungsStatus=&bundesland=DEU%23&context=projekt&einrichtungsart=-1&fachgebiet=%23&findButton=historyCall&gefoerdertIn=&ggsHunderter=0&hitsPerPage=50&index=1&nurProjekteMitAB=false&oldGgsHunderter=0&oldfachgebiet=%23&pemu=24&peu=%23&task=doKatalog&teilprojekte=true&zk_transferprojekt=false\",\n      outfile = here::here(\"data\", \"data_raw\", \"dfg_catalogue.tsv\"), \n      sleep_time = 5,\n      run = as.logical(Sys.getenv(\"API_RUN\")) #as.logical(Sys.getenv(\"API_RUN\"))\n      ),\n    format = \"file\"\n  ),\ntar_target(\n    name = dfg_projects_tsv,\n    command = scrape_dfg_projects(\n      gepris_catalogue = dfg_catalogue_tsv,\n      outfile = here::here(\"data\", \"data_raw\", \"dfg_projects.tsv\"), \n      sleep_time = 5,\n      run = as.logical(Sys.getenv(\"API_RUN\")) #\n      ),\n    format = \"file\"\n  )\n)\n#&gt; Establish _data_api.R and _data_api_r/targets/dfg.R.\n\n\n\n3.2.2 HAL\n\nlist(\n  tar_target(\n    name = hal_types,\n    command = c(\"ART\", \"COUV\", \"COMM\", \"OUV\")\n  ),\n  tar_target(\n    name = hal_years,\n    command = seq(2008, 2012, 1)\n  ),\n  tar_target(\n    name = hal,\n    command = call_hal(hal_types, hal_years, run = as.logical(Sys.getenv(\"API_RUN\"))),\n    pattern = cross(hal_types, hal_years)\n\n  )\n)\n#&gt; Establish _data_api.R and _data_api_r/targets/hal.R."
   },
   {
     "objectID": "_data_api.html#reset-subproject",
     "href": "_data_api.html#reset-subproject",
-    "title": "3  API calls",
+    "title": "3  Obtain data from external sources",
     "section": "3.3 Reset subproject",
     "text": "3.3 Reset subproject\n\nSys.setenv(TAR_PROJECT = \"main\")"
   }
