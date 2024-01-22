@@ -10,6 +10,7 @@ _targets_*
 *.knit.md
 .DS_Store
 *.html
+!_book/*.html
 
 .Renviron
 _targets.R
