@@ -4,4 +4,6 @@ title: "TOPFUN Project"
 
 ## About TOPFUN
 
+TOPFUN is a collaborative project between the Centre for Science, Technology, and Society Studies at Institute of Philosophy of the Czech Academy of Sciences and Equipe de Recherche de Lyon en Sciences de l'Information et de la Communication (ELICO) at Université Claude Bernard Lyon 1.
+
 ## Basic instructions

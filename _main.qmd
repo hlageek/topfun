@@ -163,7 +163,7 @@ targets::tar_make(script = "_data_analyze.R", store = "_data_analyze")
 #| eval: false
 #From: https://gist.github.com/cobyism/4730490
 system("quarto render")
-system("git add _book && git commit -m 'Update gh-pages'")
+system("git add . && git commit -m 'Update gh-pages'")
 system("git subtree push --prefix _book origin gh-pages")
 ```
 
