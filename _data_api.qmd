@@ -6,9 +6,9 @@ format: html
 
 This subproject will call various APIs.
 
-# Setup
+## Setup
 
-## Targets environment for subproject
+### Targets environment for subproject
 
 ```{r}
 #| label: set_project
@@ -16,7 +16,7 @@ This subproject will call various APIs.
 Sys.setenv(TAR_PROJECT = "data_api")
 ```
 
-## Targets script setup
+### Targets script setup
 
 ```{r}
 #| label: setup
@@ -27,7 +27,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 
-## Targets globals
+### Targets globals
 
 We first define some global options/functions common to all targets.
 
@@ -41,7 +41,7 @@ lapply(list.files(here::here("R"), full.names = TRUE), source)
 tar_option_set(packages = packages())
 ```
 
-# DFG - Gepris
+## DFG - Gepris
 
 ```{r}
 #| engine: targets
@@ -70,7 +70,7 @@ tar_target(
 )
 ```
 
-# HAL
+## HAL
 
 ```{r}
 #| engine: targets
@@ -93,7 +93,7 @@ list(
 )
 ```
 
-# Exit
+## Exit
 ```{r}
 #| label: unset_project
 #| include: false

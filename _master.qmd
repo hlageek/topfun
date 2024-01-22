@@ -1,31 +1,40 @@
 ---
-title: "Main TOPFUN pipeline"
+title: "Orchestaration File"
 format:
   html:
     code-fold: true
     number-sections: true
 ---
 
+The orchestration file can be used to sequentally compile individual subprojects from a single space.
+
 The overall project is organized into several subprojects and divided into two sections.
 The first section contains code to get raw data from public sources and perform basic preprocessing.
 The second section builds on the preprocessed data and focuses on analysis and reporting.
-The section are only connected via a _pinboard_ of data that are exported in @sec-data one and reimported in @sec-sec-analysis. 
+The two sections are only connected via a _pinboard_ of data that are exported in @sec-data one and reimported in @sec-analysis. 
+As a consequence, only the project administrator needs to run the first section and collaborators can focus on the subprojects in section two.
 
-As a consequence, only project administrator needs to run the first section and collaborators can work only in the subprojects of section two.
 Several environmental variables need to be defined in `.Revinron` file.
-When working only in @sec-analysis, only the _url_ of the _pinboard_ needs to be defined.
+For working exclusively in @sec-analysis, only the _url_ of the _pinboard_ needs to be defined.
 
 
-# Data {#sec-data}
+## Data {#sec-data}
 
 This section is intended for obtaining data, processing data, and producing topic models.
 All relevant outputs get exported into their respective pinboards.
+
 [Code in this section needs to be run only by the project administrators.]{style="color: red"}
 
-## Get raw data {#sec-data_get}
+### Get raw data {#sec-data_raw}
 
-### Call APIs (`data_api` subproject)
+Here we obtain data from various sources. Because the sources - APIs, websites, url addresses of files - are external to the project and not persistent, it is unlikely that the code will be reproducible in the longterm. Hence, the main purpose of this section is to document the process of how certain datasets were originally obtained, but it is not expected that researchers will run this code repeatedly.
 
+#### Call APIs and scrape websites
+
+This sub-section contains functions tailored to specific APIs and websites to be scraped. These might be challenging to run and the execution can take hours or days. As a safeguard against accidental trigger, an evironmental variable has to be explicitly set to execute the code.
+
+- __Subproject name__:
+  - `data_api` 
 - __Requirements__: 
   - Set `API_RUN=TRUE` in `.Renviron` to call APIs.
 
@@ -36,8 +45,12 @@ quarto::quarto_render("_data_api.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_api.R", store = "_data_api")
 ```
 
-### Download data (`data_get` subproject)
+#### Download data {#sec-data_get}
 
+The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in @sec-data_process.
+
+- __Subproject name__:
+  - `data_get` 
 - __Requirements__: 
   - Set `URL_CSF=URL` in `.Renviron`.
   - Set `URL_ANR_2010=URL` in `.Renviron`.
@@ -60,8 +73,10 @@ quarto::quarto_render("_data_get.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_get.R", store = "_data_get")
 ```
 
-## Process data  (`data_process` subproject) {#sec-data_process}
+### Process data {#sec-data_process}
 
+- __Subproject name__:
+  - `data_process` 
 - __Requirements__: 
   - @sec-data_get must be completed.
   
@@ -73,14 +88,18 @@ This code needs to be run only if data sources change and need to be updated. Yo
 quarto::quarto_render("_data_raw.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_raw.R", store = "_data_raw")
 ```
-## Produce topic model  (`data_topmodel` subproject) {#sec-data_topmodel}
+### Produce topic model {#sec-data_topmodel}
 
+- __Subproject name__:
+  - `data_topmodel` 
 - __Requirements__: 
   - @sec-data_process must be completed.
 
 
-## Export pins  (`data_export` subproject)
+### Export pins
 
+- __Subproject name__:
+  - `data_export` 
 - __Requirements__: 
   -  @sec-data_get must be completed.
   -  @sec-data_process must be completed.
@@ -90,14 +109,23 @@ targets::tar_make(script = "_data_raw.R", store = "_data_raw")
 This code needs to be run only if data sources change and need to be updated. In principle, this is not required except when initializing the project. 
 
 
-# Analysis (default) {#sec-analysis}
+## Analysis (default) {#sec-analysis}
+
+- __Subproject name__:
+  - `main` 
+- __Requirements__:
+  - See requirements for @sec-data_import and @sec-data_analyze.
+
+This is the default pipeline. It serves for analysis of the raw data previously exported onto a pinboard. 
 
 Code in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.
 
-## (Re)Import pins (`data_import` subproject) {#sec-data_import}
+### (Re)Import pins {#sec-data_import}
 
 Here we reimport data processed and produced in @sec-data
 
+- __Subproject name__:
+  - `data_import` 
 - __Requirements__:
   -  Set `MANIFEST_URL=URL/_pins.yaml` in `.Renviron`. 
   - internet connection.
@@ -109,8 +137,10 @@ quarto::quarto_render("_data_import.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_import.R", store = "_data_import")
 ```
 
-## Analyze data (`data_analyze` subproject)
+### Analyze data {#sec-data_analyze}
 
+- __Subproject name__:
+  - `data_analyze` 
 - __Requirements__: 
   -  @sec-data_import must be completed
 
@@ -121,7 +151,6 @@ quarto::quarto_render("_data_analyze.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_analyze.R", store = "_data_analyze")
 ```
 
-This is the default pipeline. It serves for analysis of the raw data stored in the pinboard. 
 
-## Report results
+### Report results
 
