@@ -207,8 +207,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>The orchestration file <code>_main.qmd</code> can be used to sequentally compile individual subprojects from a single space.</p>
-<p>The project is composed of multiple subprojects and is divided into two main sections. The first section entails the execution of code to obtain raw data from publicly available sources and conduct initial preprocessing. Conversely, the second section builds upon the preprocessed data, centering on analysis and reporting. The connection between the two sections is facilitated by a <em>pinboard</em> of data, which is exported in <a href="#sec-data"><span>Section&nbsp;2.1</span></a> and reimported in <a href="#sec-analysis"><span>Section&nbsp;2.2</span></a>. Consequently, solely the project administrator is responsible for running the first section, while collaborators can concentrate on the subprojects within section two.</p>
-<p>Several environmental variables need to be defined in <code>.Revinron</code> file. For working exclusively in <a href="#sec-analysis"><span>Section&nbsp;2.2</span></a>, only the <em>url</em> of the <em>pinboard</em> needs to be defined.</p>
+<p>The project is composed of multiple subprojects and is divided into two main sections. The first section entails the execution of code to obtain raw data from publicly available sources and conduct initial preprocessing. Conversely, the second section builds upon the preprocessed data, centering on analysis and reporting. The connection between the two sections is facilitated by a <em>pinboard</em> of data, which is exported in <a href="#sec-data"><span class="quarto-unresolved-ref">sec-data</span></a> and reimported in <a href="#sec-analysis"><span class="quarto-unresolved-ref">sec-analysis</span></a>. Consequently, solely the project administrator is responsible for running the first section, while collaborators can concentrate on the subprojects within section two.</p>
+<p>Several environmental variables need to be defined in <code>.Revinron</code> file. For working exclusively in <a href="#sec-analysis"><span class="quarto-unresolved-ref">sec-analysis</span></a>, only the <em>url</em> of the <em>pinboard</em> needs to be defined.</p>
 <section id="sec-data" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-data"><span class="header-section-number">2.1</span> Data</h2>
 <p>This section is intended for obtaining data, processing data, and producing topic models. All relevant outputs get exported into their respective pinboards.</p>
@@ -239,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sec-data_get" class="level4" data-number="2.1.1.2">
 <h4 data-number="2.1.1.2" class="anchored" data-anchor-id="sec-data_get"><span class="header-section-number">2.1.1.2</span> Download data</h4>
-<p>The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in <a href="#sec-data_process"><span>Section&nbsp;2.1.2</span></a>.</p>
+<p>The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in <a href="#sec-data_process"><span class="quarto-unresolved-ref">sec-data_process</span></a>.</p>
 <ul>
 <li><strong>Subproject name</strong>:
 <ul>
@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_get"><span>Section&nbsp;2.1.1.2</span></a> must be completed.</li>
+<li><a href="#sec-data_get"><span class="quarto-unresolved-ref">sec-data_get</span></a> must be completed.</li>
 </ul></li>
 </ul>
 <p>This code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.</p>
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_process"><span>Section&nbsp;2.1.2</span></a> must be completed.</li>
+<li><a href="#sec-data_process"><span class="quarto-unresolved-ref">sec-data_process</span></a> must be completed.</li>
 </ul></li>
 </ul>
 </section>
@@ -313,9 +313,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_get"><span>Section&nbsp;2.1.1.2</span></a> must be completed.</li>
-<li><a href="#sec-data_process"><span>Section&nbsp;2.1.2</span></a> must be completed.</li>
-<li><a href="#sec-data_topmodel"><span>Section&nbsp;2.1.3</span></a> must be completed.</li>
+<li><a href="#sec-data_get"><span class="quarto-unresolved-ref">sec-data_get</span></a> must be completed.</li>
+<li><a href="#sec-data_process"><span class="quarto-unresolved-ref">sec-data_process</span></a> must be completed.</li>
+<li><a href="#sec-data_topmodel"><span class="quarto-unresolved-ref">sec-data_topmodel</span></a> must be completed.</li>
 <li>Set <code>PINS_BOARD=PATH_TO_PINBOARD</code> in <code>.Renviron</code>.</li>
 </ul></li>
 </ul>
@@ -331,14 +331,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li>See requirements for <a href="#sec-data_import"><span>Section&nbsp;2.2.1</span></a> and <a href="#sec-data_analyze"><span>Section&nbsp;2.2.2</span></a>.</li>
+<li>See requirements for <a href="#sec-data_import"><span class="quarto-unresolved-ref">sec-data_import</span></a> and <a href="#sec-data_analyze"><span class="quarto-unresolved-ref">sec-data_analyze</span></a>.</li>
 </ul></li>
 </ul>
 <p>This is the default pipeline. It serves for analysis of the raw data previously exported onto a pinboard.</p>
 <p>Code in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.</p>
 <section id="sec-data_import" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-data_import"><span class="header-section-number">2.2.1</span> (Re)Import pins</h3>
-<p>Here we reimport data processed and produced in <a href="#sec-data"><span>Section&nbsp;2.1</span></a></p>
+<p>Here we reimport data processed and produced in <a href="#sec-data"><span class="quarto-unresolved-ref">sec-data</span></a></p>
 <ul>
 <li><strong>Subproject name</strong>:
 <ul>
@@ -367,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_import"><span>Section&nbsp;2.2.1</span></a> must be completed</li>
+<li><a href="#sec-data_import"><span class="quarto-unresolved-ref">sec-data_import</span></a> must be completed</li>
 </ul></li>
 </ul>
 <div class="cell">
@@ -387,7 +387,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#From: https://gist.github.com/cobyism/4730490</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git subtree push --prefix _book origin gh-pages"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git add _book &amp;&amp; git commit -m 'Update gh-pages'"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git subtree push --prefix _book origin gh-pages"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
