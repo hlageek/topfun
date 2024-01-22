@@ -1,5 +1,5 @@
 ---
-title: "API calls"
+title: "Obtain data from external sources"
 subtitle: "`data_api` subproject."
 format: html
 ---
@@ -8,7 +8,7 @@ This subproject will call various APIs.
 
 ## Setup
 
-### Set `targets` for subproject
+### Set environment for subproject
 
 ```{r}
 #| label: set_project
