@@ -30,7 +30,7 @@ All relevant outputs get exported into their respective pinboards.
 
 Here we obtain data from various sources. Because the sources - APIs, websites, url addresses of files - are external to the project and not persistent, it is unlikely that the code will be reproducible in the longterm. Hence, the main purpose of this section is to document the process of how certain datasets were originally obtained, but it is not expected that researchers will run this code repeatedly.
 
-#### Call APIs and scrape websites
+#### Obtain raw data programatically
 
 This sub-section contains functions tailored to specific APIs and websites to be scraped. These might be challenging to run and the execution can take hours or days. As a safeguard against accidental trigger, an evironmental variable has to be explicitly set to execute the code.
 
@@ -46,7 +46,7 @@ quarto::quarto_render("_data_api.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_api.R", store = "_data_api")
 ```
 
-#### Download data {#sec-data_get}
+#### Obtain raw data by download {#sec-data_get}
 
 The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in @sec-data_process.
 

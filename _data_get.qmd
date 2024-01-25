@@ -1,14 +1,15 @@
 ---
-title: "Download raw data"
+title: "Obtain raw data by downloads"
 subtitle: "`data_get` subproject."
 format: html
 ---
 
-This subproject will call various APIs.
+This subproject simply downloads data from URL sources defined in `.Renviron` file. Although the URLs may rot, the principle of downloading differs from obtaining data programatically in @_data_api.qmd. As long as updated URLs can be reconfigured in `.Renviron`, this code should reproduce. However, if the format or structure of the downloaded files changes, this make create problems in @_data_process.qmd.
 
-# Setup
 
-## Targets environment for subproject
+## Setup
+
+### Targets environment for subproject
 
 ```{r}
 #| label: set_project
@@ -16,7 +17,7 @@ This subproject will call various APIs.
 Sys.setenv(TAR_PROJECT = "data_get")
 ```
 
-## Targets script setup
+### Targets script setup
 
 ```{r}
 #| label: setup
@@ -27,7 +28,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 
-## Targets globals
+### Targets globals
 
 We first define some global options/functions common to all targets.
 
@@ -56,9 +57,9 @@ url_snsf <- Sys.getenv("URL_SNSF")
 
 ```
 
-# Targets
+## Targets
 
-## Czech Science Foundation
+### Czech Science Foundation
 
 ```{r}
 #| engine: targets
@@ -72,7 +73,7 @@ list(
 )
 ```
 
-## Agence nationale de la recherche
+### Agence nationale de la recherche
 
 ```{r}
 #| engine: targets
@@ -120,7 +121,7 @@ list(
 )
 ```
 
-## CORDIS
+### CORDIS
 
 ```{r}
 #| engine: targets
@@ -145,7 +146,7 @@ list(
 )
 ```
 
-## Swiss National Science Foundation
+### Swiss National Science Foundation
 
 ```{r}
 #| engine: targets
@@ -165,7 +166,7 @@ list(
 )
 ```
 
-# Exit
+## Reset project
 ```{r}
 #| label: unset_project
 #| include: false
