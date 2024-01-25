@@ -1,0 +1,47 @@
+---
+title: "Process raw data"
+subtitle: "`data_process` subproject."
+format: html
+---
+
+
+## Setup
+
+### Set environment for subproject
+
+```{r}
+#| label: set_project
+Sys.setenv(TAR_PROJECT = "data_process")
+```
+
+### Initialize `targets` script
+
+```{r}
+#| label: setup
+library(targets)
+tar_unscript(script = "_data_process.R")
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+
+### Define `targets` globals
+
+We first define some global options/functions common to all targets.
+
+```{r}
+#| engine: targets
+#| label: globals
+#| tar_globals: true
+
+# read custom functions
+lapply(list.files(here::here("R"), full.names = TRUE), source)
+tar_option_set(packages = packages())
+```
+
+## Targets
+
+## Reset subproject
+```{r}
+#| label: unset_project
+Sys.setenv(TAR_PROJECT = "main")
+```

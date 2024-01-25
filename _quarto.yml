@@ -12,6 +12,7 @@ book:
     - part: "Subprojects"
     - _data_api.qmd
     - _data_get.qmd
+    - _data_process.qmd
 
 bibliography: references.bib
 

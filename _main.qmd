@@ -86,9 +86,10 @@ This code needs to be run only if data sources change and need to be updated. Yo
 ```{r}
 #| label: data_export
 #| eval: false
-quarto::quarto_render("_data_raw.qmd", quiet = TRUE)
-targets::tar_make(script = "_data_raw.R", store = "_data_raw")
+quarto::quarto_render("_data_process.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_process.R", store = "_data_process")
 ```
+
 ### Build topic model {#sec-data_topmodel}
 
 - __Subproject name__:
