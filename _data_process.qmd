@@ -1,7 +1,9 @@
 ---
 title: "Process raw data"
 subtitle: "`data_process` subproject."
-format: html
+html:
+    code-fold: true
+    number-sections: true
 ---
 
 

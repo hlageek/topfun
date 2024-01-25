@@ -1,6 +1,9 @@
 ---
 title: "Obtain raw data by downloads"
 subtitle: "`data_get` subproject."
+html:
+    code-fold: true
+    number-sections: true
 ---
 
 This subproject simply downloads data from URL sources defined in `.Renviron` file. Although the URLs may rot, the principle of downloading differs from obtaining data programatically in [Chapter 3](_data_api.qmd). As long as updated URLs can be reconfigured in `.Renviron`, this code should reproduce. However, if the format or structure of the downloaded files changes, this can lead to problems in [Chapter 5](_data_process.qmd).

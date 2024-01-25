@@ -1,7 +1,9 @@
 ---
 title: "Targets"
 subtitle: "Deafult project."
-format: html
+html:
+    code-fold: true
+    number-sections: true
 ---
 
 

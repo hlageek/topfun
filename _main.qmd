@@ -26,7 +26,7 @@ All relevant outputs get exported into their respective pinboards.
 
 [Code in this section needs to be run only by the project administrators.]{style="color: red"}
 
-### Get raw data {#sec-data_raw}
+### Obtain raw data {#sec-data_raw}
 
 Here we obtain data from various sources. Because the sources - APIs, websites, url addresses of files - are external to the project and not persistent, it is unlikely that the code will be reproducible in the longterm. Hence, the main purpose of this section is to document the process of how certain datasets were originally obtained, but it is not expected that researchers will run this code repeatedly.
 

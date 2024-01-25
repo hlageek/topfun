@@ -1,6 +1,9 @@
 ---
 title: "Obtain raw data programatically"
 subtitle: "`data_api` subproject."
+html:
+    code-fold: true
+    number-sections: true
 ---
 
 This subproject will call various APIs or execute scraping scripts. Many things can break over time: API credentials, API versions, maps of scraped websites. Therefore, it cannot be reasonably expected that the code here will work in the future. The main purpose of including this code in the project is to document how the raw data were collected at a specific point in time.
