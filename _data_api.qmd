@@ -45,6 +45,28 @@ tar_option_set(packages = packages())
 
 ### DFG - Gepris
 
+Gepris information page (`https://gepris.dfg.de/gepris/OCTOPUS?task=showMonitor`) at scrape time:
+
+```{code}
+Data Monitor
+Last update: 26.01.2024
+
+Most recent date of approval: 26.11.2023
+All projects decided upon and approved between 1.1.1999 and the specified award letter date can be found in GEPRIS.
+
+Entries by Type	Count
+Projects with final reports	40901
+Projects	142517
+Persons	93668
+Institutions	43769
+Entries by Research Area	Count
+Humanities and Social Sciences Colour index for Humanities and Social Sciences	26304
+Life Sciences Colour index for Life Sciences	49480
+Natural Sciences Colour index for Natural Sciences	38446
+Engineering Sciences Colour index for Engineering Sciences	26304
+Infrastructure	317
+```
+
 ```{r}
 #| engine: targets
 #| label: dfg
