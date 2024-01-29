@@ -249,59 +249,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.2" class="anchored" data-anchor-id="targets"><span class="header-section-number">3.2</span> Targets</h2>
 <section id="dfg---gepris" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="dfg---gepris"><span class="header-section-number">3.2.1</span> DFG - Gepris</h3>
+<p>Gepris information page (<code>https://gepris.dfg.de/gepris/OCTOPUS?task=showMonitor</code>) at scrape time:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> dfg_catalogue_tsv,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">scrape_dfg_catalogue</span>(</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">gepris_url =</span> <span class="st">"https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&amp;bewilligungsStatus=&amp;bundesland=DEU%23&amp;context=projekt&amp;einrichtungsart=-1&amp;fachgebiet=%23&amp;findButton=historyCall&amp;gefoerdertIn=&amp;ggsHunderter=0&amp;hitsPerPage=50&amp;index=1&amp;nurProjekteMitAB=false&amp;oldGgsHunderter=0&amp;oldfachgebiet=%23&amp;pemu=24&amp;peu=%23&amp;task=doKatalog&amp;teilprojekte=true&amp;zk_transferprojekt=false"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"data_raw"</span>, <span class="st">"dfg_catalogue.tsv"</span>), </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">sleep_time =</span> <span class="dv">5</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>)) <span class="co">#as.logical(Sys.getenv("API_RUN"))</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_target</span>(</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> dfg_projects_tsv,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">scrape_dfg_projects</span>(</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">gepris_catalogue =</span> dfg_catalogue_tsv,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"data_raw"</span>, <span class="st">"dfg_projects.tsv"</span>), </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">sleep_time =</span> <span class="dv">5</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>)) <span class="co">#</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_api.R and _data_api_r/targets/dfg.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="code cell-code"><code>Data Monitor
+Last update: 26.01.2024
+
+Most recent date of approval: 26.11.2023
+All projects decided upon and approved between 1.1.1999 and the specified award letter date can be found in GEPRIS.
+
+Entries by Type Count
+Projects with final reports 40901
+Projects    142517
+Persons 93668
+Institutions    43769
+Entries by Research Area    Count
+Humanities and Social Sciences Colour index for Humanities and Social Sciences  26304
+Life Sciences Colour index for Life Sciences    49480
+Natural Sciences Colour index for Natural Sciences  38446
+Engineering Sciences Colour index for Engineering Sciences  26304
+Infrastructure  317</code></pre>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> dfg_catalogue_tsv,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">scrape_dfg_catalogue</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">gepris_url =</span> <span class="st">"https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&amp;bewilligungsStatus=&amp;bundesland=DEU%23&amp;context=projekt&amp;einrichtungsart=-1&amp;fachgebiet=%23&amp;findButton=historyCall&amp;gefoerdertIn=&amp;ggsHunderter=0&amp;hitsPerPage=50&amp;index=1&amp;nurProjekteMitAB=false&amp;oldGgsHunderter=0&amp;oldfachgebiet=%23&amp;pemu=24&amp;peu=%23&amp;task=doKatalog&amp;teilprojekte=true&amp;zk_transferprojekt=false"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"data_raw"</span>, <span class="st">"dfg_catalogue.tsv"</span>), </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">sleep_time =</span> <span class="dv">5</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>)) <span class="co">#as.logical(Sys.getenv("API_RUN"))</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_target</span>(</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> dfg_projects_tsv,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">scrape_dfg_projects</span>(</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">gepris_catalogue =</span> dfg_catalogue_tsv,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"data_raw"</span>, <span class="st">"dfg_projects.tsv"</span>), </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">sleep_time =</span> <span class="dv">5</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>)) <span class="co">#</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_api.R and _data_api_r/targets/dfg.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="hal" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="hal"><span class="header-section-number">3.2.2</span> HAL</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> hal_types,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">c</span>(<span class="st">"ART"</span>, <span class="st">"COUV"</span>, <span class="st">"COMM"</span>, <span class="st">"OUV"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> hal_years,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">seq</span>(<span class="dv">2008</span>, <span class="dv">2012</span>, <span class="dv">1</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> hal,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">call_hal</span>(hal_types, hal_years, <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>))),</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">pattern =</span> <span class="fu">cross</span>(hal_types, hal_years)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_api.R and _data_api_r/targets/hal.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> hal_types,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">c</span>(<span class="st">"ART"</span>, <span class="st">"COUV"</span>, <span class="st">"COMM"</span>, <span class="st">"OUV"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> hal_years,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">seq</span>(<span class="dv">2008</span>, <span class="dv">2012</span>, <span class="dv">1</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> hal,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">call_hal</span>(hal_types, hal_years, <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>))),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">pattern =</span> <span class="fu">cross</span>(hal_types, hal_years)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_api.R and _data_api_r/targets/hal.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="reset-subproject" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="reset-subproject"><span class="header-section-number">3.3</span> Reset subproject</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"main"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"main"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
