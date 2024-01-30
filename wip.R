@@ -166,3 +166,319 @@ scrape_dfg(
       outfile = here::here("data", "data_raw", "dfg.tsv"), 
       run = TRUE
       )
+
+---
+title: "TOPFUN targets pipeline"
+format:
+  html:
+    toc: true
+---
+
+
+### Import of raw data 
+
+This section loads the raw data from the `_pinboard` subproject.
+
+```{r, engine='targets', label='data_import'}
+list(
+  # Download CSF dataset
+  tar_target(
+    name = data_csf,
+    command = qs::qread(data_files$data_csf_df_file$path),
+    format = "feather"
+  ),
+
+  # Download ANR dataset
+  tar_target(
+    name = data_anr,
+    command = qs::qread(data_files$data_anr_df_file$path),
+    format = "feather"
+  ),
+
+  # Download CORDIS dataset
+  tar_target(
+    name = data_erc,
+    command = qs::qread(data_files$data_erc_df_file$path),
+    format = "feather"
+  )
+)
+```
+
+
+
+
+## Language detection
+
+Here we ensure that the text data - project abstracts - that we work with are either in English or in French. Automatic language detection is used for this purpose. In addition, French data are automatically translated into English. 
+
+
+```{r, engine='targets', label='lang'}
+# list(
+    
+#     tar_target(anr_lang_desc,
+#                detect_lang(data = data_anr,
+#                            id = "code_du_projet",
+#                            col = "resume",
+#                            whitelist = c("fra", "eng"),
+#                            keep_all = FALSE
+#                            )
+#                ),
+    
+#     tar_target(csf_lang_desc,
+#                detect_lang(data = data_csf,
+#                            id = "project_code",
+#                            col = "abstract",
+#                            whitelist = c("ces", "eng"),
+#                            keep_all = FALSE
+#                            )
+#     ),
+    
+#     tar_target(data_anr_for_translation,
+#         data_anr |> 
+#             filter(code_du_projet %in% 
+#                               (anr_lang_desc |> 
+#                               filter(resume_lang == "fra") |> 
+#                               pull(code_du_projet))
+#                           ) |> 
+#             mutate(source_text = 
+#                        paste(titre,
+#                              resume, 
+#                              sep = ". "
+#                              )
+#                    ) |> 
+#             select(code_du_projet,
+#                    source_text
+#                    )
+#                ),
+    
+#     tar_target(data_anr_translated,
+#                run_cubbitt_api(
+#                    data_anr_for_translation |> 
+#                        slice_head(n = 5),# test on sample
+#                    col = "source_text",
+#                    new_col = "resume_tr"),
+#                cue = tar_cue("never")
+#                )
+    
+    
+# )
+
+```
+
+
+
+## Comparative dataset - descriptive plots
+
+From the full datasets, we select only the projects that can be meaningfully compared across different (inter)national contexts. The criteria are:
+
+- overlap in time
+- overlap in the type of projects
+    - i.e. we select only only investigator-initiated projects and distinguish junior and advanced schemes.
+    
+A single, unified dataset for comparison is produced.
+    
+Basic descriptive statistics are calculated and plotted.
+
+```{r, engine='targets', label='compare'}
+
+# list(
+    
+#     tar_target(data_anr_sel,
+#                filter_anr(data_anr)
+#                ),
+    
+#     tar_target(data_csf_sel,
+#                filter_csf(data_csf)
+#                ),
+    
+#     tar_target(data_erc_sel,
+#                filter_erc(data_erc)
+#                ),
+    
+#     tar_target(data_all,
+#                combine_anr_csf(data_anr_sel,
+#                                data_csf_sel,
+#                                data_erc_sel)),
+#     # number of projects
+#     tar_target(data_all_type_plot,
+#                plot_data_all_type(data_all)),
+#     # funding amounts - absolute
+#     tar_target(data_all_funding_plot,
+#                plot_data_all_funding(data_all)),
+#     # funding amounts - normalized by number of projects
+#     tar_target(data_all_mean_plot,
+#                plot_data_all_mean(data_all)),
+#     # funding amounts - normalized by number of projects and their duration in years
+#     tar_target(data_all_mean_yearlyplot,
+#                plot_data_all_mean_yearly(data_all))
+    
+    
+    
+    
+# )
+```
+
+## Text data for export
+
+This section prepares text data to be exported as inputs for topic modeling. It uses only the projects that were selected for the comparative dataset.
+
+```{r, engine='targets', label='text_export'}
+
+# list(
+    
+    
+#     tar_target(text_export_anr,
+#                export_text_anr(data_anr_sel,
+#                                anr_lang_desc),
+#                format = "file"),
+    
+#     tar_target(text_export_csf,
+#                export_text_csf(data_csf_sel,
+#                                csf_lang_desc),
+#                format = "file"),
+    
+#     tar_target(text_export_erc,
+#                export_text_erc(data_erc_sel),
+#                format = "file")
+    
+    
+    
+# )
+
+```
+
+## Load topic models
+
+The following section contains topic models that were calculated on the basis of text exported in the text export section.
+
+```{r, engine='targets', label='topic_models_pins'}
+
+# list(
+    
+ 
+#     tar_target(topic_models_files,
+#                suppressMessages( topic_models_board |> 
+#                                      pin_download("topic_models")
+#                                  )
+#                )
+    
+    
+# )
+
+```
+
+```{r, engine='targets', label='topic_models'}
+# list(# ANR
+#    tar_target(topic_model_anr,
+#               qs::qread(str_subset(topic_models_files, "topic_model_202109292040.qs"))
+#     ),
+    
+#     # CSF
+#     tar_target(topic_model_csf,
+#               qs::qread(str_subset(topic_models_files, "topic_model_202109300955.qs"))
+#     ),
+#     # ERC
+#    tar_target(topic_model_erc,
+#               qs::qread(str_subset(topic_models_files, "topic_model_202109301159.qs"))
+#     )
+# )
+```
+
+```{r, engine='targets', label='topic_models_combined'}
+# list(
+#   tar_target(topic_models_words, 
+#              combine_topic_models(models = list("anr" = topic_model_anr,
+#                                                 "erc" = topic_model_erc,
+#                                                 "csf" = topic_model_csf
+#                                              ),
+#                                   dim = "word_topics")
+#              ),
+#     tar_target(topic_models_docs, 
+#              combine_topic_models(models = list("anr" = topic_model_anr,
+#                                                 "erc" = topic_model_erc,
+#                                                 "csf" = topic_model_csf
+#                                              ),
+#                                   dim = "doc_topics") |> 
+#                  pivot_longer(cols = starts_with("topic"),
+#                               names_to = "topic",
+#                               values_to = "weight",
+#                               values_drop_na = TRUE)
+#              )
+# )
+
+```
+
+
+## Plot topic models
+
+```{r, engine='targets'}
+#| label: plot_topic_models
+
+# list(
+#     tar_target(topics_csf_plot_level_1,
+#                plot_topics(topic_model_csf, level = 1L),
+#                format = "qs"),
+#         tar_target(topics_erc_plot_level_1,
+#                plot_topics(topic_model_erc, level = 1L),
+#                format = "qs"),
+#         tar_target(topics_anr_plot_level_1,
+#                plot_topics(topic_model_anr, level = 1L),
+#                format = "qs")
+# )
+
+```
+
+## Plot topic distributions
+
+```{r, engine='targets', label='topic_distribution_plots'}
+#| label: plot_topic_distributions
+
+#  list(
+              
+
+#     tar_target(topic_distribution_plots,
+#                plot_topic_distributions(topic_models_docs, level = 1),
+#                format = "qs")
+    
+# )
+
+```
+
+## Calculate statistics on topics
+
+```{r, engine='targets'}
+#| label: topic_stats
+
+#  list(
+              
+
+#     tar_target(topics_diversity,
+#                calc_topics_diversity(topic_models_docs, level = 1),
+#                format = "qs"),
+#     tar_target(topics_diversity_exp,
+#                calc_topics_diversity_exp(topics_diversity, data_all),
+#                format = "qs"),
+#     tar_target(topics_diversity_plots,
+#                plot_topics_diversity_exp(topics_diversity_exp)
+#                )
+    
+    
+# )
+
+```
+
+## Data overview report
+
+This section produces an initial report on the available data with basic descriptive statistics.
+
+```{r, engine='targets'}
+#| label: data_overview
+
+# list(
+#     tarchetypes::tar_quarto(data_overview,
+#                             here::here("Rmd/data_overview.qmd"),
+#                             execute_params = list(targets_store = "_targets"))
+# )
+
+```
+

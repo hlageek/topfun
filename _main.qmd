@@ -32,13 +32,6 @@ Here we obtain data from various sources. Because the sources - APIs, websites, 
 
 #### Obtain raw data programatically
 
-This sub-section contains functions tailored to specific APIs and websites to be scraped. These might be challenging to run and the execution can take hours or days. As a safeguard against accidental trigger, an evironmental variable has to be explicitly set to execute the code.
-
-- __Subproject name__:
-  - `data_api` 
-- __Requirements__: 
-  - Set `API_RUN=TRUE` in `.Renviron` to call APIs.
-
 ```{r}
 #| label: data_get_api
 #| eval: false
@@ -46,7 +39,23 @@ quarto::quarto_render("_data_api.qmd", quiet = TRUE)
 targets::tar_make(script = "_data_api.R", store = "_data_api")
 ```
 
+This sub-section contains functions tailored to specific APIs and websites to be scraped. These might be challenging to run and the execution can take hours or days. As a safeguard against accidental trigger, an evironmental variable has to be explicitly set to execute the code.
+
+- __Subproject name__:
+  - `data_api` 
+- __Requirements__: 
+  - Set `API_RUN=TRUE` in `.Renviron` to call APIs.
+
+
+
 #### Obtain raw data by download {#sec-data_get}
+
+```{r}
+#| label: data_get_downloads 
+#| eval: false
+quarto::quarto_render("_data_get.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_get.R", store = "_data_get")
+```
 
 The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in @sec-data_process.
 
@@ -67,14 +76,15 @@ The code in this subsection obtains those datasets that need not be collected vi
   - Set `URL_SNSF=URL` in `.Renviron`.
 
 
-```{r}
-#| label: data_get_downloads 
-#| eval: false
-quarto::quarto_render("_data_get.qmd", quiet = TRUE)
-targets::tar_make(script = "_data_get.R", store = "_data_get")
-```
 
 ### Process data {#sec-data_process}
+
+```{r}
+#| label: data_export
+#| eval: false
+quarto::quarto_render("_data_process.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_process.R", store = "_data_process")
+```
 
 - __Subproject name__:
   - `data_process` 
@@ -83,12 +93,7 @@ targets::tar_make(script = "_data_get.R", store = "_data_get")
   
 This code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.
 
-```{r}
-#| label: data_export
-#| eval: false
-quarto::quarto_render("_data_process.qmd", quiet = TRUE)
-targets::tar_make(script = "_data_process.R", store = "_data_process")
-```
+
 
 ### Build topic model {#sec-data_topmodel}
 
@@ -124,6 +129,13 @@ Code in this section should be run by all collaborators, on all machines. It is 
 
 ### (Re)Import pins {#sec-data_import}
 
+```{r}
+#| label: data_import
+#| eval: false
+quarto::quarto_render("_data_import.qmd", quiet = TRUE)
+targets::tar_make(script = "_data_import.R", store = "_data_import")
+```
+
 Here we reimport data processed and produced in @sec-data
 
 - __Subproject name__:
@@ -132,12 +144,7 @@ Here we reimport data processed and produced in @sec-data
   -  Set `MANIFEST_URL=URL/_pins.yaml` in `.Renviron`. 
   - internet connection.
 
-```{r}
-#| label: data_import
-#| eval: false
-quarto::quarto_render("_data_import.qmd", quiet = TRUE)
-targets::tar_make(script = "_data_import.R", store = "_data_import")
-```
+
 
 ### Analyze data {#sec-data_analyze}
 

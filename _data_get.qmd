@@ -137,6 +137,12 @@ list(
     name = eu_download_files,
     command = unzip_eu_files(eu_download_files_zip),
     format = "file" 
+  ),
+tar_target(
+    name = eu_data_raw,
+    command = purrr::map_df(eu_download_files, read.csv2) |> 
+              dplyr::as_tibble(),
+    format = "qs" 
   )
 )
 ```
@@ -157,6 +163,12 @@ list(
         ".csv"),
     method = "curl",
     mode = "w"
+  ),
+tar_target(
+    name = snsf_data_raw,
+    command = read.csv2(snsf_download_files)|> 
+              dplyr::as_tibble(),
+    format = "qs" 
   )
 )
 ```
