@@ -206,7 +206,6 @@ list(
 
 
 
-
 ## Language detection
 
 Here we ensure that the text data - project abstracts - that we work with are either in English or in French. Automatic language detection is used for this purpose. In addition, French data are automatically translated into English. 
@@ -481,4 +480,42 @@ This section produces an initial report on the available data with basic descrip
 # )
 
 ```
+
+
+# OpenAlex
+library(openalexR)
+options(openalexR.mailto = "hladik@flu.cas.cz")
+
+
+  
+  (recs <- oa_fetch(
+  entity = "works",
+  publication_year = 2020,
+  language = "en",
+  has_doi = TRUE,
+  has_abstract = TRUE,
+  type = c("article"),
+  options = list(
+   # sample = 10,
+   # seed = 123,
+    select = c("id"
+    #, "publication_year", "display_name", "abstract_inverted_index", "type"
+    )
+    ),
+  verbose = TRUE,
+  abstract = TRUE,
+  mailto = getOption("openalexR.mailto")
+  )) |> View()
+
+
+get_oa_recs_safely <- purrr::safely(get_oa_recs, quiet = F)
+
+oa_df <- doi_df_nested  |> mutate(oa_table = purrr::map(data, .f = get_oa_recs_safely))
+
+test <- readr::read_tsv(here::here("data", "data_raw", "dfg_projects.tsv"), col_names = FALSE)
+names(test)
+test2 <- test |> 
+dplyr::filter(!duplicated(X1))
+
+readr::write_delim(test2, file = here::here("data", "data_raw", "dfg_projects.tsv"), col_names = FALSE)
 
