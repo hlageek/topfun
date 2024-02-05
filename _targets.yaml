@@ -5,17 +5,17 @@ data_api:
   script: Scripts/ProcessingScripts/DataCollectionScripts/_data_api.R
   store: _stores/_data_api
 data_process:
-  script: Scripts/ProcessingScripts/DataCollectionScripts/_data_process.R
+  script: Scripts/ProcessingScripts/_data_process.R
   store: _stores/_data_process
 data_topmodel:
-  script: Scripts/ProcessingScripts/DataCollectionScripts/_data_topmodel.R
+  script: Scripts/ProcessingScripts/_data_topmodel.R
   store: _stores/_data_topmodel
 data_export:
   script: Scripts/ProcessingScripts/DataCollectionScripts/_data_export.R
   store: _stores/_data_export
 data_import:
-  script: Scripts/ProcessingScripts/DataCollectionScripts/_data_import.R
+  script: Scripts/ProcessingScripts/_data_import.R
   store: _stores/_data_import
 data_analyze:
-  script: Scripts/ProcessingScripts/DataCollectionScripts/_data_analyze.R
+  script: Scripts/ProcessingScripts/_data_analyze.R
   store: _stores/_data_analyze

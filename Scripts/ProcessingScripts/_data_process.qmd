@@ -22,7 +22,7 @@ Sys.setenv(TAR_PROJECT = "data_process")
 #| label: setup
 library(targets)
 tar_unscript(script = "_data_process.R")
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+knitr::opts_chunk$set(tar_script = "_data_process.R", collapse = TRUE, comment = "#>")
 ```
 
 
