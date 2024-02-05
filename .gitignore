@@ -13,39 +13,18 @@ _targets_*
 !_book/*.html
 
 .Renviron
-_targets.R
-_targets/*
-_external_*
-_external.R
-_pinboard_*
-_pinboard.R
-_data_raw_*
-_data_raw.R
-_topmodel_*
-_topomodel.R
-_master_files/*
-_main_files/*
+# Ignore everything starting with underscore
+_*/*
 
-_data_analyze/*
-_data_import/*
-_data_api/*
-_data_get/*
-_data_process/*
+# But not these files...
+!*_*.R
+!*_*.qmd
+!*_*.Rmd
 
-_data_import_*
-_data_analyze_*
-_data_api_*
-_data_get_*
-_data_process_*
-
-
-_targets/*
-_data_api/*
-_targets/meta/meta
-_targets/meta/meta
 run.Rout
 
 /.quarto/
 *pdf
+*zip
 
 

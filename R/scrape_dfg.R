@@ -67,7 +67,6 @@ if(!isTRUE(run)) {
   warning_msg <- "The `run` argument is set to FALSE. Perhaps you do not have API_RUN set to TRUE in .Revinron?"
   hal_data <- warning_msg
   warning(warning_msg)
-  outfile <- NULL
 } else {
 
 gepris_links <- readLines(gepris_catalogue)

@@ -60,10 +60,10 @@ url_snsf <- Sys.getenv("URL_SNSF")
 #| engine: targets
 #| label: csf
 list(
-  tar_target(
-    name = csf_data_raw,
-    command = readr::read_tsv(url_csf,  show_col_types = FALSE),
-    format = "qs"
+   tarchetypes::tar_download(
+    name = csf_download_files,
+    urls = url_csf,
+    paths = here::here("data", "data_raw", "csf.tsv")
   )
 )
 ```
