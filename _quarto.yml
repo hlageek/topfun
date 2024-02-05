@@ -8,13 +8,13 @@ book:
   chapters:
     - index.qmd
     - part: "Subprojects orchestration via main file"
-    - _main.qmd
+    - Scripts/_main.qmd
     - part: "Subprojects"
-    - _data_api.qmd
-    - _data_get.qmd
-    - _data_process.qmd
+    - Scripts/ProcessingScripts/DataCollectionScripts/_data_api.qmd
+    - Scripts/ProcessingScripts/DataCollectionScripts/_data_get.qmd
+    - Scripts/ProcessingScripts/_data_process.qmd
 
-bibliography: references.bib
+bibliography: Output/References/references.bib
 
 format:
   html:

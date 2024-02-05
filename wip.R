@@ -519,3 +519,28 @@ dplyr::filter(!duplicated(X1))
 
 readr::write_delim(test2, file = here::here("data", "data_raw", "dfg_projects.tsv"), col_names = FALSE)
 
+## TIER protocol 4.0 
+    dir.create("Data")  
+    dir.create("Data/IntermediateData")  
+    dir.create("Data/AnalysisData")
+    dir.create("Data/InputData")
+    dir.create("Data/InputData/Metadata")
+    dir.create("Data/OriginalData")
+
+    dir.create("Output")
+    dir.create("Output/DataAppendixOutput")
+    dir.create("Output/Results")
+
+
+    dir.create("Scripts")
+    dir.create("Scripts/AnalysisScripts")
+    dir.create("Scripts/DataAppendixScripts")
+    dir.create("Scripts/ProcessingScripts")
+        dir.create("Scripts/ProcessingScripts/DataCollectionScripts")
+
+    
+
+    dir.create("References")
+
+
+

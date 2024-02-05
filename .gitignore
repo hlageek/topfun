@@ -17,9 +17,10 @@ _targets_*
 _*/*
 
 # But not these files...
-!*_*.R
-!*_*.qmd
-!*_*.Rmd
+!_*.R
+!_*.qmd
+!_*.Rmd
+!_book/
 
 run.Rout
 
