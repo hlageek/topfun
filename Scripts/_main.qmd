@@ -35,13 +35,13 @@ Here we obtain data from various sources. Because the sources - APIs, websites, 
 ```{r}
 #| label: data_get_api
 #| eval: false
-data_get_api_folder <- here::here(
+data_get_api_files <- here::here(
   "Scripts",
   "ProcessingScripts",
-  "DataCollectionScripts"
-)
-quarto::quarto_render(here::here(data_get_api_folder, "_data_api.qmd"), quiet = TRUE)
-targets::tar_make(script = here::here(data_get_api_folder, "_data_api.R"), store = "_stores/_data_api")
+  "DataCollectionScripts",
+  c("_data_api.qmd", "_data_api.R"))
+quarto::quarto_render(data_get_api_files[1], quiet = TRUE)
+targets::tar_make(script = data_get_api_files[2], store = "_stores/_data_api")
 ```
 
 This sub-section contains functions tailored to specific APIs and websites to be scraped. These might be challenging to run and the execution can take hours or days. As a safeguard against accidental trigger, an evironmental variable has to be explicitly set to execute the code.
@@ -90,10 +90,15 @@ The code in this subsection obtains those datasets that need not be collected vi
 ### Process data {#sec-data_process}
 
 ```{r}
-#| label: data_export
+#| label: data_process
 #| eval: false
-quarto::quarto_render("_data_process.qmd", quiet = TRUE)
-targets::tar_make(script = "_data_process.R", store = "_data_process")
+data_process_files <- here::here(
+  "Scripts",
+  "ProcessingScripts",
+  "DataCollectionScripts",
+  c("_data_process.qmd", "_data_process.R"))
+quarto::quarto_render(data_process_files[1], quiet = TRUE)
+targets::tar_make(script = data_process_files[2], store = "_stores/_data_process")
 ```
 
 - __Subproject name__:

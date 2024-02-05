@@ -9,8 +9,7 @@ _targets_*
 *.utf8.md
 *.knit.md
 .DS_Store
-*.html
-
+*.*out
 
 .Renviron
 # Ignore everything starting with underscore
@@ -22,7 +21,15 @@ _*
 !_*.R
 !_*.qmd
 !_*.Rmd
+
+*.html
+# Don't ignore _book folder and its content
+!_book/
 !_book/*
+!_book/**/_*.html
+
+# Ignore PDF files in _book directory
+_book/*.pdf
 
 run.Rout
 
@@ -31,4 +38,3 @@ run.Rout
 *zip
 
 
-Scripts/ProcessingScripts/_data_process_r/globals/globals.R
