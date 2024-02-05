@@ -88,7 +88,7 @@
     "href": "Scripts/ProcessingScripts/_data_process.html#setup",
     "title": "6  Process raw data",
     "section": "6.1 Setup",
-    "text": "6.1 Setup\n\n6.1.1 Set environment for subproject\n\nSys.setenv(TAR_PROJECT = \"data_process\")\n\n\n\n6.1.2 Initialize targets script\n\nlibrary(targets)\ntar_unscript(script = \"_data_process.R\")\nknitr::opts_chunk$set(tar_script = \"_data_process.R\", collapse = TRUE, comment = \"#&gt;\")\n\n\n\n6.1.3 Define targets globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n#&gt; Establish _data_process.R and _data_process_r/globals/globals.R."
+    "text": "6.1 Setup\n\n6.1.1 Set environment for subproject\n\nSys.setenv(TAR_PROJECT = \"data_process\")\n\n\n\n6.1.2 Initialize targets script\n\nlibrary(targets)\ntar_unscript()\nknitr::opts_chunk$set(tar_script = \"_data_process.R\", collapse = TRUE, comment = \"#&gt;\")\n\n\n\n6.1.3 Define targets globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n#&gt; Establish _data_process.R and _data_process_r/globals/globals.R."
   },
   {
     "objectID": "Scripts/ProcessingScripts/_data_process.html#targets",
