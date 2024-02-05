@@ -10,7 +10,7 @@ _targets_*
 *.knit.md
 .DS_Store
 *.html
-!_book/*.html
+
 
 .Renviron
 # Ignore everything starting with underscore
@@ -20,7 +20,7 @@ _*/*
 !_*.R
 !_*.qmd
 !_*.Rmd
-!_book/
+!_book/*
 
 run.Rout
 
