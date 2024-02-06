@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TOPFUN Project Documentation - 2&nbsp; TOPFUN project</title>
+<title>TOPFUN Project Documentation - 2&nbsp; README.md</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./README.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">TOPFUN project</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./README.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">README.md</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -102,13 +102,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">TOPFUN Project</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About TOPFUN</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./README.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">TOPFUN project</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">README.md</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -189,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">TOPFUN project</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">README.md</span></h1>
 </div>
 
 
@@ -206,32 +206,29 @@ ul.task-list li input[type="checkbox"] {
 
 <!-- badges: start -->
 <!-- badges: end -->
-<p>This repository contains code for the The Impact of Research Funding on Research Topics (TOPFUN) project, a collaboration between <a href="https://elico-recherche.msh-lse.fr/">ELICO</a> (<a href="https://elico-recherche.msh-lse.fr/programme/impact-research-funding-research-topics-topfun">project</a>) and <a href="https://stss.flu.cas.cz/">CSTSS</a> (project <a href="https://starfos.tacr.cz/en/project/8J20FR026">8J20FR026</a>).</p>
+<p>This repository contains code for the analysis of topic portfolios for several European science funding agencies.</p>
 <section id="instructions" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="instructions"><span class="header-section-number">2.1</span> Instructions</h2>
-<p>To reproduce the project pipeline, run the following:</p>
-<ul>
-<li><p>in Terminal:</p>
+<p>To reproduce the project, run the following:</p>
+<ol type="1">
+<li>in Terminal:
 <ul>
 <li><code>git clone https://github.com/hlageek/funding-topics.git</code> to clone the repository</li>
 </ul></li>
-<li><p>in R console:</p>
+<li>in R console:
 <ul>
-<li><p><code>renv::restore()</code>` to restore the package environment of the project</p></li>
-<li><p><code>targets::tar_make()</code> to rebuild the targets</p></li>
+<li><code>install.packages("renv")</code> to enable <code>renv</code> dependencies management for the project</li>
+<li><code>renv::restore()</code>` to restore the package environment of the project</li>
+<li><code>quarto::quarto_render(as_job = FALSE)</code> to render all <code>quarto</code>-defined pipelines for <code>targets</code></li>
+<li><code>targets::tar_make()</code> to compile analytical pipelines and generate contents of the <code>Outputs</code> folder</li>
 </ul></li>
-</ul>
-<p>You can then load all the built targets into the <code>R</code> environment by running <code>targets::tar_load(everything())</code>, or alternatively load the individual targets with <code>targets::tar_load(NAME_OF_TARGET)</code>.</p>
+</ol>
+<p>The <code>Scripts/main.qmd</code> <code>quarto</code> file offers a more finegrained control over the exectution of individual project pipelines.</p>
+<p>Each pipeline has its own <code>quarto</code> file in the subfolders of <code>Scripts</code> folder.</p>
 </section>
 <section id="structure-of-the-repository" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="structure-of-the-repository"><span class="header-section-number">2.2</span> Structure of the repository</h2>
-<p><code>/tar_plan.Rmd</code> definition of targets and documentation of the pipeline</p>
-<p><code>/_targets.R</code>script for execution of the pipeline</p>
-<p><code>/data/data_raw/*</code>data originating outside of the pipeline</p>
-<p><code>/data/data_derived/*</code>data produced inside the pipeline</p>
-<p><code>/docs/*</code> documents (typically <code>html</code> output of <code>Rmd</code> files) produced inside the pipeline</p>
-<p><code>/Rmd/*</code> Rmd notebooks used to generate the content of <code>/docs</code></p>
-<p><code>/R/*</code> functions used by the pipeline</p>
+<p>The repository is structured according to <a href="https://www.projecttier.org/tier-protocol/protocol-4-0">TIER Protocol 4.0</a> specification for conducting and documenting an empirical research project with additional requirements for <code>quarto</code> and <code>targets</code> projects to construct a reproducible projec environment.</p>
 
 
 </section>
@@ -473,7 +470,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">TOPFUN Project</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About TOPFUN</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

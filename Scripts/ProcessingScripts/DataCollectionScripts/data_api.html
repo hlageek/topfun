@@ -136,13 +136,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">TOPFUN Project</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About TOPFUN</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../README.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">TOPFUN project</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">README.md</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -291,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> dfg_catalogue_tsv,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">scrape_dfg_catalogue</span>(</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">gepris_url =</span> <span class="st">"https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&amp;bewilligungsStatus=&amp;bundesland=DEU%23&amp;context=projekt&amp;einrichtungsart=-1&amp;fachgebiet=%23&amp;findButton=historyCall&amp;gefoerdertIn=&amp;ggsHunderter=0&amp;hitsPerPage=50&amp;index=1&amp;nurProjekteMitAB=false&amp;oldGgsHunderter=0&amp;oldfachgebiet=%23&amp;pemu=24&amp;peu=%23&amp;task=doKatalog&amp;teilprojekte=true&amp;zk_transferprojekt=false"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data"</span>, <span class="st">"OriginalData"</span>, <span class="st">"dfg_catalogue.tsv"</span>), </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data"</span>, <span class="st">"InputData"</span>, <span class="st">"dfg_catalogue.tsv"</span>), </span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">sleep_time =</span> <span class="dv">5</span>,</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>)) <span class="co">#as.logical(Sys.getenv("API_RUN"))</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      ),</span>
@@ -301,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> dfg_projects_tsv,</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">scrape_dfg_projects</span>(</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">gepris_catalogue =</span> dfg_catalogue_tsv,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data"</span>, <span class="st">"OriginalData"</span>, <span class="st">"dfg_projects.tsv"</span>), </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data"</span>, <span class="st">"InputData"</span>, <span class="st">"dfg_projects.tsv"</span>), </span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">sleep_time =</span> <span class="dv">5</span>,</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>)) <span class="co">#</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      ),</span>
