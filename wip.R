@@ -520,34 +520,34 @@ dplyr::filter(!duplicated(X1))
 readr::write_delim(test2, file = here::here("data", "data_raw", "dfg_projects.tsv"), col_names = FALSE)
 
 ## TIER protocol 4.0 
-    dir.create("Data")  
-    dir.create("Data/IntermediateData")  
-    dir.create("Data/AnalysisData")
-    dir.create("Data/InputData")
-    dir.create("Data/InputData/Metadata")
-    dir.create("Data/InputData")
+    dir.create("data")  
+    dir.create("Data/intermediate_data")  
+    dir.create("Data/analysis_data")
+    dir.create("Data/input_data")
+    dir.create("Data/input_data/Metadata")
+    dir.create("Data/input_data")
 
     dir.create("Output")
     dir.create("Output/DataAppendixOutput")
     dir.create("Output/Results")
 
 
-    dir.create("Scripts")
-    dir.create("Scripts/AnalysisScripts")
-    dir.create("Scripts/DataAppendixScripts")
-    dir.create("Scripts/ProcessingScripts")
-        dir.create("Scripts/ProcessingScripts/DataCollectionScripts")
+    dir.create("scripts")
+    dir.create("scripts/analysis_scripts")
+    dir.create("scripts/DataAppendixscripts")
+    dir.create("scripts/processing_scripts")
+        dir.create("scripts/processing_scripts/DataCollectionscripts")
 
     
 
-    dir.create("References")
+    dir.create("references")
 
 osfr::osf_auth(Sys.getenv("OSF_PAT"))
 
 topfun_project <- osfr::osf_retrieve_node("https://osf.io/gf4ch/")
-osf_intermediate_data <- osfr::osf_ls_files(topfun_project, path = "Data", pattern = "IntermediateData")
-test_upload  <- osfr::osf_upload(osf_intermediate_data, path = here::here("Data", "IntermediateData", "topfun_data_archive-20240206161536.zip"))
+osf_intermediate_data <- osfr::osf_ls_files(topfun_project, path = "data", pattern = "intermediate_data")
+test_upload  <- osfr::osf_upload(osf_intermediate_data, path = here::here("data", "intermediate_data", "topfun_data_archive-20240206161536.zip"))
 
 osfr::osf_download(test_upload, "~/Downloads")
 
-osfr::osf_upload(osf_intermediate_data, path = here::here("Data", "IntermediateData", "topfun_data_archive-20240206161536.zip"), conflicts = "overwrite")
+osfr::osf_upload(osf_intermediate_data, path = here::here("data", "intermediate_data", "topfun_data_archive-20240206161536.zip"), conflicts = "overwrite")

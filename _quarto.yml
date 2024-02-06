@@ -8,17 +8,17 @@ book:
     - index.qmd
     - README.md
     - part: "Project orchestration via main file"
-    - Scripts/main.qmd
+    - scripts/main.qmd
     - part: "Data collection"
-    - Scripts/DataCollectionScripts/data_api.qmd
-    - Scripts//DataCollectionScripts/data_get.qmd
+    - scripts/data_collection_scripts/data_api.qmd
+    - scripts//data_collection_scripts/data_get.qmd
     - part: "Data processing"
-    - Scripts/ProcessingScripts/data_process.qmd
+    - scripts/processing_scripts/data_process.qmd
     - part: "Analysis"
-    - Scripts/targets.qmd
-    - Scripts/AnalysisScripts/data_import.qmd
-    - Scripts/AnalysisScripts/data_analyze.qmd
-bibliography: Output/References/references.bib
+    - scripts/targets.qmd
+    - scripts/analysis_scripts/data_import.qmd
+    - scripts/analysis_scripts/data_analyze.qmd
+bibliography: output/references/references.bib
 format:
   html:
     theme: cosmo

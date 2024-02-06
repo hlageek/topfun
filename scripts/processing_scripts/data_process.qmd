@@ -82,7 +82,7 @@ list(
         snsf_data_raw,
         dfg_data_raw
       ),
-      archive_file = here::here("Data", "IntermediateData", paste0("topfun_data_archive-", format(Sys.time(), "%Y%m%d%H%M%S"), ".zip"))
+      archive_file = here::here("data", "intermediate_data", paste0("topfun_data_archive-", format(Sys.time(), "%Y%m%d%H%M%S"), ".zip"))
     ),
     format = "file"
   )

@@ -18,9 +18,9 @@ To reproduce the project, run the following:
     - `quarto::quarto_render(as_job = FALSE)` to render all `quarto`-defined pipelines for `targets`
     - `targets::tar_make()` to compile analytical pipelines and generate contents of the `Outputs` folder
 
-The `Scripts/main.qmd` `quarto` file offers a more finegrained control over the exectution of individual project pipelines.
+The `scripts/main.qmd` `quarto` file offers a more finegrained control over the exectution of individual project pipelines.
 
-Each pipeline has its own `quarto` file located in the subfolders of `Scripts` folder.
+Each pipeline has its own `quarto` file located in the subfolders of `scripts` folder.
 
 Automatically **generated** files and folders as well as essential **helper and configuration** files and folders have names beginning with underscore: `_`. The necessary configuration for the repository is defined in `_quarto.yml` for `quarto` and `_targets.yaml` for `targets`.
 
