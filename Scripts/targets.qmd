@@ -25,7 +25,7 @@ Sys.setenv(TAR_PROJECT = "main")
 #| include: false
 library(targets)
 tar_unscript(script = "_targets.R")
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+knitr::opts_chunk$set(tar_script = "_targets.R", collapse = TRUE, comment = "#>")
 ```
 
 
@@ -41,6 +41,14 @@ We first define some global options/functions common to all targets.
 # read custom functions
 lapply(list.files(here::here("R"), full.names = TRUE), source)
 tar_option_set(packages = packages())
+# define function for running sub-pipelines and track their dependencies
+run_subpipeline <- function(script, store, depend_on){
+        targets::tar_make(
+        script = script,
+        store = store
+        )
+        c("Last compiled" = Sys.time())
+}
 ```
 
 ## Code
@@ -51,25 +59,25 @@ tar_option_set(packages = packages())
 list(
  tarchetypes::tar_render(
     name = script_data_import,
-    path = here::here("_data_import.qmd"),
+    path = here::here("Scripts", "AnalysisScripts", "_data_import.qmd"),
  ),
  tar_target(
     name = compile_data_import,
     command = run_subpipeline(
-         script = here::here("_data_import.R"), 
-         store = "_data_import", 
+         script = here::here("Scripts", "AnalysisScripts", "_data_import.R"), 
+         store = "_store/_data_import", 
          depend_on = script_data_import
          )
  ),
  tarchetypes::tar_render(
     name = script_data_analyze,
-    path = here::here("_data_analyze.qmd"),
+    path = here::here("Scripts", "AnalysisScripts", "_data_analyze.qmd"),
  ),
  tar_target(
     name = compile_data_analyze,
     command = run_subpipeline(
-        script = here::here("_data_analyze.R"), 
-         store = "_data_analyze", 
+        script = here::here("Scripts", "AnalysisScripts", "_data_analyze.R"), 
+         store = "_store/_data_analyze", 
          depend_on = script_data_analyze
          )
  )

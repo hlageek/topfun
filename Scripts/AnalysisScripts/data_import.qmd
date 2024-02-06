@@ -23,7 +23,7 @@ Sys.setenv(TAR_PROJECT = "data_import")
 #| include: false
 library(targets)
 tar_unscript(script = "_data_import.R")
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+knitr::opts_chunk$set(tar_script = "_data_import.R", collapse = TRUE, comment = "#>")
 ```
 
 

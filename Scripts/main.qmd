@@ -35,13 +35,20 @@ Here we obtain data from various sources. Because the sources - APIs, websites, 
 ```{r}
 #| label: data_get_api
 #| eval: false
-data_get_api_files <- here::here(
+# Define the paths to the pipeline generator and the generated pipeline
+scripts_data_get_api <- here::here(
   "Scripts",
   "ProcessingScripts",
   "DataCollectionScripts",
-  c("_data_api.qmd", "_data_api.R"))
-quarto::quarto_render(data_get_api_files[1], quiet = TRUE)
-targets::tar_make(script = data_get_api_files[2], store = "_stores/_data_api")
+  c(
+    "data_api.qmd",
+    "_data_api.R"
+  )
+)
+# Generate the pipeline using the Quarto file
+quarto::quarto_render(scripts_data_get_api[1], quiet = TRUE)
+# Run the generated pipeline
+targets::tar_make(script = scripts_data_get_api[2], store = "_store/_data_api")
 ```
 
 This sub-section contains functions tailored to specific APIs and websites to be scraped. These might be challenging to run and the execution can take hours or days. As a safeguard against accidental trigger, an evironmental variable has to be explicitly set to execute the code.
@@ -58,13 +65,20 @@ This sub-section contains functions tailored to specific APIs and websites to be
 ```{r}
 #| label: data_get_downloads 
 #| eval: false
-data_get_downloads_files <- here::here(
+# Define the paths to the pipeline generator and the generated pipeline
+scripts_data_get_downloads <- here::here(
   "Scripts",
   "ProcessingScripts",
   "DataCollectionScripts",
-  c("_data_get.qmd", "_data_get.R"))
-quarto::quarto_render(data_get_downloads_files[1], quiet = TRUE)
-targets::tar_make(script = data_get_downloads_files[2], store = "_stores/_data_get")
+  c(
+    "data_get.qmd",
+    "_data_get.R"
+  )
+)
+# Generate the pipeline using the Quarto file
+quarto::quarto_render(scripts_data_get_downloads[1], quiet = TRUE)
+# Run the generated pipeline
+targets::tar_make(script = scripts_data_get_downloads[2], store = "_store/_data_get")
 ```
 
 The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in @sec-data_process.
@@ -96,9 +110,9 @@ data_process_files <- here::here(
   "Scripts",
   "ProcessingScripts",
   "DataCollectionScripts",
-  c("_data_process.qmd", "_data_process.R"))
+  c("data_process.qmd", "_data_process.R"))
 quarto::quarto_render(data_process_files[1], quiet = TRUE)
-targets::tar_make(script = data_process_files[2], store = "_stores/_data_process")
+targets::tar_make(script = data_process_files[2], store = "_store/_data_process")
 ```
 
 - __Subproject name__:
@@ -134,14 +148,27 @@ This code needs to be run only if data sources change and need to be updated. In
 
 ## Analysis (default) {#sec-analysis}
 
+Code in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.
+
+This is the default pipeline. It serves for analysis of the raw data previously exported onto a pinboard. 
+
+
+```{r}
+#| label: default_targets
+#| eval: false
+# Generate all pipelines using the Quarto project
+# defined in _quarto.yaml
+quarto::quarto_render(as_job = FALSE)
+# Run the generated analytical pipelines
+targets::tar_make()
+```
+
 - __Subproject name__:
   - `main` 
 - __Requirements__:
   - See requirements for @sec-data_import and @sec-data_analyze.
 
-This is the default pipeline. It serves for analysis of the raw data previously exported onto a pinboard. 
 
-Code in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.
 
 ### (Re)Import pins {#sec-data_import}
 

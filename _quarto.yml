@@ -9,11 +9,14 @@ book:
     - index.qmd
     - README.md
     - part: "Subprojects orchestration via main file"
-    - Scripts/_main.qmd
+    - Scripts/main.qmd
     - part: "Subprojects"
-    - Scripts/ProcessingScripts/DataCollectionScripts/_data_api.qmd
-    - Scripts/ProcessingScripts/DataCollectionScripts/_data_get.qmd
-    - Scripts/ProcessingScripts/_data_process.qmd
+    - Scripts/ProcessingScripts/DataCollectionScripts/data_api.qmd
+    - Scripts/ProcessingScripts/DataCollectionScripts/data_get.qmd
+    - Scripts/ProcessingScripts/data_process.qmd
+    - Scripts/AnalysisScripts/data_import.qmd
+    - Scripts/AnalysisScripts/data_analyze.qmd
+
 
 bibliography: Output/References/references.bib
 
