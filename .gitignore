@@ -26,7 +26,7 @@ _*
 # Don't ignore _book folder and its content
 !_book/
 !_book/*
-!_book/**/_*.html
+!_book/**/*.html
 
 # Ignore PDF files in _book directory
 _book/*.pdf
