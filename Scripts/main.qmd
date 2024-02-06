@@ -106,13 +106,16 @@ The code in this subsection obtains those datasets that need not be collected vi
 ```{r}
 #| label: data_process
 #| eval: false
-data_process_files <- here::here(
+# Define the paths to the pipeline generator and the generated pipeline
+scripts_data_process <- here::here(
   "Scripts",
   "ProcessingScripts",
   "DataCollectionScripts",
   c("data_process.qmd", "_data_process.R"))
-quarto::quarto_render(data_process_files[1], quiet = TRUE)
-targets::tar_make(script = data_process_files[2], store = "_store/_data_process")
+# Generate the pipeline using the Quarto file
+quarto::quarto_render(scripts_data_process[1], quiet = TRUE)
+# Run the generated pipeline
+targets::tar_make(script = scripts_data_process[2], store = "_store/_data_process")
 ```
 
 - __Subproject name__:
@@ -175,8 +178,16 @@ targets::tar_make()
 ```{r}
 #| label: data_import
 #| eval: false
-quarto::quarto_render("_data_import.qmd", quiet = TRUE)
-targets::tar_make(script = "_data_import.R", store = "_data_import")
+# Define the paths to the pipeline generator and the generated pipeline
+scripts_data_import <- here::here(
+  "Scripts",
+  "ProcessingScripts",
+  "DataCollectionScripts",
+  c("data_import.qmd", "_data_import_.R"))
+# Generate the pipeline using the Quarto file
+quarto::quarto_render("data_import.qmd", quiet = TRUE)
+# Run the generated pipeline
+targets::tar_make(script = "_data_import.R", store = "_store/_data_import")
 ```
 
 Here we reimport data processed and produced in @sec-data
@@ -197,10 +208,18 @@ Here we reimport data processed and produced in @sec-data
   -  @sec-data_import must be completed
 
 ```{r}
-#| label: quarto-projects
+#| label: data_analyze
 #| eval: false
-quarto::quarto_render("_data_analyze.qmd", quiet = TRUE)
-targets::tar_make(script = "_data_analyze.R", store = "_data_analyze")
+# Define the paths to the pipeline generator and the generated pipeline
+scripts_data_import <- here::here(
+  "Scripts",
+  "ProcessingScripts",
+  "DataCollectionScripts",
+  c("data_analyze.qmd", "_data_analyze.R"))
+# Generate the pipeline using the Quarto file
+quarto::quarto_render("data_analyze.qmd", quiet = TRUE)
+# Run the generated pipeline
+targets::tar_make(script = "_data_analyze.R", store = "_store/_data_analyze")
 ```
 
 
@@ -213,7 +232,7 @@ targets::tar_make(script = "_data_analyze.R", store = "_data_analyze")
 #| label: publish-docs
 #| eval: false
 #From: https://gist.github.com/cobyism/4730490
-system("quarto render")
+quarto::quarto_render(as_job = FALSE)
 system("touch _book/.nojekyll")
 system("git add . && git commit -m 'Update gh-pages'")
 system("git subtree push --prefix _book origin gh-pages")

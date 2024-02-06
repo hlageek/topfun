@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TOPFUN Project Documentation - 8&nbsp; Analyze data</title>
+<title>TOPFUN Project Documentation - 9&nbsp; Analyze data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Scripts/AnalysisScripts/data_analyze.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Analyze data</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Scripts/AnalysisScripts/data_analyze.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Analyze data</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -146,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Subprojects orchestration via main file</span></span>
+ <span class="menu-text">Project orchestration via main file</span></span>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -156,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Subprojects</span></span>
+ <span class="menu-text">Data collection</span></span>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -170,22 +170,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Obtain raw data by downloads</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Data processing</span></span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../Scripts/ProcessingScripts/data_process.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Process raw data</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Analysis</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Scripts/targets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Targets</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../Scripts/AnalysisScripts/data_import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Import data from pinboard</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Import data from pinboard</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../Scripts/AnalysisScripts/data_analyze.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Analyze data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Analyze data</span></span></a>
   </div>
 </li>
     </ul>
@@ -198,13 +212,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">8.1</span> Setup</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">9.1</span> Setup</a>
   <ul class="collapse">
-  <li><a href="#targets-environment-for-subproject" id="toc-targets-environment-for-subproject" class="nav-link" data-scroll-target="#targets-environment-for-subproject"><span class="header-section-number">8.1.1</span> Targets environment for subproject</a></li>
-  <li><a href="#targets-script-setup" id="toc-targets-script-setup" class="nav-link" data-scroll-target="#targets-script-setup"><span class="header-section-number">8.1.2</span> Targets script setup</a></li>
-  <li><a href="#targets-globals" id="toc-targets-globals" class="nav-link" data-scroll-target="#targets-globals"><span class="header-section-number">8.1.3</span> Targets globals</a></li>
+  <li><a href="#targets-environment-for-subproject" id="toc-targets-environment-for-subproject" class="nav-link" data-scroll-target="#targets-environment-for-subproject"><span class="header-section-number">9.1.1</span> Targets environment for subproject</a></li>
+  <li><a href="#targets-script-setup" id="toc-targets-script-setup" class="nav-link" data-scroll-target="#targets-script-setup"><span class="header-section-number">9.1.2</span> Targets script setup</a></li>
+  <li><a href="#targets-globals" id="toc-targets-globals" class="nav-link" data-scroll-target="#targets-globals"><span class="header-section-number">9.1.3</span> Targets globals</a></li>
   </ul></li>
-  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code"><span class="header-section-number">8.2</span> Code</a></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code"><span class="header-section-number">9.2</span> Code</a></li>
   </ul>
 </nav>
     </div>
@@ -213,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Analyze data</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Analyze data</span></h1>
 <p class="subtitle lead"><code>data_analyze</code> subproject.</p>
 </div>
 
@@ -230,16 +244,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>This subproject initializes pinboard required for the default <code>targets</code> project.</p>
-<section id="setup" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">8.1</span> Setup</h2>
-<section id="targets-environment-for-subproject" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="targets-environment-for-subproject"><span class="header-section-number">8.1.1</span> Targets environment for subproject</h3>
+<section id="setup" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">9.1</span> Setup</h2>
+<section id="targets-environment-for-subproject" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="targets-environment-for-subproject"><span class="header-section-number">9.1.1</span> Targets environment for subproject</h3>
 </section>
-<section id="targets-script-setup" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="targets-script-setup"><span class="header-section-number">8.1.2</span> Targets script setup</h3>
+<section id="targets-script-setup" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="targets-script-setup"><span class="header-section-number">9.1.2</span> Targets script setup</h3>
 </section>
-<section id="targets-globals" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="targets-globals"><span class="header-section-number">8.1.3</span> Targets globals</h3>
+<section id="targets-globals" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="targets-globals"><span class="header-section-number">9.1.3</span> Targets globals</h3>
 <p>We first define some global options/functions common to all targets.</p>
 <div class="cell" data-tar_globals="true">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read custom functions</span></span>
@@ -249,8 +263,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="code" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="code"><span class="header-section-number">8.2</span> Code</h2>
+<section id="code" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="code"><span class="header-section-number">9.2</span> Code</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tar_target</span>(</span>
@@ -505,7 +519,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../../Scripts/AnalysisScripts/data_import.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Import data from pinboard</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Import data from pinboard</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

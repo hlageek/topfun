@@ -1,6 +1,5 @@
 project:
   type: book
-
 book:
   title: "TOPFUN Project Documentation"
   author: "Radim Hladík"
@@ -8,18 +7,18 @@ book:
   chapters:
     - index.qmd
     - README.md
-    - part: "Subprojects orchestration via main file"
+    - part: "Project orchestration via main file"
     - Scripts/main.qmd
-    - part: "Subprojects"
+    - part: "Data collection"
     - Scripts/ProcessingScripts/DataCollectionScripts/data_api.qmd
     - Scripts/ProcessingScripts/DataCollectionScripts/data_get.qmd
+    - part: "Data processing"
     - Scripts/ProcessingScripts/data_process.qmd
+    - part: "Analysis"
+    - Scripts/targets.qmd
     - Scripts/AnalysisScripts/data_import.qmd
     - Scripts/AnalysisScripts/data_analyze.qmd
-
-
 bibliography: Output/References/references.bib
-
 format:
   html:
     theme: cosmo
