@@ -63,7 +63,7 @@ list(
    tarchetypes::tar_download(
     name = csf_download_files,
     urls = url_csf,
-    paths = here::here("Data", "OriginalData", "csf.tsv")
+    paths = here::here("Data", "InputData", "csf.tsv")
   )
 )
 ```
@@ -78,7 +78,7 @@ list(
     name = anr_download_files,
     urls = c(url_anr_2010, url_anr_2009, url_anr_2010_p, url_anr_2009_p),
     paths = paste0(
-        here::here("Data", "OriginalData"), 
+        here::here("Data", "InputData"), 
         .Platform$file.sep,  
         c("anr_2010", "anr_2009", "anr_2010_p", "anr_2009_p"), 
         ".csv")
@@ -126,7 +126,7 @@ list(
     name = eu_download_files_zip,
     urls = c(url_eu_europe, url_eu_2020, url_eu_fp7),
     paths = paste0(
-        here::here("Data", "OriginalData"), 
+        here::here("Data", "InputData"), 
         .Platform$file.sep,  
         c("eu_europe", "eu_horizon", "eu_fp7"), 
         ".zip"),
@@ -135,7 +135,7 @@ list(
   ),
   tar_target(
     name = eu_download_files,
-    command = unzip_eu_files(eu_download_files_zip, data_path = here::here("Data", "OriginalData")),
+    command = unzip_eu_files(eu_download_files_zip, data_path = here::here("Data", "InputData")),
     format = "file" 
   ),
 tar_target(
@@ -157,7 +157,7 @@ list(
     name = snsf_download_files,
     urls = c(url_snsf),
     paths = paste0(
-        here::here("Data", "OriginalData"), 
+        here::here("Data", "InputData"), 
         .Platform$file.sep,  
         c("snsf"), 
         ".csv"),

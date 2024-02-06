@@ -38,7 +38,6 @@ Here we obtain data from various sources. Because the sources - APIs, websites, 
 # Define the paths to the pipeline generator and the generated pipeline
 scripts_data_get_api <- here::here(
   "Scripts",
-  "ProcessingScripts",
   "DataCollectionScripts",
   c(
     "data_api.qmd",
@@ -68,7 +67,6 @@ This sub-section contains functions tailored to specific APIs and websites to be
 # Define the paths to the pipeline generator and the generated pipeline
 scripts_data_get_downloads <- here::here(
   "Scripts",
-  "ProcessingScripts",
   "DataCollectionScripts",
   c(
     "data_get.qmd",
@@ -110,7 +108,6 @@ The code in this subsection obtains those datasets that need not be collected vi
 scripts_data_process <- here::here(
   "Scripts",
   "ProcessingScripts",
-  "DataCollectionScripts",
   c("data_process.qmd", "_data_process.R"))
 # Generate the pipeline using the Quarto file
 quarto::quarto_render(scripts_data_process[1], quiet = TRUE)
@@ -181,8 +178,7 @@ targets::tar_make()
 # Define the paths to the pipeline generator and the generated pipeline
 scripts_data_import <- here::here(
   "Scripts",
-  "ProcessingScripts",
-  "DataCollectionScripts",
+  "AnalysisScripts",
   c("data_import.qmd", "_data_import_.R"))
 # Generate the pipeline using the Quarto file
 quarto::quarto_render("data_import.qmd", quiet = TRUE)
@@ -213,8 +209,7 @@ Here we reimport data processed and produced in @sec-data
 # Define the paths to the pipeline generator and the generated pipeline
 scripts_data_import <- here::here(
   "Scripts",
-  "ProcessingScripts",
-  "DataCollectionScripts",
+  "AnalysisScripts",
   c("data_analyze.qmd", "_data_analyze.R"))
 # Generate the pipeline using the Quarto file
 quarto::quarto_render("data_analyze.qmd", quiet = TRUE)

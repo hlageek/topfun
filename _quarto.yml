@@ -10,8 +10,8 @@ book:
     - part: "Project orchestration via main file"
     - Scripts/main.qmd
     - part: "Data collection"
-    - Scripts/ProcessingScripts/DataCollectionScripts/data_api.qmd
-    - Scripts/ProcessingScripts/DataCollectionScripts/data_get.qmd
+    - Scripts/DataCollectionScripts/data_api.qmd
+    - Scripts//DataCollectionScripts/data_get.qmd
     - part: "Data processing"
     - Scripts/ProcessingScripts/data_process.qmd
     - part: "Analysis"

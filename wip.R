@@ -525,7 +525,7 @@ readr::write_delim(test2, file = here::here("data", "data_raw", "dfg_projects.ts
     dir.create("Data/AnalysisData")
     dir.create("Data/InputData")
     dir.create("Data/InputData/Metadata")
-    dir.create("Data/OriginalData")
+    dir.create("Data/InputData")
 
     dir.create("Output")
     dir.create("Output/DataAppendixOutput")
@@ -542,5 +542,12 @@ readr::write_delim(test2, file = here::here("data", "data_raw", "dfg_projects.ts
 
     dir.create("References")
 
+osfr::osf_auth(Sys.getenv("OSF_PAT"))
 
+topfun_project <- osfr::osf_retrieve_node("https://osf.io/gf4ch/")
+osf_intermediate_data <- osfr::osf_ls_files(topfun_project, path = "Data", pattern = "IntermediateData")
+test_upload  <- osfr::osf_upload(osf_intermediate_data, path = here::here("Data", "IntermediateData", "topfun_data_archive-20240206161536.zip"))
 
+osfr::osf_download(test_upload, "~/Downloads")
+
+osfr::osf_upload(osf_intermediate_data, path = here::here("Data", "IntermediateData", "topfun_data_archive-20240206161536.zip"), conflicts = "overwrite")

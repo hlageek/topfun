@@ -4,8 +4,10 @@ packages <- function() {
       "franc",
       "here",
       "janitor",
-      "qs",
+      "osfr",
       "pins",
+      "qs",
+      "quarto",
       "tidyverse",
       "tarchetypes",
       "topicmodels"

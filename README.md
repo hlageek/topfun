@@ -1,40 +1,29 @@
-# TOPFUN project
+# README.md
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-This repository contains code for the The Impact of Research Funding on Research Topics (TOPFUN)
- project, a collaboration between [ELICO](https://elico-recherche.msh-lse.fr/) ([project](https://elico-recherche.msh-lse.fr/programme/impact-research-funding-research-topics-topfun)) and [CSTSS](https://stss.flu.cas.cz/) (project [8J20FR026](https://starfos.tacr.cz/en/project/8J20FR026)).
+This repository contains code for the analysis of topic portfolios for several European science funding agencies.
 
 ## Instructions
 
-To reproduce the project pipeline, run the following:
+To reproduce the project, run the following:
 
--   in Terminal:
+1. in Terminal:
+    - `git clone https://github.com/hlageek/funding-topics.git` to clone the repository
+1. in R console:
+    - `install.packages("renv")` to enable `renv` dependencies management for the project
+    - `renv::restore()`\` to restore the package environment of the project
+    - `quarto::quarto_render(as_job = FALSE)` to render all `quarto`-defined pipelines for `targets`
+    - `targets::tar_make()` to compile analytical pipelines and generate contents of the `Outputs` folder
 
-    -   `git clone https://github.com/hlageek/funding-topics.git` to clone the repository
+The `Scripts/main.qmd` `quarto` file offers a more finegrained control over the exectution of individual project pipelines.
 
--   in R console:
+Each pipeline has its own `quarto` file located in the subfolders of `Scripts` folder.
 
-    -   `renv::restore()`\` to restore the package environment of the project
-
-    -   `targets::tar_make()` to rebuild the targets
-
-You can then load all the built targets into the `R` environment by running `targets::tar_load(everything())`, or alternatively load the individual targets with `targets::tar_load(NAME_OF_TARGET)`.
+Automatically **generated** files and folders as well as essential **helper and configuration** files and folders have names beginning with underscore: `_`. The necessary configuration for the repository is defined in `_quarto.yml` for `quarto` and `_targets.yaml` for `targets`.
 
 ## Structure of the repository
 
-`/tar_plan.Rmd` definition of targets and documentation of the pipeline
-
-`/_targets.R`script for execution of the pipeline
-
-`/data/data_raw/*`data originating outside of the pipeline
-
-`/data/data_derived/*`data produced inside the pipeline
-
-`/docs/*` documents (typically `html` output of `Rmd` files) produced inside the pipeline
-
-`/Rmd/*` Rmd notebooks used to generate the content of `/docs`
-
-`/R/*` functions used by the pipeline
+The repository is structured according to [TIER Protocol 4.0](https://www.projecttier.org/tier-protocol/protocol-4-0) specification for conducting and documenting an empirical research project with additional requirements for `quarto` and `targets` projects to construct a reproducible project environment.

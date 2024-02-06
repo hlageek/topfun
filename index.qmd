@@ -1,9 +1,9 @@
 ---
-title: "TOPFUN Project"
+title: "About TOPFUN"
 ---
 
-## About TOPFUN
+TOPFUN is a collaborative project between the [CSTSS](https://stss.flu.cas.cz) -- _Centre for Science, Technology, and Society Studies_ -- at Institute of Philosophy of the Czech Academy of Sciences and [ELICO](https://www.univ-lyon1.fr/recherche/entites-de-recherche-et-plateformes-technologiques/equipe-de-recherche-de-lyon-en-sciences-de-linformation-et-de-la-communication-elico) -- _Equipe de Recherche de Lyon en Sciences de l'Information et de la Communication_ -- at Université Claude Bernard Lyon 1.
 
-TOPFUN is a collaborative project between the Centre for Science, Technology, and Society Studies at Institute of Philosophy of the Czech Academy of Sciences and Equipe de Recherche de Lyon en Sciences de l'Information et de la Communication (ELICO) at Université Claude Bernard Lyon 1.
+## Acknowlegements
 
-## Basic instructions
+The collaboration was initiated thanks to a joint Barrande mobility for [ELICO project](https://elico-recherche.msh-lse.fr/programme/impact-research-funding-research-topics-topfun) and [CSTSS project](https://starfos.tacr.cz/en/project/8J20FR026).
