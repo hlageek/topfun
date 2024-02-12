@@ -24,7 +24,7 @@ Sys.setenv(TAR_PROJECT = "main")
 #| label: setup
 #| include: false
 library(targets)
-tar_unscript(script = "_targets.R")
+tar_unscript()
 knitr::opts_chunk$set(tar_script = "_targets.R", collapse = TRUE, comment = "#>")
 ```
 
@@ -62,7 +62,7 @@ list(
     path = here::here("scripts", "processing_scripts", "data_input.qmd"),
  ),
  tar_target(
-    name = compile_data_import,
+    name = compiled_data_import,
     command = run_subpipeline(
          script = here::here("scripts", "processing_scripts", "_data_input.R"), 
          store = "_store/_data_input", 
@@ -74,11 +74,11 @@ list(
     path = here::here("scripts", "analysis_scripts", "data_analyze.qmd"),
  ),
  tar_target(
-    name = compile_data_analyze,
+    name = compiled_data_analyze,
     command = run_subpipeline(
         script = here::here("scripts", "analysis_scripts", "_data_analyze.R"), 
          store = "_store/_data_analyze", 
-         depend_on = script_data_analyze
+         depend_on = list(script_data_analyze, compiled_data_import)
          )
  )
 )

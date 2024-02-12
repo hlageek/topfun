@@ -16,7 +16,7 @@ html:
 Sys.setenv(TAR_PROJECT = "data_process")
 ```
 
-### Initialize `targets` script
+### Initialize `data_process` script
 
 ```{r}
 #| label: setup
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(tar_script = "_data_process.R", collapse = TRUE, comment =
 ```
 
 
-### Define `targets` globals
+### Define `data_process` globals
 
 We first define some global options/functions common to all targets.
 
@@ -40,7 +40,7 @@ lapply(list.files(here::here("R"), full.names = TRUE), source)
 tar_option_set(packages = packages())
 ```
 
-## Targets
+## Targets for `data_process`
 
 First we register raw data files.
 ```{r}
@@ -48,49 +48,64 @@ First we register raw data files.
 #| label: register_data
 list(
   tar_target(
-    name = csf_data_raw,
-    command = targets::tar_read(csf_download_files, store = "_store/_data_get"),
+    name = input_data_files,
+    command = targets::tar_read(input_data_files, store = "_store/_data_input"),
     format = "file",
     cue = tar_cue("always")
-  ),
-  tar_target(
-    name = anr_data_raw,
-    command = targets::tar_read(anr_download_files, store = "_store/_data_get"),
-    format = "file",
-    cue = tar_cue("always")
-  ),
-  tar_target(
-    name = snsf_data_raw,
-    command = targets::tar_read(snsf_download_files, store = "_store/_data_get"),
-    format = "file",
-    cue = tar_cue("always")
-  ),
-  tar_target(
-    name = eu_data_raw,
-    command = targets::tar_read(eu_download_files, store = "_store/_data_get"),
-    format = "file",
-    cue = tar_cue("always")
-  ),
-  tar_target(
-    name = dfg_data_raw,
-    command = targets::tar_read(dfg_projects_tsv, store = "_store/_data_api"),
-    format = "file",
-    cue = tar_cue("always")
-  ),
-  tar_target(
-    name = topfun_data_archive,
-    command = archive_topfun_data(
-      data_files = list(
-        csf_data_raw,
-        anr_data_raw,
-        eu_data_raw,
-        snsf_data_raw,
-        dfg_data_raw
-      ),
-      archive_file = here::here("data", "intermediate_data", paste0("topfun_data_archive-", format(Sys.time(), "%Y%m%d%H%M%S"), ".zip"))
-    ),
-    format = "file"
   )
+)
+```
+
+### ANR
+```{r}
+#| engine: targets
+#| label: anr_data
+list(
+#     tar_target(
+#     name = anr_data_raw_2010,
+#     command = readr::read_delim(input_data_files[grep("anr_2009.csv", input_data_files)],
+#                                  delim = ";",
+#                                  locale = locale("fr",
+#                                                  decimal_mark = "."),
+#                                                  show_col_types = FALSE) |> 
+#                                                  janitor::clean_names()|> 
+#                                                  dplyr::mutate(source = "since2010"),
+#     format = "qs"
+#   ),
+#   tar_target(
+#     name = anr_data_raw_2009,
+#     command = readr::read_delim(anr_download_files[2],
+#                                  delim = ";",
+#                                  locale = locale("fr",
+#                                                  decimal_mark = "."),
+#                                 show_col_types = FALSE) |> 
+#                                                  janitor::clean_names() |> 
+#                                                  dplyr::mutate(source = "before2009"),
+#     format = "qs"
+#   ),
+#   tar_target(
+#     name = anr_data_raw,
+#     command = dplyr::bind_rows(
+#         anr_data_raw_2010,
+#         anr_data_raw_2009
+#     ),
+#     format = "qs"
+#   )
+
+#   ,
+# tar_target(
+#     name = eu_data_raw,
+#     command = purrr::map_df(eu_download_files, read.csv2) |> 
+#               dplyr::as_tibble(),
+#     format = "qs" 
+#   )
+#   ,
+# tar_target(
+#     name = snsf_data_raw,
+#     command = read.csv2(snsf_download_files)|> 
+#               dplyr::as_tibble(),
+#     format = "qs" 
+#   )
 )
 ```
 

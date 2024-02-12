@@ -22,7 +22,7 @@ Sys.setenv(TAR_PROJECT = "data_analyze")
 #| label: setup
 #| include: false
 library(targets)
-tar_unscript(script = "_data_analyze.R")
+tar_unscript()
 knitr::opts_chunk$set(tar_script = "_data_analyze.R", collapse = TRUE, comment = "#>")
 ```
 

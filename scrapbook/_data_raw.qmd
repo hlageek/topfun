@@ -21,7 +21,7 @@ Sys.setenv(TAR_PROJECT = "data_raw")
 #| label: setup
 #| include: false
 library(targets)
-tar_unscript(script = "_data_raw.R")
+tar_unscript()
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
