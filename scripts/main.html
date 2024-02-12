@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../scripts/data_collection_scripts/data_api.html" rel="next">
+<link href="../scripts/data_collection_scripts/data_collect.html" rel="next">
 <link href="../README.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -161,14 +161,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../scripts/data_collection_scripts/data_api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Obtain raw data programatically</span></span></a>
+  <a href="../scripts/data_collection_scripts/data_collect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data collection</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Input data</span></span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../scripts/data_collection_scripts/data_get.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Obtain raw data by downloads</span></span></a>
+  <a href="../scripts/processing_scripts/data_input.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Populate project with input data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -193,14 +197,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../scripts/analysis_scripts/data_import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Import data from pinboard</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../scripts/analysis_scripts/data_analyze.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Analyze data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Analyze data</span></span></a>
   </div>
 </li>
     </ul>
@@ -213,20 +211,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-data" id="toc-sec-data" class="nav-link active" data-scroll-target="#sec-data"><span class="header-section-number">3.1</span> Data</a>
+  <li><a href="#part-1" id="toc-part-1" class="nav-link active" data-scroll-target="#part-1"><span class="header-section-number">3.1</span> Part 1</a>
   <ul class="collapse">
-  <li><a href="#sec-data_raw" id="toc-sec-data_raw" class="nav-link" data-scroll-target="#sec-data_raw"><span class="header-section-number">3.1.1</span> Obtain raw data</a></li>
-  <li><a href="#sec-data_process" id="toc-sec-data_process" class="nav-link" data-scroll-target="#sec-data_process"><span class="header-section-number">3.1.2</span> Process data</a></li>
-  <li><a href="#sec-data_topmodel" id="toc-sec-data_topmodel" class="nav-link" data-scroll-target="#sec-data_topmodel"><span class="header-section-number">3.1.3</span> Build topic model</a></li>
-  <li><a href="#export-pins" id="toc-export-pins" class="nav-link" data-scroll-target="#export-pins"><span class="header-section-number">3.1.4</span> Export pins</a></li>
+  <li><a href="#sec-data_collect" id="toc-sec-data_collect" class="nav-link" data-scroll-target="#sec-data_collect"><span class="header-section-number">3.1.1</span> Data Collection</a></li>
   </ul></li>
-  <li><a href="#sec-analysis" id="toc-sec-analysis" class="nav-link" data-scroll-target="#sec-analysis"><span class="header-section-number">3.2</span> Analysis (default)</a>
+  <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2"><span class="header-section-number">3.2</span> Part 2</a>
   <ul class="collapse">
-  <li><a href="#sec-data_import" id="toc-sec-data_import" class="nav-link" data-scroll-target="#sec-data_import"><span class="header-section-number">3.2.1</span> (Re)Import pins</a></li>
-  <li><a href="#sec-data_analyze" id="toc-sec-data_analyze" class="nav-link" data-scroll-target="#sec-data_analyze"><span class="header-section-number">3.2.2</span> Analyze data</a></li>
-  <li><a href="#report-results" id="toc-report-results" class="nav-link" data-scroll-target="#report-results"><span class="header-section-number">3.2.3</span> Report results</a></li>
-  <li><a href="#publish-docs" id="toc-publish-docs" class="nav-link" data-scroll-target="#publish-docs"><span class="header-section-number">3.2.4</span> Publish docs</a></li>
+  <li><a href="#sec-data_input" id="toc-sec-data_input" class="nav-link" data-scroll-target="#sec-data_input"><span class="header-section-number">3.2.1</span> Input data</a></li>
+  <li><a href="#sec-data_process" id="toc-sec-data_process" class="nav-link" data-scroll-target="#sec-data_process"><span class="header-section-number">3.2.2</span> Data processing</a></li>
+  <li><a href="#sec-analysis" id="toc-sec-analysis" class="nav-link" data-scroll-target="#sec-analysis"><span class="header-section-number">3.2.3</span> Analysis (default)</a></li>
   </ul></li>
+  <li><a href="#report-results" id="toc-report-results" class="nav-link" data-scroll-target="#report-results"><span class="header-section-number">3.3</span> Report results</a></li>
+  <li><a href="#publish-docs" id="toc-publish-docs" class="nav-link" data-scroll-target="#publish-docs"><span class="header-section-number">3.4</span> Publish docs</a></li>
   </ul>
 </nav>
     </div>
@@ -251,72 +247,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>The orchestration file <code>_main.qmd</code> can be used to sequentally compile individual subprojects from a single space.</p>
-<p>The project is composed of multiple subprojects and is divided into two main sections. The first section entails the execution of code to obtain raw data from publicly available sources and conduct initial preprocessing. Conversely, the second section builds upon the preprocessed data, centering on analysis and reporting. The connection between the two sections is facilitated by a <em>pinboard</em> of data, which is exported in <a href="#sec-data"><span>Section&nbsp;3.1</span></a> and reimported in <a href="#sec-analysis"><span>Section&nbsp;3.2</span></a>. Consequently, solely the project administrator is responsible for running the first section, while collaborators can concentrate on the subprojects within section two.</p>
-<p>Several environmental variables need to be defined in <code>.Revinron</code> file. For working exclusively in <a href="#sec-analysis"><span>Section&nbsp;3.2</span></a>, only the <em>url</em> of the <em>pinboard</em> needs to be defined.</p>
-<section id="sec-data" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="sec-data"><span class="header-section-number">3.1</span> Data</h2>
-<p>This section is intended for obtaining data, processing data, and producing topic models. All relevant outputs get exported into their respective pinboards.</p>
+<p>The project is composed of multiple subprojects and is divided into two main sections. The first section entails the execution of code to obtain raw data from publicly available sources and conduct initial preprocessing. Conversely, the second section builds upon the preprocessed data, centering on analysis and reporting. The connection between the two sections is facilitated by an OSF repository with input data. Consequently, solely the project administrator is responsible for running the first section, while collaborators can concentrate on the subprojects within section two.</p>
+<p>Several environmental variables need to be defined in <code>.Revinron</code> file. For working exclusively in <a href="#sec-analysis"><span>Section&nbsp;3.2.3</span></a>, only the <em>url</em> of the <em>pinboard</em> needs to be defined.</p>
+<section id="part-1" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="part-1"><span class="header-section-number">3.1</span> Part 1</h2>
+<section id="sec-data_collect" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="sec-data_collect"><span class="header-section-number">3.1.1</span> Data Collection</h3>
 <p><span style="color: red">Code in this section needs to be run only by the project administrators.</span></p>
-<section id="sec-data_raw" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="sec-data_raw"><span class="header-section-number">3.1.1</span> Obtain raw data</h3>
 <p>Here we obtain data from various sources. Because the sources - APIs, websites, url addresses of files - are external to the project and not persistent, it is unlikely that the code will be reproducible in the longterm. Hence, the main purpose of this section is to document the process of how certain datasets were originally obtained, but it is not expected that researchers will run this code repeatedly.</p>
-<section id="sec-data_get_api" class="level4" data-number="3.1.1.1">
-<h4 data-number="3.1.1.1" class="anchored" data-anchor-id="sec-data_get_api"><span class="header-section-number">3.1.1.1</span> Obtain raw data programatically</h4>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the paths to the pipeline generator and the generated pipeline</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>scripts_data_get_api <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>scripts_data_collect <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"scripts"</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data_collection_scripts"</span>,</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data_api.qmd"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"_data_api.R"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data_collect.qmd"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"_data_collect.R"</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the pipeline using the Quarto file</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(scripts_data_get_api[<span class="dv">1</span>], <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(scripts_data_collect[<span class="dv">1</span>], <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the generated pipeline</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>(<span class="at">script =</span> scripts_data_get_api[<span class="dv">2</span>], <span class="at">store =</span> <span class="st">"_store/_data_api"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>(<span class="at">script =</span> scripts_data_collect[<span class="dv">2</span>], <span class="at">store =</span> <span class="st">"_store/_data_collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>This sub-section contains functions tailored to specific APIs and websites to be scraped. These might be challenging to run and the execution can take hours or days. As a safeguard against accidental trigger, an evironmental variable has to be explicitly set to execute the code.</p>
+<p>The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in <a href="#sec-data_process"><span>Section&nbsp;3.2.2</span></a>.</p>
 <ul>
 <li><strong>Subproject name</strong>:
 <ul>
-<li><code>data_api</code></li>
-</ul></li>
-<li><strong>Requirements</strong>:
-<ul>
-<li>Set <code>API_RUN=TRUE</code> in <code>.Renviron</code> to call APIs.</li>
-</ul></li>
-</ul>
-</section>
-<section id="sec-data_get" class="level4" data-number="3.1.1.2">
-<h4 data-number="3.1.1.2" class="anchored" data-anchor-id="sec-data_get"><span class="header-section-number">3.1.1.2</span> Obtain raw data by download</h4>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the paths to the pipeline generator and the generated pipeline</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>scripts_data_get_downloads <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"scripts"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data_collection_scripts"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data_get.qmd"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"_data_get.R"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the pipeline using the Quarto file</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(scripts_data_get_downloads[<span class="dv">1</span>], <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the generated pipeline</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>(<span class="at">script =</span> scripts_data_get_downloads[<span class="dv">2</span>], <span class="at">store =</span> <span class="st">"_store/_data_get"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in <a href="#sec-data_process"><span>Section&nbsp;3.1.2</span></a>.</p>
-<ul>
-<li><strong>Subproject name</strong>:
-<ul>
-<li><code>data_get</code></li>
+<li><code>data_collect</code></li>
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
@@ -332,12 +293,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Set <code>URL_EU_2020=URL</code> in <code>.Renviron</code>.</li>
 <li>Set <code>URL_EU_FP7=URL</code> in <code>.Renviron</code>.</li>
 <li>Set <code>URL_SNSF=URL</code> in <code>.Renviron</code>.</li>
+<li>Set <code>API_RUN=TRUE</code> in <code>.Renviron</code> to call APIs.</li>
 </ul></li>
 </ul>
 </section>
 </section>
-<section id="sec-data_process" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="sec-data_process"><span class="header-section-number">3.1.2</span> Process data</h3>
+<section id="part-2" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="part-2"><span class="header-section-number">3.2</span> Part 2</h2>
+<section id="sec-data_input" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-data_input"><span class="header-section-number">3.2.1</span> Input data</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the paths to the pipeline generator and the generated pipeline</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>scripts_data_input <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"scripts"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"processing_scripts"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data_input.qmd"</span>, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"_data_input.R"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the pipeline using the Quarto file</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(scripts_data_input[<span class="dv">1</span>], <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the generated pipeline</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>(<span class="at">script =</span> scripts_data_input[<span class="dv">2</span>], <span class="at">store =</span> <span class="st">"_store/_data_input"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li><strong>Subproject name</strong>:
+<ul>
+<li><code>data_process</code></li>
+</ul></li>
+<li><strong>Requirements</strong>:
+<ul>
+<li><a href="#sec-data_collect"><span>Section&nbsp;3.1.1</span></a> must be completed and data must be available via <a href="https://osf.io/">Open Science Framwork</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="sec-data_process" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-data_process"><span class="header-section-number">3.2.2</span> Data processing</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -359,45 +354,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_get"><span>Section&nbsp;3.1.1.2</span></a> must be completed.</li>
-<li><a href="#sec-data_get_api"><span>Section&nbsp;3.1.1.1</span></a> must be completed.</li>
+<li><a href="#sec-data_input"><span>Section&nbsp;3.2.1</span></a> must be completed.</li>
 </ul></li>
 </ul>
 <p>This code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.</p>
 </section>
-<section id="sec-data_topmodel" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="sec-data_topmodel"><span class="header-section-number">3.1.3</span> Build topic model</h3>
-<ul>
-<li><strong>Subproject name</strong>:
-<ul>
-<li><code>data_topmodel</code></li>
-</ul></li>
-<li><strong>Requirements</strong>:
-<ul>
-<li><a href="#sec-data_process"><span>Section&nbsp;3.1.2</span></a> must be completed.</li>
-</ul></li>
-</ul>
-</section>
-<section id="export-pins" class="level3" data-number="3.1.4">
-<h3 data-number="3.1.4" class="anchored" data-anchor-id="export-pins"><span class="header-section-number">3.1.4</span> Export pins</h3>
-<ul>
-<li><strong>Subproject name</strong>:
-<ul>
-<li><code>data_export</code></li>
-</ul></li>
-<li><strong>Requirements</strong>:
-<ul>
-<li><a href="#sec-data_get"><span>Section&nbsp;3.1.1.2</span></a> must be completed.</li>
-<li><a href="#sec-data_process"><span>Section&nbsp;3.1.2</span></a> must be completed.</li>
-<li><a href="#sec-data_topmodel"><span>Section&nbsp;3.1.3</span></a> must be completed.</li>
-<li>Set <code>PINS_BOARD=PATH_TO_PINBOARD</code> in <code>.Renviron</code>.</li>
-</ul></li>
-</ul>
-<p>This code needs to be run only if data sources change and need to be updated. In principle, this is not required except when initializing the project.</p>
-</section>
-</section>
-<section id="sec-analysis" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="sec-analysis"><span class="header-section-number">3.2</span> Analysis (default)</h2>
+<section id="sec-analysis" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="sec-analysis"><span class="header-section-number">3.2.3</span> Analysis (default)</h3>
 <p>Code in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.</p>
 <p>This is the default pipeline. It serves for analysis of the raw data previously exported onto a pinboard.</p>
 <div class="cell">
@@ -417,40 +380,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li>See requirements for <a href="#sec-data_import"><span>Section&nbsp;3.2.1</span></a> and <a href="#sec-data_analyze"><span>Section&nbsp;3.2.2</span></a>.</li>
+<li>See requirements for <a href="#sec-data_analyze"><span>Section&nbsp;3.2.3.1</span></a>.</li>
 </ul></li>
 </ul>
-<section id="sec-data_import" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-data_import"><span class="header-section-number">3.2.1</span> (Re)Import pins</h3>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the paths to the pipeline generator and the generated pipeline</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>scripts_data_import <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"scripts"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"analysis_scripts"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"data_import.qmd"</span>, <span class="st">"_data_import_.R"</span>))</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the pipeline using the Quarto file</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(<span class="st">"data_import.qmd"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the generated pipeline</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>(<span class="at">script =</span> <span class="st">"_data_import.R"</span>, <span class="at">store =</span> <span class="st">"_store/_data_import"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>Here we reimport data processed and produced in <a href="#sec-data"><span>Section&nbsp;3.1</span></a></p>
-<ul>
-<li><strong>Subproject name</strong>:
-<ul>
-<li><code>data_import</code></li>
-</ul></li>
-<li><strong>Requirements</strong>:
-<ul>
-<li>Set <code>MANIFEST_URL=URL/_pins.yaml</code> in <code>.Renviron</code>.</li>
-<li>internet connection.</li>
-</ul></li>
-</ul>
-</section>
-<section id="sec-data_analyze" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-data_analyze"><span class="header-section-number">3.2.2</span> Analyze data</h3>
+<section id="sec-data_analyze" class="level4" data-number="3.2.3.1">
+<h4 data-number="3.2.3.1" class="anchored" data-anchor-id="sec-data_analyze"><span class="header-section-number">3.2.3.1</span> Analyze data</h4>
 <ul>
 <li><strong>Subproject name</strong>:
 <ul>
@@ -458,42 +392,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_import"><span>Section&nbsp;3.2.1</span></a> must be completed</li>
+<li><a href="#sec-data_process"><span>Section&nbsp;3.2.2</span></a> must be completed</li>
 </ul></li>
 </ul>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the paths to the pipeline generator and the generated pipeline</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>scripts_data_import <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"scripts"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"analysis_scripts"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"data_analyze.qmd"</span>, <span class="st">"_data_analyze.R"</span>))</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the pipeline using the Quarto file</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(<span class="st">"data_analyze.qmd"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the generated pipeline</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>(<span class="at">script =</span> <span class="st">"_data_analyze.R"</span>, <span class="at">store =</span> <span class="st">"_store/_data_analyze"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the paths to the pipeline generator and the generated pipeline</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>scripts_data_analyze <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"scripts"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"analysis_scripts"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data_analyze.qmd"</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"_data_analyze.R"</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the pipeline using the Quarto file</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(scripts_data_analyze[<span class="dv">1</span>], <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the generated pipeline</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>(<span class="at">script =</span> scripts_data_analyze[<span class="dv">2</span>],</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="at">store =</span> <span class="st">"_store/_data_analyze"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
-<section id="report-results" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="report-results"><span class="header-section-number">3.2.3</span> Report results</h3>
 </section>
-<section id="publish-docs" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="publish-docs"><span class="header-section-number">3.2.4</span> Publish docs</h3>
+</section>
+<section id="report-results" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="report-results"><span class="header-section-number">3.3</span> Report results</h2>
+</section>
+<section id="publish-docs" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="publish-docs"><span class="header-section-number">3.4</span> Publish docs</h2>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#From: https://gist.github.com/cobyism/4730490</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(<span class="at">as_job =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"touch _book/.nojekyll"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git add . &amp;&amp; git commit -m 'Update gh-pages'"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git subtree push --prefix _book origin gh-pages"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#From: https://gist.github.com/cobyism/4730490</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(<span class="at">as_job =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"touch _book/.nojekyll"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git add . &amp;&amp; git commit -m 'Update gh-pages'"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git subtree push --prefix _book origin gh-pages"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -737,8 +677,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../scripts/data_collection_scripts/data_api.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Obtain raw data programatically</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../scripts/data_collection_scripts/data_collect.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data collection</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
