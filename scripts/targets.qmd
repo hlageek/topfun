@@ -59,13 +59,13 @@ run_subpipeline <- function(script, store, depend_on){
 list(
  tarchetypes::tar_render(
     name = script_data_import,
-    path = here::here("scripts", "analysis_scripts", "data_import.qmd"),
+    path = here::here("scripts", "processing_scripts", "data_input.qmd"),
  ),
  tar_target(
     name = compile_data_import,
     command = run_subpipeline(
-         script = here::here("scripts", "analysis_scripts", "_data_import.R"), 
-         store = "_store/_data_import", 
+         script = here::here("scripts", "processing_scripts", "_data_input.R"), 
+         store = "_store/_data_input", 
          depend_on = script_data_import
          )
  ),
