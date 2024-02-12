@@ -11,78 +11,44 @@ The orchestration file `_main.qmd` can be used to sequentally compile individual
 The project is composed of multiple subprojects and is divided into two main sections.
 The first section entails the execution of code to obtain raw data from publicly available sources and conduct initial preprocessing.
 Conversely, the second section builds upon the preprocessed data, centering on analysis and reporting.
-The connection between the two sections is facilitated by a _pinboard_ of data, which is exported in @sec-data and reimported in @sec-analysis.
+The connection between the two sections is facilitated by an OSF repository with input data.
 Consequently, solely the project administrator is responsible for running the first section, while collaborators can concentrate on the subprojects within section two.
 
 
 Several environmental variables need to be defined in `.Revinron` file.
 For working exclusively in @sec-analysis, only the _url_ of the _pinboard_ needs to be defined.
 
+## Part 1
 
-## Data {#sec-data}
-
-This section is intended for obtaining data, processing data, and producing topic models.
-All relevant outputs get exported into their respective pinboards.
+### Data Collection {#sec-data_collect}
 
 [Code in this section needs to be run only by the project administrators.]{style="color: red"}
 
-### Obtain raw data {#sec-data_raw}
-
 Here we obtain data from various sources. Because the sources - APIs, websites, url addresses of files - are external to the project and not persistent, it is unlikely that the code will be reproducible in the longterm. Hence, the main purpose of this section is to document the process of how certain datasets were originally obtained, but it is not expected that researchers will run this code repeatedly.
 
-#### Obtain raw data programatically {#sec-data_get_api}
 
 ```{r}
-#| label: data_get_api
+#| label: data_collect
 #| eval: false
 # Define the paths to the pipeline generator and the generated pipeline
-scripts_data_get_api <- here::here(
+scripts_data_collect <- here::here(
   "scripts",
   "data_collection_scripts",
   c(
-    "data_api.qmd",
-    "_data_api.R"
+    "data_collect.qmd",
+    "_data_collect.R"
   )
 )
 # Generate the pipeline using the Quarto file
-quarto::quarto_render(scripts_data_get_api[1], quiet = TRUE)
+quarto::quarto_render(scripts_data_collect[1], quiet = TRUE)
 # Run the generated pipeline
-targets::tar_make(script = scripts_data_get_api[2], store = "_store/_data_api")
-```
-
-This sub-section contains functions tailored to specific APIs and websites to be scraped. These might be challenging to run and the execution can take hours or days. As a safeguard against accidental trigger, an evironmental variable has to be explicitly set to execute the code.
-
-- __Subproject name__:
-  - `data_api` 
-- __Requirements__: 
-  - Set `API_RUN=TRUE` in `.Renviron` to call APIs.
-
-
-
-#### Obtain raw data by download {#sec-data_get}
-
-```{r}
-#| label: data_get_downloads 
-#| eval: false
-# Define the paths to the pipeline generator and the generated pipeline
-scripts_data_get_downloads <- here::here(
-  "scripts",
-  "data_collection_scripts",
-  c(
-    "data_get.qmd",
-    "_data_get.R"
-  )
-)
-# Generate the pipeline using the Quarto file
-quarto::quarto_render(scripts_data_get_downloads[1], quiet = TRUE)
-# Run the generated pipeline
-targets::tar_make(script = scripts_data_get_downloads[2], store = "_store/_data_get")
+targets::tar_make(script = scripts_data_collect[2], store = "_store/_data_collect")
 ```
 
 The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in @sec-data_process.
 
 - __Subproject name__:
-  - `data_get` 
+  - `data_collect` 
 - __Requirements__: 
   - Set `URL_CSF=URL` in `.Renviron`.
   - Set `URL_ANR_2010=URL` in `.Renviron`.
@@ -96,10 +62,38 @@ The code in this subsection obtains those datasets that need not be collected vi
   - Set `URL_EU_2020=URL` in `.Renviron`.
   - Set `URL_EU_FP7=URL` in `.Renviron`.
   - Set `URL_SNSF=URL` in `.Renviron`.
+  - Set `API_RUN=TRUE` in `.Renviron` to call APIs.
 
 
+## Part 2
 
-### Process data {#sec-data_process}
+### Input data {#sec-data_input}
+
+
+```{r}
+#| label: data_input
+#| eval: false
+# Define the paths to the pipeline generator and the generated pipeline
+scripts_data_input <- here::here(
+  "scripts",
+  "processing_scripts",
+  c(
+    "data_input.qmd", 
+    "_data_input.R"
+  )
+)
+# Generate the pipeline using the Quarto file
+quarto::quarto_render(scripts_data_input[1], quiet = TRUE)
+# Run the generated pipeline
+targets::tar_make(script = scripts_data_input[2], store = "_store/_data_input")
+```
+
+- __Subproject name__:
+  - `data_process` 
+- __Requirements__: 
+  - @sec-data_collect must be completed and data must be available via [Open Science Framwork](https://osf.io/)
+
+### Data processing {#sec-data_process}
 
 ```{r}
 #| label: data_process
@@ -118,35 +112,14 @@ targets::tar_make(script = scripts_data_process[2], store = "_store/_data_proces
 - __Subproject name__:
   - `data_process` 
 - __Requirements__: 
-  - @sec-data_get must be completed.
-  - @sec-data_get_api must be completed.
+  - @sec-data_input must be completed.
   
 This code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.
 
 
 
-### Build topic model {#sec-data_topmodel}
 
-- __Subproject name__:
-  - `data_topmodel` 
-- __Requirements__: 
-  - @sec-data_process must be completed.
-
-
-### Export pins
-
-- __Subproject name__:
-  - `data_export` 
-- __Requirements__: 
-  -  @sec-data_get must be completed.
-  -  @sec-data_process must be completed.
-  -  @sec-data_topmodel must be completed.
-  - Set `PINS_BOARD=PATH_TO_PINBOARD` in `.Renviron`.
-
-This code needs to be run only if data sources change and need to be updated. In principle, this is not required except when initializing the project. 
-
-
-## Analysis (default) {#sec-analysis}
+### Analysis (default) {#sec-analysis}
 
 Code in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.
 
@@ -166,61 +139,41 @@ targets::tar_make()
 - __Subproject name__:
   - `main` 
 - __Requirements__:
-  - See requirements for @sec-data_import and @sec-data_analyze.
+  - See requirements for @sec-data_analyze.
 
 
 
-### (Re)Import pins {#sec-data_import}
 
-```{r}
-#| label: data_import
-#| eval: false
-# Define the paths to the pipeline generator and the generated pipeline
-scripts_data_import <- here::here(
-  "scripts",
-  "analysis_scripts",
-  c("data_import.qmd", "_data_import_.R"))
-# Generate the pipeline using the Quarto file
-quarto::quarto_render("data_import.qmd", quiet = TRUE)
-# Run the generated pipeline
-targets::tar_make(script = "_data_import.R", store = "_store/_data_import")
-```
-
-Here we reimport data processed and produced in @sec-data
-
-- __Subproject name__:
-  - `data_import` 
-- __Requirements__:
-  -  Set `MANIFEST_URL=URL/_pins.yaml` in `.Renviron`. 
-  - internet connection.
-
-
-
-### Analyze data {#sec-data_analyze}
+#### Analyze data {#sec-data_analyze}
 
 - __Subproject name__:
   - `data_analyze` 
 - __Requirements__: 
-  -  @sec-data_import must be completed
+  -  @sec-data_process must be completed
 
 ```{r}
 #| label: data_analyze
 #| eval: false
 # Define the paths to the pipeline generator and the generated pipeline
-scripts_data_import <- here::here(
+scripts_data_analyze <- here::here(
   "scripts",
   "analysis_scripts",
-  c("data_analyze.qmd", "_data_analyze.R"))
+  c(
+    "data_analyze.qmd", 
+    "_data_analyze.R"
+  )
+)
 # Generate the pipeline using the Quarto file
-quarto::quarto_render("data_analyze.qmd", quiet = TRUE)
+quarto::quarto_render(scripts_data_analyze[1], quiet = TRUE)
 # Run the generated pipeline
-targets::tar_make(script = "_data_analyze.R", store = "_store/_data_analyze")
+targets::tar_make(script = scripts_data_analyze[2],
+store = "_store/_data_analyze")
 ```
 
 
-### Report results
+## Report results
 
-### Publish docs
+## Publish docs
 
 
 ```{r}

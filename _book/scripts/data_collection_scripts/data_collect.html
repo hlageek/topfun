@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TOPFUN Project Documentation - Obtain raw data by downloads</title>
+<title>TOPFUN Project Documentation - 4&nbsp; Data collection</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../scripts/processing_scripts/data_process.html" rel="next">
-<link href="../../scripts/data_collection_scripts/data_api.html" rel="prev">
+<link href="../../scripts/processing_scripts/data_input.html" rel="next">
+<link href="../../scripts/main.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/data_collection_scripts/data_get.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Obtain raw data by downloads</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/data_collection_scripts/data_collect.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data collection</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -161,14 +161,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../scripts/data_collection_scripts/data_api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Obtain raw data programatically</span></span></a>
+  <a href="../../scripts/data_collection_scripts/data_collect.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data collection</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Input data</span></span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../scripts/data_collection_scripts/data_get.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Obtain raw data by downloads</span></span></a>
+  <a href="../../scripts/processing_scripts/data_input.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Populate project with input data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -193,14 +197,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../scripts/analysis_scripts/data_import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Import data from pinboard</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../scripts/analysis_scripts/data_analyze.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Analyze data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Analyze data</span></span></a>
   </div>
 </li>
     </ul>
@@ -213,20 +211,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">4.1</span> Setup</a>
   <ul class="collapse">
-  <li><a href="#targets-environment-for-subproject" id="toc-targets-environment-for-subproject" class="nav-link" data-scroll-target="#targets-environment-for-subproject">Targets environment for subproject</a></li>
-  <li><a href="#targets-script-setup" id="toc-targets-script-setup" class="nav-link" data-scroll-target="#targets-script-setup">Targets script setup</a></li>
-  <li><a href="#targets-globals" id="toc-targets-globals" class="nav-link" data-scroll-target="#targets-globals">Targets globals</a></li>
+  <li><a href="#targets-environment-for-subproject" id="toc-targets-environment-for-subproject" class="nav-link" data-scroll-target="#targets-environment-for-subproject"><span class="header-section-number">4.1.1</span> Targets environment for subproject</a></li>
+  <li><a href="#targets-script-setup" id="toc-targets-script-setup" class="nav-link" data-scroll-target="#targets-script-setup"><span class="header-section-number">4.1.2</span> Targets script setup</a></li>
+  <li><a href="#targets-globals" id="toc-targets-globals" class="nav-link" data-scroll-target="#targets-globals"><span class="header-section-number">4.1.3</span> Targets globals</a></li>
   </ul></li>
-  <li><a href="#targets" id="toc-targets" class="nav-link" data-scroll-target="#targets">Targets</a>
+  <li><a href="#targets" id="toc-targets" class="nav-link" data-scroll-target="#targets"><span class="header-section-number">4.2</span> Targets</a>
   <ul class="collapse">
-  <li><a href="#czech-science-foundation" id="toc-czech-science-foundation" class="nav-link" data-scroll-target="#czech-science-foundation">Czech Science Foundation</a></li>
-  <li><a href="#agence-nationale-de-la-recherche" id="toc-agence-nationale-de-la-recherche" class="nav-link" data-scroll-target="#agence-nationale-de-la-recherche">Agence nationale de la recherche</a></li>
-  <li><a href="#cordis" id="toc-cordis" class="nav-link" data-scroll-target="#cordis">CORDIS</a></li>
-  <li><a href="#swiss-national-science-foundation" id="toc-swiss-national-science-foundation" class="nav-link" data-scroll-target="#swiss-national-science-foundation">Swiss National Science Foundation</a></li>
+  <li><a href="#czech-science-foundation" id="toc-czech-science-foundation" class="nav-link" data-scroll-target="#czech-science-foundation"><span class="header-section-number">4.2.1</span> Czech Science Foundation</a></li>
+  <li><a href="#agence-nationale-de-la-recherche" id="toc-agence-nationale-de-la-recherche" class="nav-link" data-scroll-target="#agence-nationale-de-la-recherche"><span class="header-section-number">4.2.2</span> Agence nationale de la recherche</a></li>
+  <li><a href="#cordis" id="toc-cordis" class="nav-link" data-scroll-target="#cordis"><span class="header-section-number">4.2.3</span> CORDIS</a></li>
+  <li><a href="#swiss-national-science-foundation" id="toc-swiss-national-science-foundation" class="nav-link" data-scroll-target="#swiss-national-science-foundation"><span class="header-section-number">4.2.4</span> Swiss National Science Foundation</a></li>
+  <li><a href="#dfg---gepris" id="toc-dfg---gepris" class="nav-link" data-scroll-target="#dfg---gepris"><span class="header-section-number">4.2.5</span> DFG - Gepris</a></li>
   </ul></li>
-  <li><a href="#reset-project" id="toc-reset-project" class="nav-link" data-scroll-target="#reset-project">Reset project</a></li>
+  <li><a href="#reset-project" id="toc-reset-project" class="nav-link" data-scroll-target="#reset-project"><span class="header-section-number">4.3</span> Reset project</a></li>
   </ul>
 </nav>
     </div>
@@ -235,8 +234,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Obtain raw data by downloads</h1>
-<p class="subtitle lead"><code>data_get</code> subproject.</p>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data collection</span></h1>
+<p class="subtitle lead"><code>data_collect</code> subproject.</p>
 </div>
 
 
@@ -251,25 +250,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>This subproject simply downloads data from URL sources defined in <code>.Renviron</code> file. Although the URLs may rot, the principle of downloading differs from obtaining data programatically in <a href="../../scripts/data_collection_scripts/data_api.html">Chapter 3</a>. As long as updated URLs can be reconfigured in <code>.Renviron</code>, this code should reproduce. However, if the format or structure of the downloaded files changes, this can lead to problems in <a href="../../scripts/processing_scripts/data_process.html">Chapter 5</a>.</p>
-<section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<section id="targets-environment-for-subproject" class="level3">
-<h3 class="anchored" data-anchor-id="targets-environment-for-subproject">Targets environment for subproject</h3>
+<p>This subproject simply downloads data from URL sources defined in <code>.Renviron</code> file. Although the URLs may rot, the principle of downloading differs from obtaining data programatically in <a href="data_api.qmd">Chapter 3</a>. As long as updated URLs can be reconfigured in <code>.Renviron</code>, this code should reproduce. However, if the format or structure of the downloaded files changes, this can lead to problems in <a href="../../scripts/processing_scripts/data_process.html">Chapter 5</a>.</p>
+<section id="setup" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">4.1</span> Setup</h2>
+<section id="targets-environment-for-subproject" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="targets-environment-for-subproject"><span class="header-section-number">4.1.1</span> Targets environment for subproject</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"data_get"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"data_collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="targets-script-setup" class="level3">
-<h3 class="anchored" data-anchor-id="targets-script-setup">Targets script setup</h3>
+<section id="targets-script-setup" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="targets-script-setup"><span class="header-section-number">4.1.2</span> Targets script setup</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_unscript</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">tar_script =</span> <span class="st">"_data_get.R"</span>, <span class="at">collapse =</span> <span class="cn">TRUE</span>, <span class="at">comment =</span> <span class="st">"#&gt;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">tar_script =</span> <span class="st">"_data_collect.R"</span>, <span class="at">collapse =</span> <span class="cn">TRUE</span>, <span class="at">comment =</span> <span class="st">"#&gt;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="targets-globals" class="level3">
-<h3 class="anchored" data-anchor-id="targets-globals">Targets globals</h3>
+<section id="targets-globals" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="targets-globals"><span class="header-section-number">4.1.3</span> Targets globals</h3>
 <p>We first define some global options/functions common to all targets.</p>
 <div class="cell" data-tar_globals="true">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read custom functions</span></span>
@@ -285,35 +284,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>url_eu_2020 <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"URL_EU_2020"</span>)</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>url_eu_fp7 <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"URL_EU_FP7"</span>)</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>url_snsf <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"URL_SNSF"</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_get.R and _data_get_r/globals/globals.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_collect.R and _data_collect_r/globals/globals.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
-<section id="targets" class="level2">
-<h2 class="anchored" data-anchor-id="targets">Targets</h2>
-<section id="czech-science-foundation" class="level3">
-<h3 class="anchored" data-anchor-id="czech-science-foundation">Czech Science Foundation</h3>
+<section id="targets" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="targets"><span class="header-section-number">4.2</span> Targets</h2>
+<section id="czech-science-foundation" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="czech-science-foundation"><span class="header-section-number">4.2.1</span> Czech Science Foundation</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   tarchetypes<span class="sc">::</span><span class="fu">tar_download</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> csf_download_files,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">urls =</span> url_csf,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">paths =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"input_data"</span>, <span class="st">"csf.tsv"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">paths =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"collected_data"</span>, <span class="st">"csf.tsv"</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_get.R and _data_get_r/targets/csf.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_collect.R and _data_collect_r/targets/csf.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="agence-nationale-de-la-recherche" class="level3">
-<h3 class="anchored" data-anchor-id="agence-nationale-de-la-recherche">Agence nationale de la recherche</h3>
+<section id="agence-nationale-de-la-recherche" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="agence-nationale-de-la-recherche"><span class="header-section-number">4.2.2</span> Agence nationale de la recherche</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  tarchetypes<span class="sc">::</span><span class="fu">tar_download</span>(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> anr_download_files,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">urls =</span> <span class="fu">c</span>(url_anr_2010, url_anr_2009, url_anr_2010_p, url_anr_2009_p),</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">paths =</span> <span class="fu">paste0</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"input_data"</span>), </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        .Platform<span class="sc">$</span>file.sep,  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"collected_data"</span>), </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        .Platform<span class="sc">$</span>file.sep, </span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="st">"anr_2010"</span>, <span class="st">"anr_2009"</span>, <span class="st">"anr_2010_p"</span>, <span class="st">"anr_2009_p"</span>), </span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">".csv"</span>)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
@@ -348,19 +347,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"qs"</span></span>
 <span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_get.R and _data_get_r/targets/anr.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_collect.R and _data_collect_r/targets/anr.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="cordis" class="level3">
-<h3 class="anchored" data-anchor-id="cordis">CORDIS</h3>
+<section id="cordis" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="cordis"><span class="header-section-number">4.2.3</span> CORDIS</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  tarchetypes<span class="sc">::</span><span class="fu">tar_download</span>(</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> eu_download_files_zip,</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">urls =</span> <span class="fu">c</span>(url_eu_europe, url_eu_2020, url_eu_fp7),</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">paths =</span> <span class="fu">paste0</span>(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"input_data"</span>), </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        .Platform<span class="sc">$</span>file.sep,  </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"collected_data"</span>), </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    .Platform<span class="sc">$</span>file.sep, </span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="st">"eu_europe"</span>, <span class="st">"eu_horizon"</span>, <span class="st">"eu_fp7"</span>), </span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">".zip"</span>),</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"curl"</span>,</span>
@@ -368,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> eu_download_files,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">unzip_eu_files</span>(eu_download_files_zip, <span class="at">data_path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"input_data"</span>)),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">unzip_eu_files</span>(eu_download_files_zip, <span class="at">data_path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"collected_data"</span>)),</span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span> </span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  ),</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_target</span>(</span>
@@ -378,19 +377,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"qs"</span> </span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_get.R and _data_get_r/targets/cordis.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_collect.R and _data_collect_r/targets/cordis.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="swiss-national-science-foundation" class="level3">
-<h3 class="anchored" data-anchor-id="swiss-national-science-foundation">Swiss National Science Foundation</h3>
+<section id="swiss-national-science-foundation" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="swiss-national-science-foundation"><span class="header-section-number">4.2.4</span> Swiss National Science Foundation</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  tarchetypes<span class="sc">::</span><span class="fu">tar_download</span>(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> snsf_download_files,</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">urls =</span> <span class="fu">c</span>(url_snsf),</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">paths =</span> <span class="fu">paste0</span>(</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"input_data"</span>), </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        .Platform<span class="sc">$</span>file.sep,  </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"collected_data"</span>), </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        .Platform<span class="sc">$</span>file.sep, </span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="st">"snsf"</span>), </span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">".csv"</span>),</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"curl"</span>,</span>
@@ -403,14 +402,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"qs"</span> </span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_get.R and _data_get_r/targets/snsf.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_collect.R and _data_collect_r/targets/snsf.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dfg---gepris" class="level3" data-number="4.2.5">
+<h3 data-number="4.2.5" class="anchored" data-anchor-id="dfg---gepris"><span class="header-section-number">4.2.5</span> DFG - Gepris</h3>
+<p>Gepris information page (<code>https://gepris.dfg.de/gepris/OCTOPUS?task=showMonitor</code>) at scrape time:</p>
+<p>Data Monitor Last update: 26.01.2024</p>
+<p>Most recent date of approval: 26.11.2023 All projects decided upon and approved between 1.1.1999 and the specified award letter date can be found in GEPRIS.</p>
+<p>Entries by Type Count Projects with final reports 40901 Projects 142517 Persons 93668 Institutions 43769 Entries by Research Area Count Humanities and Social Sciences Colour index for Humanities and Social Sciences 26304 Life Sciences Colour index for Life Sciences 49480 Natural Sciences Colour index for Natural Sciences 38446 Engineering Sciences Colour index for Engineering Sciences 26304 Infrastructure 317</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> dfg_catalogue_tsv,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">scrape_dfg_catalogue</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">gepris_url =</span> <span class="st">"https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&amp;bewilligungsStatus=&amp;bundesland=DEU%23&amp;context=projekt&amp;einrichtungsart=-1&amp;fachgebiet=%23&amp;findButton=historyCall&amp;gefoerdertIn=&amp;ggsHunderter=0&amp;hitsPerPage=50&amp;index=1&amp;nurProjekteMitAB=false&amp;oldGgsHunderter=0&amp;oldfachgebiet=%23&amp;pemu=24&amp;peu=%23&amp;task=doKatalog&amp;teilprojekte=true&amp;zk_transferprojekt=false"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"collected_data"</span>, <span class="st">"dfg_catalogue.tsv"</span>), </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">sleep_time =</span> <span class="dv">5</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>)) <span class="co">#as.logical(Sys.getenv("API_RUN"))</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_target</span>(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> dfg_projects_tsv,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">scrape_dfg_projects</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">gepris_catalogue =</span> dfg_catalogue_tsv,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">outfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"collected_data"</span>, <span class="st">"dfg_projects.tsv"</span>), </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">sleep_time =</span> <span class="dv">5</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">run =</span> <span class="fu">as.logical</span>(<span class="fu">Sys.getenv</span>(<span class="st">"API_RUN"</span>)) <span class="co">#</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_collect.R and _data_collect_r/targets/dfg.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
-<section id="reset-project" class="level2">
-<h2 class="anchored" data-anchor-id="reset-project">Reset project</h2>
+<section id="reset-project" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="reset-project"><span class="header-section-number">4.3</span> Reset project</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"main"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"main"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -652,13 +683,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../scripts/data_collection_scripts/data_api.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Obtain raw data programatically</span></span>
+      <a href="../../scripts/main.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Orchestration File</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../scripts/processing_scripts/data_process.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Process raw data</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../scripts/processing_scripts/data_input.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Populate project with input data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

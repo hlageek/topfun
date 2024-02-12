@@ -10,13 +10,13 @@ book:
     - part: "Project orchestration via main file"
     - scripts/main.qmd
     - part: "Data collection"
-    - scripts/data_collection_scripts/data_api.qmd
-    - scripts//data_collection_scripts/data_get.qmd
+    - scripts/data_collection_scripts/data_collect.qmd
+    - part: "Input data"
+    - scripts/processing_scripts/data_input.qmd
     - part: "Data processing"
     - scripts/processing_scripts/data_process.qmd
     - part: "Analysis"
     - scripts/targets.qmd
-    - scripts/analysis_scripts/data_import.qmd
     - scripts/analysis_scripts/data_analyze.qmd
 bibliography: output/references/references.bib
 format:

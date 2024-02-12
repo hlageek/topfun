@@ -1,21 +1,15 @@
 main:
   script: scripts/_targets.R
   store: _store/_targets
-data_get: 
-  script: scripts/data_collection_scripts/_data_get.R
-  store: _store/_data_get
-data_api:
-  script: scripts/data_collection_scripts/_data_api.R
-  store: _store/_data_api
+data_collect: 
+  script: scripts/data_collection_scripts/_data_collect.R
+  store: _store/_data_collect
+data_input:
+  script: scripts/data_collection_scripts/_data_input.R
+  store: _store/_data_input
 data_process:
   script: scripts/processing_scripts/_data_process.R
   store: _store/_data_process
-data_topmodel:
-  script: scripts/processing_scripts/_data_topmodel.R
-  store: _store/_data_topmodel
-data_import:
-  script: scripts/processing_scripts/_data_import.R
-  store: _store/_data_import
 data_analyze:
   script: scripts/analysis_scripts/_data_analyze.R
   store: _store/_data_analyze 

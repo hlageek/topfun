@@ -50,27 +50,32 @@ list(
   tar_target(
     name = csf_data_raw,
     command = targets::tar_read(csf_download_files, store = "_store/_data_get"),
-    format = "file"
+    format = "file",
+    cue = tar_cue("always")
   ),
   tar_target(
     name = anr_data_raw,
     command = targets::tar_read(anr_download_files, store = "_store/_data_get"),
-    format = "file"
+    format = "file",
+    cue = tar_cue("always")
   ),
   tar_target(
     name = snsf_data_raw,
     command = targets::tar_read(snsf_download_files, store = "_store/_data_get"),
-    format = "file"
+    format = "file",
+    cue = tar_cue("always")
   ),
   tar_target(
     name = eu_data_raw,
     command = targets::tar_read(eu_download_files, store = "_store/_data_get"),
-    format = "file"
+    format = "file",
+    cue = tar_cue("always")
   ),
   tar_target(
     name = dfg_data_raw,
     command = targets::tar_read(dfg_projects_tsv, store = "_store/_data_api"),
-    format = "file"
+    format = "file",
+    cue = tar_cue("always")
   ),
   tar_target(
     name = topfun_data_archive,

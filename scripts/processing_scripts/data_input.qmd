@@ -1,0 +1,61 @@
+---
+title: "Populate project with input data"
+subtitle: "`data_input` subproject."
+html:
+    code-fold: true
+    number-sections: true
+---
+
+This subproject obtains raw data deposited on [Open Science Framework](https://osf.io) and populates the `input_data` folder.
+
+## Setup
+
+### Set environment for subproject
+
+```{r}
+#| label: set_project
+Sys.setenv(TAR_PROJECT = "data_input")
+```
+
+### Initialize `targets` script
+
+```{r}
+#| label: setup
+library(targets)
+tar_unscript()
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", tar_script = "_data_input.R")
+```
+
+
+### Define `targets` globals
+
+We first define some global options/functions common to all targets.
+
+```{r}
+#| engine: targets
+#| label: globals
+#| tar_globals: true
+
+# read custom functions
+lapply(list.files(here::here("R"), full.names = TRUE), source)
+tar_option_set(packages = packages())
+```
+
+## Targets
+
+```{r}
+#| engine: targets
+#| label: label
+list(
+  tar_target(
+    name = test,
+    command = sum(1+1)
+  )
+)
+```
+
+## Reset subproject
+```{r}
+#| label: unset_project
+Sys.setenv(TAR_PROJECT = "main")
+```

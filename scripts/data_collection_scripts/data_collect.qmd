@@ -1,6 +1,6 @@
 ---
-title: "Obtain raw data by downloads"
-subtitle: "`data_get` subproject."
+title: "Data collection"
+subtitle: "`data_collect` subproject."
 html:
     code-fold: true
     number-sections: true
@@ -15,7 +15,7 @@ This subproject simply downloads data from URL sources defined in `.Renviron` fi
 
 ```{r}
 #| label: set_project
-Sys.setenv(TAR_PROJECT = "data_get")
+Sys.setenv(TAR_PROJECT = "data_collect")
 ```
 
 ### Targets script setup
@@ -24,7 +24,7 @@ Sys.setenv(TAR_PROJECT = "data_get")
 #| label: setup
 library(targets)
 tar_unscript()
-knitr::opts_chunk$set(tar_script = "_data_get.R", collapse = TRUE, comment = "#>")
+knitr::opts_chunk$set(tar_script = "_data_collect.R", collapse = TRUE, comment = "#>")
 ```
 
 
@@ -63,7 +63,7 @@ list(
    tarchetypes::tar_download(
     name = csf_download_files,
     urls = url_csf,
-    paths = here::here("data", "input_data", "csf.tsv")
+    paths = here::here("data", "collected_data", "csf.tsv")
   )
 )
 ```
@@ -78,8 +78,8 @@ list(
     name = anr_download_files,
     urls = c(url_anr_2010, url_anr_2009, url_anr_2010_p, url_anr_2009_p),
     paths = paste0(
-        here::here("data", "input_data"), 
-        .Platform$file.sep,  
+        here::here("data", "collected_data"), 
+        .Platform$file.sep, 
         c("anr_2010", "anr_2009", "anr_2010_p", "anr_2009_p"), 
         ".csv")
   ),
@@ -126,8 +126,8 @@ list(
     name = eu_download_files_zip,
     urls = c(url_eu_europe, url_eu_2020, url_eu_fp7),
     paths = paste0(
-        here::here("data", "input_data"), 
-        .Platform$file.sep,  
+        here::here("data", "collected_data"), 
+    .Platform$file.sep, 
         c("eu_europe", "eu_horizon", "eu_fp7"), 
         ".zip"),
     method = "curl",
@@ -135,7 +135,7 @@ list(
   ),
   tar_target(
     name = eu_download_files,
-    command = unzip_eu_files(eu_download_files_zip, data_path = here::here("data", "input_data")),
+    command = unzip_eu_files(eu_download_files_zip, data_path = here::here("data", "collected_data")),
     format = "file" 
   ),
 tar_target(
@@ -157,8 +157,8 @@ list(
     name = snsf_download_files,
     urls = c(url_snsf),
     paths = paste0(
-        here::here("data", "input_data"), 
-        .Platform$file.sep,  
+        here::here("data", "collected_data"), 
+        .Platform$file.sep, 
         c("snsf"), 
         ".csv"),
     method = "curl",
@@ -169,6 +169,58 @@ tar_target(
     command = read.csv2(snsf_download_files)|> 
               dplyr::as_tibble(),
     format = "qs" 
+  )
+)
+```
+
+
+### DFG - Gepris
+
+Gepris information page (`https://gepris.dfg.de/gepris/OCTOPUS?task=showMonitor`) at scrape time:
+
+
+Data Monitor
+Last update: 26.01.2024
+
+Most recent date of approval: 26.11.2023
+All projects decided upon and approved between 1.1.1999 and the specified award letter date can be found in GEPRIS.
+
+Entries by Type	Count
+Projects with final reports	40901
+Projects	142517
+Persons	93668
+Institutions	43769
+Entries by Research Area	Count
+Humanities and Social Sciences Colour index for Humanities and Social Sciences	26304
+Life Sciences Colour index for Life Sciences	49480
+Natural Sciences Colour index for Natural Sciences	38446
+Engineering Sciences Colour index for Engineering Sciences	26304
+Infrastructure	317
+
+
+```{r}
+#| engine: targets
+#| label: dfg
+list(
+  tar_target(
+    name = dfg_catalogue_tsv,
+    command = scrape_dfg_catalogue(
+      gepris_url = "https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&bewilligungsStatus=&bundesland=DEU%23&context=projekt&einrichtungsart=-1&fachgebiet=%23&findButton=historyCall&gefoerdertIn=&ggsHunderter=0&hitsPerPage=50&index=1&nurProjekteMitAB=false&oldGgsHunderter=0&oldfachgebiet=%23&pemu=24&peu=%23&task=doKatalog&teilprojekte=true&zk_transferprojekt=false",
+      outfile = here::here("data", "collected_data", "dfg_catalogue.tsv"), 
+      sleep_time = 5,
+      run = as.logical(Sys.getenv("API_RUN")) #as.logical(Sys.getenv("API_RUN"))
+      ),
+    format = "file"
+  ),
+tar_target(
+    name = dfg_projects_tsv,
+    command = scrape_dfg_projects(
+      gepris_catalogue = dfg_catalogue_tsv,
+      outfile = here::here("data", "collected_data", "dfg_projects.tsv"), 
+      sleep_time = 5,
+      run = as.logical(Sys.getenv("API_RUN")) #
+      ),
+    format = "file"
   )
 )
 ```
