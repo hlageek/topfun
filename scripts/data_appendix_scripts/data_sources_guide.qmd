@@ -1,0 +1,62 @@
+---
+title: "Data sources guide"
+subtitle: "Appendix to `data_input` subproject."
+format: pdf
+---
+
+## Agence nationale de la recherche (ANR)
+
+- Source: https://www.data.gouv.fr/fr/datasets/?organization=5ea7ceda37efc6da5b0b7d37
+- License: [Open Data Commons Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/) 
+
+## Czech Science Foundation (CSF)
+
+- Source: https://www.isvavai.cz/opendata
+- License: Public domain
+
+## CORDIS
+
+### Horizon Europe
+
+- Source: https://doi.org/10.2906/112117098108/20
+- License: Public domain
+
+### Horizon 2020
+
+- Source: https://doi.org/10.2906/112117098108/12
+- License: Public domain
+
+### Framework Programme 7
+
+- Source: https://doi.org/10.2906/112117098108/11
+- License: Public domain
+
+## Deutsche Forschungsgemeinschaft (DFG)
+
+Webscraped data (2024-01-20--2024-02-02).
+
+[Gepris information page](https://gepris.dfg.de/gepris/OCTOPUS?task=showMonitor).
+
+__Snapshot of GEPRIS Data Monitor at scrape time__
+
+Last update: 26.01.2024
+Most recent date of approval: 26.11.2023
+All projects decided upon and approved between 1.1.1999 and the specified award letter date can be found in GEPRIS.
+
+| Entries by Type | Count |
+|-----------------|-------|
+| Projects with final reports |	40901 |
+| Projects | 142517 |
+| Persons | 93668 | 
+| Institutions| 43769 | 
+
+| Entries by Research Area| Count | 
+|-------------------------|-------| 
+|  Humanities and Social Sciences | 26304 | 
+|  Life Sciences | 49480 | 
+| Natural Sciences | 38446 | 
+| Engineering Sciences | 26304 |
+| Infrastructure | 317 | 
+
+- Source: https://gepris.dfg.de/gepris/OCTOPUS
+- Copyright: "Copyright and all other rights for the Internet pages of the German Research Foundation are held by the German Research Foundation. Redistribution, including excerpts, for educational, scientific or private purposes is permitted provided the source is acknowledged, unless otherwise expressly stated at the appropriate place. Any use of the project abstract texts (summaries of the project contents as well as final project reports) is subject to the approval of the DFG. Any use in the commercial sector requires the approval of the German Research Foundation."

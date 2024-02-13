@@ -43,6 +43,8 @@ tar_option_set(packages = packages())
 
 ## Targets
 
+### Data import from OSF
+
 ```{r}
 #| engine: targets
 #| label: input_data
@@ -51,6 +53,19 @@ list(
     name = input_data_files,
     command = osf_download(osf_url = "https://osf.io/p4e9q", osf_folder = "input_data", local_folder = here::here("data", "input_data")),
     format = "file"
+  )
+)
+```
+
+### Guide to data sources
+
+```{r}
+#| engine: targets
+#| label: data_sources_guide
+list(
+  tarchetypes::tar_render(
+    name = data_sources_guide,
+    path = here::here("scripts", "data_appendix_scripts", "data_sources_guide.qmd")
   )
 )
 ```

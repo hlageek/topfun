@@ -61,51 +61,53 @@ list(
 #| engine: targets
 #| label: anr_data
 list(
-#     tar_target(
-#     name = anr_data_raw_2010,
-#     command = readr::read_delim(input_data_files[grep("anr_2009.csv", input_data_files)],
-#                                  delim = ";",
-#                                  locale = locale("fr",
-#                                                  decimal_mark = "."),
-#                                                  show_col_types = FALSE) |> 
-#                                                  janitor::clean_names()|> 
-#                                                  dplyr::mutate(source = "since2010"),
-#     format = "qs"
-#   ),
-#   tar_target(
-#     name = anr_data_raw_2009,
-#     command = readr::read_delim(anr_download_files[2],
-#                                  delim = ";",
-#                                  locale = locale("fr",
-#                                                  decimal_mark = "."),
-#                                 show_col_types = FALSE) |> 
-#                                                  janitor::clean_names() |> 
-#                                                  dplyr::mutate(source = "before2009"),
-#     format = "qs"
-#   ),
-#   tar_target(
-#     name = anr_data_raw,
-#     command = dplyr::bind_rows(
-#         anr_data_raw_2010,
-#         anr_data_raw_2009
-#     ),
-#     format = "qs"
-#   )
+  tar_target(
+    name = anr_data_raw_2010,
+    command = readr::read_delim(
+      input_data_files[grep("anr_2010.csv", input_data_files)],
+      delim = ";",
+      locale = locale("fr", decimal_mark = "."),
+      show_col_types = FALSE
+      ) |>
+      janitor::clean_names() |>
+      dplyr::mutate(source = "since2010"),
+    format = "qs"
+  ),
+  tar_target(
+    name = anr_data_raw_2009,
+    command = readr::read_delim(
+      input_data_files[grep("anr_2009.csv", input_data_files)],
+      delim = ";",
+      locale = locale("fr", decimal_mark = "."),
+      show_col_types = FALSE
+    ) |>
+      janitor::clean_names() |>
+      dplyr::mutate(source = "before2009"),
+    format = "qs"
+  ),
+  tar_target(
+    name = anr_data_raw,
+    command = dplyr::bind_rows(
+      anr_data_raw_2010,
+      anr_data_raw_2009
+    ),
+    format = "qs"
+  )
 
-#   ,
-# tar_target(
-#     name = eu_data_raw,
-#     command = purrr::map_df(eu_download_files, read.csv2) |> 
-#               dplyr::as_tibble(),
-#     format = "qs" 
-#   )
-#   ,
-# tar_target(
-#     name = snsf_data_raw,
-#     command = read.csv2(snsf_download_files)|> 
-#               dplyr::as_tibble(),
-#     format = "qs" 
-#   )
+  #   ,
+  # tar_target(
+  #     name = eu_data_raw,
+  #     command = purrr::map_df(eu_download_files, read.csv2) |>
+  #               dplyr::as_tibble(),
+  #     format = "qs"
+  #   )
+  #   ,
+  # tar_target(
+  #     name = snsf_data_raw,
+  #     command = read.csv2(snsf_download_files)|>
+  #               dplyr::as_tibble(),
+  #     format = "qs"
+  #   )
 )
 ```
 

@@ -6,13 +6,15 @@ book:
   date: today
   chapters:
     - index.qmd
-    - README.md
+    - scripts/targets.qmd
     - scripts/main.qmd
     - scripts/data_collection_scripts/data_collect.qmd
     - scripts/processing_scripts/data_input.qmd
     - scripts/processing_scripts/data_process.qmd
-    - scripts/targets.qmd
     - scripts/analysis_scripts/data_analyze.qmd
+  appendices:
+    - README.md
+    - scripts/data_appendix_scripts/data_sources_guide.qmd
 bibliography: output/references/references.bib
 format:
   html:

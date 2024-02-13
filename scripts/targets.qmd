@@ -1,6 +1,6 @@
 ---
-title: "Targets"
-subtitle: "Deafult project."
+title: "Reproducing analyses"
+subtitle: "Reproducing entire project with `targets` package"
 html:
     code-fold: true
     number-sections: true
