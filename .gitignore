@@ -16,12 +16,14 @@ _targets_*
 _*/*
 *_*/*
 _*
-
 # But not these files...
 !_*.R
 !_*.qmd
 !_*.Rmd
 
+# Ignore some filetypes
+*.pdf
+*.zip
 *.html
 # Don't ignore _book folder and its content
 !_book/
@@ -31,10 +33,13 @@ _*
 # Ignore PDF files in _book directory
 _book/*.pdf
 
+# Ignore data
+/data*
+
+# Ignore targets shell output
 run.Rout
 
+# Ignore quarto helpers
 /.quarto/
-*pdf
-*zip
 
 
