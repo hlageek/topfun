@@ -5,7 +5,7 @@ data_collect:
   script: scripts/data_collection_scripts/_data_collect.R
   store: _store/_data_collect
 data_input:
-  script: scripts/data_collection_scripts/_data_input.R
+  script: scripts/processing_scripts/_data_input.R
   store: _store/_data_input
 data_process:
   script: scripts/processing_scripts/_data_process.R

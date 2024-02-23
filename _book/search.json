@@ -1,0 +1,177 @@
+[
+  {
+    "objectID": "index.html#acknowlegements",
+    "href": "index.html#acknowlegements",
+    "title": "TOPFUN Project Documentation",
+    "section": "0.1 Acknowlegements",
+    "text": "0.1 Acknowlegements\nThe collaboration was initiated thanks to a joint Barrande mobility for ELICO project and CSTSS project."
+  },
+  {
+    "objectID": "scripts/targets.html#setup",
+    "href": "scripts/targets.html#setup",
+    "title": "2  Reproducing analyses",
+    "section": "2.1 Setup",
+    "text": "2.1 Setup\n\n2.1.1 Targets script setup\n\n\n2.1.2 Targets environment for subproject\n\n\n2.1.3 Targets globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n# define function for running sub-pipelines and track their dependencies\nrun_subpipeline &lt;- function(script, store, depend_on){\n        targets::tar_make(\n        script = script,\n        store = store\n        )\n        c(\"Last compiled\" = Sys.time())\n}\n#&gt; Establish _targets.R and _targets_r/globals/globals.R."
+  },
+  {
+    "objectID": "scripts/targets.html#code",
+    "href": "scripts/targets.html#code",
+    "title": "2  Reproducing analyses",
+    "section": "2.2 Code",
+    "text": "2.2 Code\n\nlist(\n tarchetypes::tar_render(\n    name = script_data_import,\n    path = here::here(\"scripts\", \"processing_scripts\", \"data_input.qmd\"),\n ),\n tar_target(\n    name = compiled_data_import,\n    command = run_subpipeline(\n         script = here::here(\"scripts\", \"processing_scripts\", \"_data_input.R\"), \n         store = \"_store/_data_input\", \n         depend_on = script_data_import\n         )\n ),\n tarchetypes::tar_render(\n    name = script_data_analyze,\n    path = here::here(\"scripts\", \"analysis_scripts\", \"data_analyze.qmd\"),\n ),\n tar_target(\n    name = compiled_data_analyze,\n    command = run_subpipeline(\n        script = here::here(\"scripts\", \"analysis_scripts\", \"_data_analyze.R\"), \n         store = \"_store/_data_analyze\", \n         depend_on = list(script_data_analyze, compiled_data_import)\n         )\n )\n)\n#&gt; Establish _targets.R and _targets_r/targets/code.R."
+  },
+  {
+    "objectID": "scripts/main.html#part-1",
+    "href": "scripts/main.html#part-1",
+    "title": "3  Orchestrating scripts",
+    "section": "3.1 Part 1",
+    "text": "3.1 Part 1\n\n3.1.1 Data Collection\nCode in this section needs to be run only by the project administrators.\nHere we obtain data from various sources. Because the sources - APIs, websites, url addresses of files - are external to the project and not persistent, it is unlikely that the code will be reproducible in the longterm. Hence, the main purpose of this section is to document the process of how certain datasets were originally obtained, but it is not expected that researchers will run this code repeatedly.\n\n\nCode\n# Define the paths to the pipeline generator and the generated pipeline\nscripts_data_collect &lt;- here::here(\n  \"scripts\",\n  \"data_collection_scripts\",\n  c(\n    \"data_collect.qmd\",\n    \"_data_collect.R\"\n  )\n)\n# Generate the pipeline using the Quarto file\nquarto::quarto_render(scripts_data_collect[1], quiet = TRUE)\n# Run the generated pipeline\ntargets::tar_make(script = scripts_data_collect[2], store = \"_store/_data_collect\")\n\n\nThe code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in Section 3.2.2.\n\nSubproject name:\n\ndata_collect\n\nRequirements:\n\nSet URL_CSF=URL in .Renviron.\nSet URL_ANR_2010=URL in .Renviron.\nSet URL_ANR_2009=URL in .Renviron.\nSet URL_CSF=URL in .Renviron.\nSet URL_ANR_2010=URL in .Renviron.\nSet URL_ANR_2010_P=URL in .Renviron.\nSet URL_ANR_2009=URL in .Renviron.\nSet URL_ANR_2009_P=URL in .Renviron.\nSet URL_EU_EUROPE=URL in .Renviron.\nSet URL_EU_2020=URL in .Renviron.\nSet URL_EU_FP7=URL in .Renviron.\nSet URL_SNSF=URL in .Renviron.\nSet API_RUN=TRUE in .Renviron to call APIs."
+  },
+  {
+    "objectID": "scripts/main.html#part-2",
+    "href": "scripts/main.html#part-2",
+    "title": "3  Orchestrating scripts",
+    "section": "3.2 Part 2",
+    "text": "3.2 Part 2\n\n3.2.1 Input data\n\n\nCode\n# Generate the pipeline using the Quarto file\nquarto::quarto_render(here::here(\"scripts\", \"processing_scripts\", \"data_input.qmd\"), quiet = TRUE)\n# Run the generated pipeline\ntargets::tar_make(script = here::here(\"scripts\", \"processing_scripts\", \"_data_input.R\"), store = \"_store/_data_input\")\n\n\n\nSubproject name:\n\ndata_process\n\nRequirements:\n\nSection 3.1.1 must be completed and data must be available via Open Science Framwork\n\n\n\n\n3.2.2 Data processing\n\n\nCode\n# Generate the pipeline using the Quarto file\nquarto::quarto_render(here::here(\"scripts\", \"processing_scripts\", \"data_process.qmd\"), quiet = TRUE)\n# Run the generated pipeline\ntargets::tar_make(script = here::here(\"scripts\", \"processing_scripts\", \"_data_process.R\"), store = \"_store/_data_process\")\n\n\n\nSubproject name:\n\ndata_process\n\nRequirements:\n\nSection 3.2.1 must be completed.\n\n\nThis code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.\n\n\n3.2.3 Analysis (default)\nCode in this section should be run by all collaborators, on all machines. It is connected to the previous section only by dependency on the generated pins.\nThis is the default pipeline. It serves for analysis of the raw data previously exported onto a pinboard.\n\n\nCode\n# Generate all pipelines using the Quarto project\n# defined in _quarto.yaml\nquarto::quarto_render(as_job = FALSE)\n# Run the generated analytical pipelines\ntargets::tar_make()\n\n\n\nSubproject name:\n\nmain\n\nRequirements:\n\nSee requirements for Section 3.2.3.1.\n\n\n\n3.2.3.1 Analyze data\n\nSubproject name:\n\ndata_analyze\n\nRequirements:\n\nSection 3.2.2 must be completed\n\n\n\n\nCode\n# Define the paths to the pipeline generator and the generated pipeline\nscripts_data_analyze &lt;- here::here(\n  \"scripts\",\n  \"analysis_scripts\",\n  c(\n    \"data_analyze.qmd\", \n    \"_data_analyze.R\"\n  )\n)\n# Generate the pipeline using the Quarto file\nquarto::quarto_render(scripts_data_analyze[1], quiet = TRUE)\n# Run the generated pipeline\ntargets::tar_make(script = scripts_data_analyze[2],\nstore = \"_store/_data_analyze\")"
+  },
+  {
+    "objectID": "scripts/main.html#report-results",
+    "href": "scripts/main.html#report-results",
+    "title": "3  Orchestrating scripts",
+    "section": "3.3 Report results",
+    "text": "3.3 Report results"
+  },
+  {
+    "objectID": "scripts/main.html#publish-docs",
+    "href": "scripts/main.html#publish-docs",
+    "title": "3  Orchestrating scripts",
+    "section": "3.4 Publish docs",
+    "text": "3.4 Publish docs\n\n\nCode\n#From: https://gist.github.com/cobyism/4730490\nquarto::quarto_render(as_job = FALSE)\nsystem(\"touch _book/.nojekyll\")\nsystem(\"git add . && git commit -m 'Update gh-pages'\")\nsystem(\"git subtree push --prefix _book origin gh-pages\")"
+  },
+  {
+    "objectID": "scripts/data_collection_scripts/data_collect.html#setup",
+    "href": "scripts/data_collection_scripts/data_collect.html#setup",
+    "title": "4  Data collection",
+    "section": "4.1 Setup",
+    "text": "4.1 Setup\n\n4.1.1 Targets environment for subproject\n\nSys.setenv(TAR_PROJECT = \"data_collect\")\n\n\n\n4.1.2 Targets script setup\n\nlibrary(targets)\ntar_unscript()\nknitr::opts_chunk$set(tar_script = \"_data_collect.R\", collapse = TRUE, comment = \"#&gt;\")\n\n\n\n4.1.3 Targets globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n# obtain configuration from .Renviron\nurl_csf &lt;- Sys.getenv(\"URL_CSF\")\nurl_anr_2010 &lt;- Sys.getenv(\"URL_ANR_2010\")\nurl_anr_2010_p &lt;- Sys.getenv(\"URL_ANR_2010_P\")\nurl_anr_2009 &lt;- Sys.getenv(\"URL_ANR_2009\")\nurl_anr_2009_p &lt;- Sys.getenv(\"URL_ANR_2009_P\")\nurl_eu_europe  &lt;- Sys.getenv(\"URL_EU_EUROPE\")\nurl_eu_2020 &lt;- Sys.getenv(\"URL_EU_2020\")\nurl_eu_fp7 &lt;- Sys.getenv(\"URL_EU_FP7\")\nurl_snsf &lt;- Sys.getenv(\"URL_SNSF\")\n#&gt; Establish _data_collect.R and _data_collect_r/globals/globals.R."
+  },
+  {
+    "objectID": "scripts/data_collection_scripts/data_collect.html#targets",
+    "href": "scripts/data_collection_scripts/data_collect.html#targets",
+    "title": "4  Data collection",
+    "section": "4.2 Targets",
+    "text": "4.2 Targets\n\n4.2.1 Czech Science Foundation\n\nlist(\n   tarchetypes::tar_download(\n    name = csf_download_files,\n    urls = url_csf,\n    paths = here::here(\"data\", \"collected_data\", \"csf.csv\")\n  )\n)\n#&gt; Establish _data_collect.R and _data_collect_r/targets/csf.R.\n\n\n\n4.2.2 Agence nationale de la recherche\n\nlist(\n  tarchetypes::tar_download(\n    name = anr_download_files,\n    urls = c(url_anr_2010, url_anr_2009, url_anr_2010_p, url_anr_2009_p),\n    paths = paste0(\n        here::here(\"data\", \"collected_data\"), \n        .Platform$file.sep, \n        c(\"anr_2010\", \"anr_2009\", \"anr_2010_p\", \"anr_2009_p\"), \n        \".csv\")\n  )\n)\n#&gt; Establish _data_collect.R and _data_collect_r/targets/anr.R.\n\n\n\n4.2.3 European Framework Programs - CORDIS\n\nlist(\n  tarchetypes::tar_download(\n    name = eu_download_files_zip,\n    urls = c(url_eu_europe, url_eu_2020, url_eu_fp7),\n    paths = paste0(\n        here::here(\"data\", \"collected_data\"), \n    .Platform$file.sep, \n        c(\"eu_europe\", \"eu_horizon\", \"eu_fp7\"), \n        \".zip\"),\n    method = \"curl\",\n    mode = \"wb\"\n  ),\n  tar_target(\n    name = eu_download_files,\n    command = unzip_eu_files(eu_download_files_zip, data_path = here::here(\"data\", \"collected_data\")),\n    format = \"file\" \n  )\n)\n#&gt; Establish _data_collect.R and _data_collect_r/targets/cordis.R.\n\n\n\n4.2.4 Swiss National Science Foundation\n\nlist(\n  tarchetypes::tar_download(\n    name = snsf_download_files,\n    urls = c(url_snsf),\n    paths = paste0(\n        here::here(\"data\", \"collected_data\"), \n        .Platform$file.sep, \n        c(\"snsf\"), \n        \".csv\"),\n    method = \"curl\",\n    mode = \"w\"\n  )\n)\n#&gt; Establish _data_collect.R and _data_collect_r/targets/snsf.R.\n\n\n\n4.2.5 Deutsche Forschungsgemeinschaft - Gepris\n\nlist(\n  tar_target(\n    name = dfg_catalogue_tsv,\n    command = scrape_dfg_catalogue(\n      gepris_url = \"https://gepris.dfg.de/gepris/OCTOPUS?beginOfFunding=&bewilligungsStatus=&bundesland=DEU%23&context=projekt&einrichtungsart=-1&fachgebiet=%23&findButton=historyCall&gefoerdertIn=&ggsHunderter=0&hitsPerPage=50&index=1&nurProjekteMitAB=false&oldGgsHunderter=0&oldfachgebiet=%23&pemu=24&peu=%23&task=doKatalog&teilprojekte=true&zk_transferprojekt=false\",\n      outfile = here::here(\"data\", \"collected_data\", \"dfg_catalogue.tsv\"), \n      sleep_time = 5,\n      run = as.logical(Sys.getenv(\"API_RUN\")) #as.logical(Sys.getenv(\"API_RUN\"))\n      ),\n    format = \"file\"\n  ),\ntar_target(\n    name = dfg_projects_tsv,\n    command = scrape_dfg_projects(\n      gepris_catalogue = dfg_catalogue_tsv,\n      outfile = here::here(\"data\", \"collected_data\", \"dfg_projects.tsv\"), \n      sleep_time = 5,\n      run = as.logical(Sys.getenv(\"API_RUN\")) #\n      ),\n    format = \"file\"\n  )\n)\n#&gt; Establish _data_collect.R and _data_collect_r/targets/dfg.R."
+  },
+  {
+    "objectID": "scripts/data_collection_scripts/data_collect.html#create-backup",
+    "href": "scripts/data_collection_scripts/data_collect.html#create-backup",
+    "title": "4  Data collection",
+    "section": "4.3 Create backup",
+    "text": "4.3 Create backup\n\n tar_target(\n    name = topfun_data_archive,\n    command = archive_topfun_data(\n      data_files = list(\n        csf_download_files,\n        anr_download_files,\n        eu_download_files,\n        snsf_download_files,\n        dfg_projects_tsv\n      ),\n      archive_file = here::here(\"data\", \"intermediate_data\", paste0(\"topfun_data_archive-\", format(Sys.time(), \"%Y%m%d%H%M%S\"), \".zip\"))\n    ),\n    format = \"file\"\n  )\n#&gt; Establish _data_collect.R and _data_collect_r/targets/archive.R."
+  },
+  {
+    "objectID": "scripts/data_collection_scripts/data_collect.html#reset-project",
+    "href": "scripts/data_collection_scripts/data_collect.html#reset-project",
+    "title": "4  Data collection",
+    "section": "4.4 Reset project",
+    "text": "4.4 Reset project\n\nSys.setenv(TAR_PROJECT = \"main\")"
+  },
+  {
+    "objectID": "scripts/processing_scripts/data_input.html#setup",
+    "href": "scripts/processing_scripts/data_input.html#setup",
+    "title": "5  Populate project with input data",
+    "section": "5.1 Setup",
+    "text": "5.1 Setup\n\n5.1.1 Set environment for subproject\n\nSys.setenv(TAR_PROJECT = \"data_input\")\n\n\n\n5.1.2 Initialize targets script\n\nlibrary(targets)\ntar_unscript()\nknitr::opts_chunk$set(collapse = TRUE, comment = \"#&gt;\", tar_script = \"_data_input.R\")\n\n\n\n5.1.3 Define targets globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n#&gt; Establish _data_input.R and _data_input_r/globals/globals.R."
+  },
+  {
+    "objectID": "scripts/processing_scripts/data_input.html#targets",
+    "href": "scripts/processing_scripts/data_input.html#targets",
+    "title": "5  Populate project with input data",
+    "section": "5.2 Targets",
+    "text": "5.2 Targets\n\n5.2.1 Data import from OSF\n\nlist(\n  tar_target(\n    name = osf_info,\n    command = osf_get_info(osf_url = \"https://osf.io/p4e9q\", osf_folder = \"input_data\"),\n    cue = tar_cue(\"always\"),\n    error = \"continue\"\n  ),\ntar_target(\n    name = osf_download_df,\n    command = osf_get_files(osf_info, local_folder = here::here(\"data\", \"input_data\"))\n  ),\ntar_target(\n    name = input_data_files_unnamed,\n    command = here::here(osf_download_df$local_path),\n    format = \"file\",\n  ),\ntar_target(\n    name = input_data_files,\n    command = stats::setNames(input_data_files_unnamed, osf_download_df$name)\n  )\n)\n#&gt; Establish _data_input.R and _data_input_r/targets/input_data.R.\n\n\n\n5.2.2 Guide to data sources\n\nlist(\n  tarchetypes::tar_render(\n    name = data_sources_guide,\n    path = here::here(\"scripts\", \"data_appendix_scripts\", \"data_sources_guide.qmd\")\n  )\n)\n#&gt; Establish _data_input.R and _data_input_r/targets/data_sources_guide.R."
+  },
+  {
+    "objectID": "scripts/processing_scripts/data_input.html#reset-subproject",
+    "href": "scripts/processing_scripts/data_input.html#reset-subproject",
+    "title": "5  Populate project with input data",
+    "section": "5.3 Reset subproject",
+    "text": "5.3 Reset subproject\n\nSys.setenv(TAR_PROJECT = \"main\")"
+  },
+  {
+    "objectID": "scripts/processing_scripts/data_process.html#setup",
+    "href": "scripts/processing_scripts/data_process.html#setup",
+    "title": "6  Process raw data",
+    "section": "6.1 Setup",
+    "text": "6.1 Setup\n\n6.1.1 Set environment for subproject\n\nSys.setenv(TAR_PROJECT = \"data_process\")\n\n\n\n6.1.2 Initialize data_process script\n\nlibrary(targets)\ntar_unscript()\nknitr::opts_chunk$set(tar_script = \"_data_process.R\", collapse = TRUE, comment = \"#&gt;\")\n\n\n\n6.1.3 Define data_process globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n#&gt; Establish _data_process.R and _data_process_r/globals/globals.R."
+  },
+  {
+    "objectID": "scripts/processing_scripts/data_process.html#targets-for-data_process",
+    "href": "scripts/processing_scripts/data_process.html#targets-for-data_process",
+    "title": "6  Process raw data",
+    "section": "6.2 Targets for data_process",
+    "text": "6.2 Targets for data_process\nFirst we register raw data files.\n\nlist(\n  tar_target(\n    name = input_data_files,\n    command = targets::tar_read(input_data_files, store = \"_store/_data_input\"),\n    format = \"file\",\n    cue = tar_cue(\"always\")\n  )\n)\n#&gt; Establish _data_process.R and _data_process_r/targets/register_data.R.\n\n\n6.2.1 ANR read\n\nlist(\n  tar_target(\n    name = anr_data_raw_2010,\n    command = read_input_anr(input_data_files, \"anr_2010.csv\"),\n    format = \"qs\"\n  ),\n  tar_target(\n    name = anr_data_raw_2009,\n    command = read_input_anr(input_data_files, \"anr_2009.csv\"),\n    format = \"qs\"\n  ),\n  tar_target(\n    name = anr_data_raw_2010_p,\n    command = read_input_anr(input_data_files, \"anr_2010_p.csv\"),\n    format = \"qs\"\n  ),\n  tar_target(\n    name = anr_data_raw_2009_p,\n    command = read_input_anr(input_data_files, \"anr_2010_p.csv\"),\n    format = \"qs\"\n  ),\n  tar_target(\n    name = anr_data_projects,\n    command = dplyr::bind_rows(\n      anr_data_raw_2010,\n      anr_data_raw_2009\n    ),\n    format = \"qs\"\n  ),\n  tar_target(\n    name = anr_data_institutions,\n    command = dplyr::bind_rows(\n      anr_data_raw_2010_p,\n      anr_data_raw_2009_p\n    ),\n    format = \"qs\"\n  )\n)\n#&gt; Establish _data_process.R and _data_process_r/targets/anr_data.R.\n\n\n\n6.2.2 ANR filter\n\n\n6.2.3 EU read\n\nlist(\n  tar_target(\n    name = eu_data,\n    command = read_input_eu(input_data_files, c(\n      \"eu_fp7.csv\",\n      \"eu_horizon.csv\",\n      \"eu_europe.csv\"\n    )),\n    format = \"qs\"\n  )\n)\n#&gt; Establish _data_process.R and _data_process_r/targets/eu_data.R.\n\n\n\n6.2.4 SNSF read\n\nlist(\n  tar_target(\n    name = snsf_data,\n    command = read_input_snsf(input_data_files, \"snsf.csv\"),\n    format = \"qs\"\n  )\n)\n#&gt; Establish _data_process.R and _data_process_r/targets/snsf_data.R."
+  },
+  {
+    "objectID": "scripts/processing_scripts/data_process.html#reset-subproject",
+    "href": "scripts/processing_scripts/data_process.html#reset-subproject",
+    "title": "6  Process raw data",
+    "section": "6.3 Reset subproject",
+    "text": "6.3 Reset subproject\n\nSys.setenv(TAR_PROJECT = \"main\")"
+  },
+  {
+    "objectID": "scripts/analysis_scripts/data_analyze.html#setup",
+    "href": "scripts/analysis_scripts/data_analyze.html#setup",
+    "title": "7  Analyze data",
+    "section": "7.1 Setup",
+    "text": "7.1 Setup\n\n7.1.1 Targets environment for subproject\n\n\n7.1.2 Targets script setup\n\n\n7.1.3 Targets globals\nWe first define some global options/functions common to all targets.\n\n# read custom functions\nlapply(list.files(here::here(\"R\"), full.names = TRUE), source)\ntar_option_set(packages = packages())\n#&gt; Establish _data_analyze.R and _data_analyze_r/globals/globals.R."
+  },
+  {
+    "objectID": "scripts/analysis_scripts/data_analyze.html#code",
+    "href": "scripts/analysis_scripts/data_analyze.html#code",
+    "title": "7  Analyze data",
+    "section": "7.2 Code",
+    "text": "7.2 Code\n\nlist(\n    tar_target(\n        name = test2,\n        command = sum(1+1)\n    ),\n    tar_target(\n        name = test_analyze5,\n        command = sum(1+1)\n    )\n)\n#&gt; Establish _data_analyze.R and _data_analyze_r/targets/data_analyze-code.R."
+  },
+  {
+    "objectID": "README.html#instructions",
+    "href": "README.html#instructions",
+    "title": "Appendix A — README.md",
+    "section": "A.1 Instructions",
+    "text": "A.1 Instructions\nTo reproduce the project, run the following:\n\nin Terminal:\n\ngit clone https://github.com/hlageek/funding-topics.git to clone the repository\n\nin R console:\n\ninstall.packages(\"renv\") to enable renv dependencies management for the project\nrenv::restore()` to restore the package environment of the project\nquarto::quarto_render(as_job = FALSE) to render all quarto-defined pipelines for targets\ntargets::tar_make() to compile analytical pipelines and generate contents of the Outputs folder\n\n\nThe scripts/main.qmd quarto file offers a more finegrained control over the exectution of individual project pipelines.\nEach pipeline has its own quarto file located in the subfolders of scripts folder.\nAutomatically generated files and folders as well as essential helper and configuration files and folders have names beginning with underscore: _. The necessary configuration for the repository is defined in _quarto.yml for quarto and _targets.yaml for targets."
+  },
+  {
+    "objectID": "README.html#structure-of-the-repository",
+    "href": "README.html#structure-of-the-repository",
+    "title": "Appendix A — README.md",
+    "section": "A.2 Structure of the repository",
+    "text": "A.2 Structure of the repository\nThe repository is structured according to TIER Protocol 4.0 specification for conducting and documenting an empirical research project with additional requirements for quarto and targets projects to construct a reproducible project environment.\nroot - _book/ - documentation files, generated by quarto - R/ - R functions - renv/ - record of packages used - data/ - collected_data/ - files obtained through downloads, webscraping, APIs - input_data/ - files retrieved from OSF repository of collected data - metadata/ - files documenting input data - intermediate_data/ - files for modeling - analysis_data/ - files for analysis - scrapbook/ - archived script files - scripts/ - data_collection_scripts/ - pipelines for collecting data - processing_scripts/ - pipelines for processing input data - data_appendix_scripts/ - scripts for data documentation - data_analysis_scripts/ - pipelines for data analysis - main file for pipelines orchestration - default targets pipeline - README.md basic instructions\n- _quarto.yml Quarto project configuration - index.qmd Index file for Quarto project - _targets.yaml Targets projects configuration"
+  },
+  {
+    "objectID": "scripts/data_appendix_scripts/data_sources_guide.html#agence-nationale-de-la-recherche-anr",
+    "href": "scripts/data_appendix_scripts/data_sources_guide.html#agence-nationale-de-la-recherche-anr",
+    "title": "Appendix B — Data sources guide",
+    "section": "B.1 Agence nationale de la recherche (ANR)",
+    "text": "B.1 Agence nationale de la recherche (ANR)\n\nSource: https://www.data.gouv.fr/fr/datasets/?organization=5ea7ceda37efc6da5b0b7d37\nLicense: Open Data Commons Open Database License (ODbL)"
+  },
+  {
+    "objectID": "scripts/data_appendix_scripts/data_sources_guide.html#czech-science-foundation-csf",
+    "href": "scripts/data_appendix_scripts/data_sources_guide.html#czech-science-foundation-csf",
+    "title": "Appendix B — Data sources guide",
+    "section": "B.2 Czech Science Foundation (CSF)",
+    "text": "B.2 Czech Science Foundation (CSF)\n\nSource: https://www.isvavai.cz/opendata\nLicense: Public domain"
+  },
+  {
+    "objectID": "scripts/data_appendix_scripts/data_sources_guide.html#cordis",
+    "href": "scripts/data_appendix_scripts/data_sources_guide.html#cordis",
+    "title": "Appendix B — Data sources guide",
+    "section": "B.3 CORDIS",
+    "text": "B.3 CORDIS\n\nB.3.1 Horizon Europe\n\nSource: https://doi.org/10.2906/112117098108/20\nLicense: Public domain\n\n\n\nB.3.2 Horizon 2020\n\nSource: https://doi.org/10.2906/112117098108/12\nLicense: Public domain\n\n\n\nB.3.3 Framework Programme 7\n\nSource: https://doi.org/10.2906/112117098108/11\nLicense: Public domain"
+  },
+  {
+    "objectID": "scripts/data_appendix_scripts/data_sources_guide.html#deutsche-forschungsgemeinschaft-dfg",
+    "href": "scripts/data_appendix_scripts/data_sources_guide.html#deutsche-forschungsgemeinschaft-dfg",
+    "title": "Appendix B — Data sources guide",
+    "section": "B.4 Deutsche Forschungsgemeinschaft (DFG)",
+    "text": "B.4 Deutsche Forschungsgemeinschaft (DFG)\nWebscraped data (2024-01-20–2024-02-02).\nGepris information page.\nSnapshot of GEPRIS Data Monitor at scrape time\nLast update: 26.01.2024 Most recent date of approval: 26.11.2023 All projects decided upon and approved between 1.1.1999 and the specified award letter date can be found in GEPRIS.\n\n\n\nEntries by Type\nCount\n\n\n\n\nProjects with final reports\n40901\n\n\nProjects\n142517\n\n\nPersons\n93668\n\n\nInstitutions\n43769\n\n\n\n\n\n\nEntries by Research Area\nCount\n\n\n\n\nHumanities and Social Sciences\n26304\n\n\nLife Sciences\n49480\n\n\nNatural Sciences\n38446\n\n\nEngineering Sciences\n26304\n\n\nInfrastructure\n317\n\n\n\n\nSource: https://gepris.dfg.de/gepris/OCTOPUS\nCopyright: “Copyright and all other rights for the Internet pages of the German Research Foundation are held by the German Research Foundation. Redistribution, including excerpts, for educational, scientific or private purposes is permitted provided the source is acknowledged, unless otherwise expressly stated at the appropriate place. Any use of the project abstract texts (summaries of the project contents as well as final project reports) is subject to the approval of the DFG. Any use in the commercial sector requires the approval of the German Research Foundation.”"
+  }
+]

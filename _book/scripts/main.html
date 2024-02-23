@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>The orchestration file <code>_main.qmd</code> can be used to sequentally compile individual subprojects from a single space.</p>
 <p>The project is composed of multiple subprojects and is divided into two main sections. The first section entails the execution of code to obtain raw data from publicly available sources and conduct initial preprocessing. Conversely, the second section builds upon the preprocessed data, centering on analysis and reporting. The connection between the two sections is facilitated by an OSF repository with input data. Consequently, solely the project administrator is responsible for running the first section, while collaborators can concentrate on the subprojects within section two.</p>
-<p>Several environmental variables need to be defined in <code>.Revinron</code> file. For working exclusively in <a href="#sec-analysis"><span class="quarto-unresolved-ref">sec-analysis</span></a>, only the <em>url</em> of the <em>pinboard</em> needs to be defined.</p>
+<p>Several environmental variables need to be defined in <code>.Revinron</code> file. For working exclusively in <a href="#sec-analysis"><span>Section&nbsp;3.2.3</span></a>, only the <em>url</em> of the <em>pinboard</em> needs to be defined.</p>
 <section id="part-1" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="part-1"><span class="header-section-number">3.1</span> Part 1</h2>
 <section id="sec-data_collect" class="level3" data-number="3.1.1">
@@ -270,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>(<span class="at">script =</span> scripts_data_collect[<span class="dv">2</span>], <span class="at">store =</span> <span class="st">"_store/_data_collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in <a href="#sec-data_process"><span class="quarto-unresolved-ref">sec-data_process</span></a>.</p>
+<p>The code in this subsection obtains those datasets that need not be collected via APIs or scraping, because they are distributed as files that can be directly downloaded. Setting url addresses for downloads is therefore necessary. Data are simply downloaded and kept as raw data. Processing is documented separarely in <a href="#sec-data_process"><span>Section&nbsp;3.2.2</span></a>.</p>
 <ul>
 <li><strong>Subproject name</strong>:
 <ul>
@@ -315,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_collect"><span class="quarto-unresolved-ref">sec-data_collect</span></a> must be completed and data must be available via <a href="https://osf.io/">Open Science Framwork</a></li>
+<li><a href="#sec-data_collect"><span>Section&nbsp;3.1.1</span></a> must be completed and data must be available via <a href="https://osf.io/">Open Science Framwork</a></li>
 </ul></li>
 </ul>
 </section>
@@ -337,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_input"><span class="quarto-unresolved-ref">sec-data_input</span></a> must be completed.</li>
+<li><a href="#sec-data_input"><span>Section&nbsp;3.2.1</span></a> must be completed.</li>
 </ul></li>
 </ul>
 <p>This code needs to be run only if data sources change and need to be updated. You should only compile this subproject if you know what you are doing and why you are doing it.</p>
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li>See requirements for <a href="#sec-data_analyze"><span class="quarto-unresolved-ref">sec-data_analyze</span></a>.</li>
+<li>See requirements for <a href="#sec-data_analyze"><span>Section&nbsp;3.2.3.1</span></a>.</li>
 </ul></li>
 </ul>
 <section id="sec-data_analyze" class="level4" data-number="3.2.3.1">
@@ -375,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Requirements</strong>:
 <ul>
-<li><a href="#sec-data_process"><span class="quarto-unresolved-ref">sec-data_process</span></a> must be completed</li>
+<li><a href="#sec-data_process"><span>Section&nbsp;3.2.2</span></a> must be completed</li>
 </ul></li>
 </ul>
 <div class="cell">

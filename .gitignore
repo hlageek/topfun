@@ -33,6 +33,10 @@ _*
 # Ignore PDF files in _book directory
 _book/*.pdf
 
+# Ignore index files except source qmd
+index.*
+!index.qmd
+
 # Ignore data
 /data*
 

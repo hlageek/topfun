@@ -551,3 +551,7 @@ test_upload  <- osfr::osf_upload(osf_intermediate_data, path = here::here("data"
 osfr::osf_download(test_upload, "~/Downloads")
 
 osfr::osf_upload(osf_intermediate_data, path = here::here("data", "intermediate_data", "topfun_data_archive-20240206161536.zip"), conflicts = "overwrite")
+
+colnames(anr_data_projects)
+anr_data_projects |>  filter(stringr::str_detect(projet_code_decision_anr, "BLAN"))
+anr_data_projects |> count(programme_acronyme, aap_edition) |> arrange(desc(n)) |> View()
