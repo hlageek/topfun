@@ -3,24 +3,15 @@
 #' .. content for \details{} ..
 #'
 #' @title
-#' @param data_erc
+#' @param erc_data_raw
+#' @param years
 #' @return
 #' @author hlageek
 #' @export
-filter_erc <- function(data_erc) {
+filter_erc <- function(erc_data_raw, years = NULL) {
+  erc_data_filtered <- erc_data_raw |>
+    filter(str_detect(program, "STG|COG|ADG"))
 
-    data_erc %>% 
-        filter(str_detect(fundingScheme, "ERC-SG|ERC-CG|ERC-AG")) %>% 
-        mutate(type = if_else(fundingScheme == "ERC-SG", 
-               "ERC-Starting",
-               "ERC-Consolidator/Advanced"),
-               year = format(startDate, "%Y")
-        )  %>% 
-        mutate(code = as.character(rcn),
-                year = as.integer(year)) %>% 
-        filter(year < 2013) %>% 
-        mutate(duration = as.integer(endDate-startDate)/365) 
-        
-               
-               
-               }
+filter_by_years(erc_data_filtered, years)
+
+}

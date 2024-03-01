@@ -11,7 +11,7 @@
 osf_get_info <- function(osf_url = NULL, osf_folder = "input_data") {
   osfr::osf_auth(Sys.getenv("OSF_PAT"))
   osf_project <- osfr::osf_retrieve_node(osf_url)
-  osf_files <- osfr::osf_ls_files(osf_project, path = osf_folder)
+  osf_files <- osfr::osf_ls_files(osf_project, path = osf_folder, n_max = Inf)
 }
 
 #' .. content for \description{} (no empty lines) ..

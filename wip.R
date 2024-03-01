@@ -215,7 +215,7 @@ Here we ensure that the text data - project abstracts - that we work with are ei
 # list(
     
 #     tar_target(anr_lang_desc,
-#                detect_lang(data = data_anr,
+#                InputData(data = data_anr,
 #                            id = "code_du_projet",
 #                            col = "resume",
 #                            whitelist = c("fra", "eng"),
@@ -555,3 +555,16 @@ osfr::osf_upload(osf_intermediate_data, path = here::here("data", "intermediate_
 colnames(anr_data_projects)
 anr_data_projects |>  filter(stringr::str_detect(projet_code_decision_anr, "BLAN"))
 anr_data_projects |> count(programme_acronyme, aap_edition) |> arrange(desc(n)) |> View()
+
+
+anr_data_institutions |> 
+filter(duplicated(project_id))
+
+readr::read_csv2("~/Downloads/test.csv")
+
+
+test <- bind_rows(
+  erc_data, anr_data, dfg_data, snsf_data
+)
+
+test |> count(agency)

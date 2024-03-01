@@ -63,22 +63,22 @@ list(
 list(
   tar_target(
     name = anr_data_raw_2010,
-    command = read_input_anr(input_data_files, "anr_2010.csv"),
+    command = read_input_anr(input_data_files, file_name = "anr_2010.csv"),
     format = "qs"
   ),
   tar_target(
     name = anr_data_raw_2009,
-    command = read_input_anr(input_data_files, "anr_2009.csv"),
+    command = read_input_anr(input_data_files, file_name = "anr_2009.csv"),
     format = "qs"
   ),
   tar_target(
     name = anr_data_raw_2010_p,
-    command = read_input_anr(input_data_files, "anr_2010_p.csv"),
+    command = read_input_anr(input_data_files, file_name = "anr_2010_p.csv"),
     format = "qs"
   ),
   tar_target(
     name = anr_data_raw_2009_p,
-    command = read_input_anr(input_data_files, "anr_2010_p.csv"),
+    command = read_input_anr(input_data_files, file_name = "anr_2009_p.csv"),
     format = "qs"
   ),
   tar_target(
@@ -96,13 +96,32 @@ list(
       anr_data_raw_2009_p
     ),
     format = "qs"
+  ),
+  tar_target(
+    name = anr_data_raw,
+    command = anr_data_projects |> 
+    dplyr::left_join(anr_data_institutions,
+    by = "project_id"),
+    format = "qs"
   )
 )
 ```
 
 ### ANR filter
 
-### EU read
+```{r}
+#| engine: targets
+#| label: anr_filter
+list(
+  tar_target(
+    name = anr_data,
+    command = filter_anr(anr_data_raw, years = c(2012, 2022)),
+    format = "qs"
+  )
+)
+```
+
+### ERC read
 
 ```{r}
 #| engine: targets
@@ -110,11 +129,30 @@ list(
 list(
   tar_target(
     name = eu_data,
-    command = read_input_eu(input_data_files, c(
+    command = read_input_eu(input_data_files, file_name = c(
       "eu_fp7.csv",
       "eu_horizon.csv",
       "eu_europe.csv"
     )),
+    format = "qs"
+  ),
+  tar_target(
+    name = erc_data_raw,
+    command = read_input_erc(input_data_files, file_name = "erc_dashboard.tsv"),
+    format = "qs"
+  )
+)
+```
+
+### ERC filter
+
+```{r}
+#| engine: targets
+#| label: erc_filter
+list(
+  tar_target(
+    name = erc_data,
+    command = filter_erc(erc_data_raw, years = c(2012, 2022)),
     format = "qs"
   )
 )
@@ -127,12 +165,55 @@ list(
 #| label: snsf_data
 list(
   tar_target(
-    name = snsf_data,
-    command = read_input_snsf(input_data_files, "snsf.csv"),
+    name = snsf_data_raw,
+    command = read_input_snsf(input_data_files, file_name = "snsf.csv"),
     format = "qs"
   )
 )
 ```
+
+### SNSF filter
+
+```{r}
+#| engine: targets
+#| label: snsf_filter
+list(
+  tar_target(
+    name = snsf_data,
+    command = filter_snsf(snsf_data_raw, years = c(2012, 2022)),
+    format = "qs"
+  )
+)
+```
+
+### DFG read
+
+```{r}
+#| engine: targets
+#| label: dfg_data
+list(
+  tar_target(
+    name = dfg_data_raw,
+    command = read_input_dfg(input_data_files, file_name = "dfg_projects.tsv"),
+    format = "qs"
+  )
+)
+```
+
+### DFG filter
+
+```{r}
+#| engine: targets
+#| label: dfg_filter
+list(
+  tar_target(
+    name = dfg_data,
+    command = filter_dfg(dfg_data_raw, years = c(2012, 2022)),
+    format = "qs"
+  )
+)
+```
+
 
 ## Reset subproject
 ```{r}
