@@ -568,3 +568,8 @@ test <- bind_rows(
 )
 
 test |> count(agency)
+
+  key <- Sys.getenv("CEP_API")
+
+call <- paste0("curl -X POST -F 'token=", key, "' -F 'rezim=filtr-seznam' -F 'oblast=cep' -F 'pr-kod-fix=GA103/06/0617' https://api.isvavai.cz/api.php")
+      response <- system(call, intern = TRUE)

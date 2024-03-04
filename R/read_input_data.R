@@ -192,7 +192,7 @@ read_input_snsf <- function(input_data_files, file_name) {
 #' .. content for \details{} ..
 #'
 #'
-#' @title read_input_snsf
+#' @title read_input_dfg
 #' @param input_data_files
 #' @param file_name
 #' @return
@@ -212,8 +212,6 @@ read_input_dfg <- function(input_data_files, file_name) {
   )) |>
     janitor::clean_names() |> 
     filter(!duplicated(project_id))
-
-  str_replace_all(raw_df$years, "\\d", "") |> unique()
 
   transform_years <- function(x) {
     # there are two types of occurences
@@ -269,3 +267,73 @@ read_input_dfg <- function(input_data_files, file_name) {
     finishing_touch()
 }
 
+#' .. content for \description{} (no empty lines) ..
+#'
+#' .. content for \details{} ..
+#'
+#'
+#' @title read_input_csf
+#' @param input_data_files
+#' @param file_name
+#' @return
+#' @author hlageek
+#' @export
+read_input_dfg <- function(input_data_files, file_name) {
+  path_to_file <- input_data_files[basename(input_data_files) %in% file_name]
+  raw_df <- readr::read_csv(path_to_file) |> 
+    janitor::clean_names() 
+
+
+  transform_years <- function(x) {
+    # there are two types of occurences
+    # either wrong or missing data, or a text string
+    # text string is either "Funded in", "from to", or "since"
+    # we keep "Funded in" as is and subtract 1 from "from" or "since"
+    if (!is.na(x) & str_detect(x, "from|since")) {
+    as.integer(str_extract(x, "\\d{4}"))-1
+    } else {
+      as.integer(str_extract(x, "\\d{4}"))
+    }
+  }
+
+    transform_pi <- function(x) {
+    # there are two types of occurences
+    # either wrong or missing data, or a text string
+    # text string is either "Funded in", "from to", or "since"
+    # we keep "Funded in" as is and subtract 1 from "from" or "since"
+
+    #x <- c("Professor Dr. Cornelis W. Passchier", "Professor Dr.-Ing. Erwin Stein", "Privatdozentin Dr. Anja Krieger-Liszkay")
+    patterns <- c(
+      ".*?dozent.*?\\b", #Dozent
+      "prof.*?\\b", #Professor
+      "\\b[a-z\\.-]{2,}\\b\\.", #Academic titles including hyphenated
+      "," #comma
+    )
+    x <- str_trim(str_replace_all(tolower(x), paste0(patterns, collapse = "|"), ""))
+    x <- str_replace(x, "^[a-z]{1}\\.", "") #single letter first name initial even after removing titles
+
+  }
+
+  transmuted_df <- raw_df |>
+    select(
+      kod_projektu,
+      kod_programu,
+      nazev_projektu_anglicky,
+      abstract,
+      pi,
+      rok_zahajeni
+    ) |> 
+    transmute(
+      project_id = as.character(project_id),
+      program = as.character(program),
+      year = purrr::map_int(years, transform_years),
+      title = as.character(title),
+      abstract = as.character(abstract),
+      pi_name_first = as.character(stringr::str_extract(transform_pi(pi), ".+?\\b")),
+      pi_name_last = as.character(stringr::str_replace(transform_pi(pi), "^.*?\\b\\s(.*)", "\\1")),
+      country = "DE",
+      agency = "DFG"
+    ) 
+  transmuted_df |>
+    finishing_touch()
+}

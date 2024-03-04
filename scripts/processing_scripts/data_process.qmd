@@ -214,6 +214,49 @@ list(
 )
 ```
 
+### CSF read
+
+```{r}
+#| engine: targets
+#| label: csf_data
+list(
+  tar_target(
+    name = csf_data_raw,
+    command = read_input_csf(input_data_files, file_name = "csf.csv"),
+    format = "qs"
+  )
+)
+```
+
+### CSF filter
+
+```{r}
+#| engine: targets
+#| label: csf_filter
+list(
+  tar_target(
+    name = csf_data,
+    command = filter_csf(csf_data_raw, years = c(2012, 2022)),
+    format = "qs"
+  )
+)
+```
+
+## Combined data
+
+```{r}
+#| engine: targets
+#| label: combine
+list(
+  tar_target(
+    name = funding_data,
+    command = dplyr::bind_rows(
+      erc_data, snsf_data, anr_data, dfg_data, csf_data)
+    ),
+    format = "qs"
+  )
+)
+```
 
 ## Reset subproject
 ```{r}
