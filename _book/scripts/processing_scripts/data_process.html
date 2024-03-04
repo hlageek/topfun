@@ -224,8 +224,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#snsf-filter" id="toc-snsf-filter" class="nav-link" data-scroll-target="#snsf-filter"><span class="header-section-number">6.2.6</span> SNSF filter</a></li>
   <li><a href="#dfg-read" id="toc-dfg-read" class="nav-link" data-scroll-target="#dfg-read"><span class="header-section-number">6.2.7</span> DFG read</a></li>
   <li><a href="#dfg-filter" id="toc-dfg-filter" class="nav-link" data-scroll-target="#dfg-filter"><span class="header-section-number">6.2.8</span> DFG filter</a></li>
+  <li><a href="#csf-read" id="toc-csf-read" class="nav-link" data-scroll-target="#csf-read"><span class="header-section-number">6.2.9</span> CSF read</a></li>
+  <li><a href="#csf-filter" id="toc-csf-filter" class="nav-link" data-scroll-target="#csf-filter"><span class="header-section-number">6.2.10</span> CSF filter</a></li>
   </ul></li>
-  <li><a href="#reset-subproject" id="toc-reset-subproject" class="nav-link" data-scroll-target="#reset-subproject"><span class="header-section-number">6.3</span> Reset subproject</a></li>
+  <li><a href="#combined-data" id="toc-combined-data" class="nav-link" data-scroll-target="#combined-data"><span class="header-section-number">6.3</span> Combined data</a></li>
+  <li><a href="#reset-subproject" id="toc-reset-subproject" class="nav-link" data-scroll-target="#reset-subproject"><span class="header-section-number">6.4</span> Reset subproject</a></li>
   </ul>
 </nav>
     </div>
@@ -442,11 +445,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_process.R and _data_process_r/targets/dfg_filter.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-</section>
-<section id="reset-subproject" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="reset-subproject"><span class="header-section-number">6.3</span> Reset subproject</h2>
+<section id="csf-read" class="level3" data-number="6.2.9">
+<h3 data-number="6.2.9" class="anchored" data-anchor-id="csf-read"><span class="header-section-number">6.2.9</span> CSF read</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"main"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> csf_data_raw,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">read_input_csf</span>(input_data_files, <span class="at">file_name =</span> <span class="st">"csf.csv"</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"qs"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_process.R and _data_process_r/targets/csf_data.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="csf-filter" class="level3" data-number="6.2.10">
+<h3 data-number="6.2.10" class="anchored" data-anchor-id="csf-filter"><span class="header-section-number">6.2.10</span> CSF filter</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> csf_data,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> <span class="fu">filter_csf</span>(csf_data_raw, <span class="at">years =</span> <span class="fu">c</span>(<span class="dv">2012</span>, <span class="dv">2022</span>)),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"qs"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_process.R and _data_process_r/targets/csf_filter.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="combined-data" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="combined-data"><span class="header-section-number">6.3</span> Combined data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> funding_data,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">command =</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      erc_data, snsf_data, anr_data, dfg_data, csf_data)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"qs"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="er">)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Establish _data_process.R and _data_process_r/targets/combine.R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reset-subproject" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="reset-subproject"><span class="header-section-number">6.4</span> Reset subproject</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TAR_PROJECT =</span> <span class="st">"main"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

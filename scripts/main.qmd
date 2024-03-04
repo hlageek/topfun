@@ -62,6 +62,7 @@ The code in this subsection obtains those datasets that need not be collected vi
   - Set `URL_EU_2020=URL` in `.Renviron`.
   - Set `URL_EU_FP7=URL` in `.Renviron`.
   - Set `URL_SNSF=URL` in `.Renviron`.
+  - Set `CEP_API=TOKEN` in `.Renviron`.
   - Set `API_RUN=TRUE` in `.Renviron` to call APIs.
 
 
