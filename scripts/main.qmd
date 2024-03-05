@@ -73,6 +73,7 @@ The code in this subsection obtains those datasets that need not be collected vi
 ```{r}
 #| label: data_input
 #| eval: false
+
 # Generate the pipeline using the Quarto file
 quarto::quarto_render(here::here("scripts", "processing_scripts", "data_input.qmd"), quiet = TRUE)
 # Run the generated pipeline
@@ -89,6 +90,7 @@ targets::tar_make(script = here::here("scripts", "processing_scripts", "_data_in
 ```{r}
 #| label: data_process
 #| eval: false
+
 # Generate the pipeline using the Quarto file
 quarto::quarto_render(here::here("scripts", "processing_scripts", "data_process.qmd"), quiet = TRUE)
 # Run the generated pipeline

@@ -222,7 +222,7 @@ list(
 list(
   tar_target(
     name = csf_data_raw,
-    command = read_input_csf(input_data_files, file_name = "csf.csv"),
+    command = read_input_csf(input_data_files, file_name = c("csf.csv", "csf_names.csv")),
     format = "qs"
   )
 )
@@ -251,7 +251,7 @@ list(
   tar_target(
     name = funding_data,
     command = dplyr::bind_rows(
-      erc_data, snsf_data, anr_data, dfg_data, csf_data)
+      erc_data, snsf_data, anr_data, dfg_data, csf_data
     ),
     format = "qs"
   )
