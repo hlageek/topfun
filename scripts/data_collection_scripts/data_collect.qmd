@@ -64,6 +64,11 @@ list(
     name = csf_download_files,
     urls = url_csf,
     paths = here::here("data", "collected_data", "csf.csv")
+  ),
+  tar_target(
+    name = csf_names,
+    command = enrich_api_csf(csf_download_files, path = here::here("data", "collected_data", "csf_names.csv"), run = as.logical(Sys.getenv("API_RUN"))),
+    format = "file"
   )
 )
 ```
