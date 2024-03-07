@@ -7,16 +7,24 @@
 #' @return
 #' @author hlageek
 #' @export
-filter_csf <- function(data_csf) {
+filter_csf <- function(csf_data_raw, years) {
 
-    data_csf %>% 
-        mutate(year_start) %>% 
-        filter(year_start >= 2008 & year_start <= 2012) %>% 
-        filter(program_code %in% c("GP", "GA", "GC", "GF", "GJ")) %>% 
-        mutate(type = if_else(program_code == "GP", 
-                              "Postdoc",
-                              "Standard/International")) %>% 
-        mutate(total = (total*1000)/25) %>% 
-        mutate(duration = 1+year_end-year_start)
+    csf_data_prefiltered <- csf_data_raw |>
+    filter(str_detect(project_id, "GA|GJ")) |> 
+    filter(str_count(abstract) > 100) 
+
+   whitelisted  <-  c("eng", "ces")
+
+   csf_data_filtered <- csf_data_prefiltered |> 
+    mutate(
+        lang_abs = purrr::map_chr(abstract, ~franc::franc(.x, whitelist = whitelisted, min_speakers = 0)),
+        lang_title = purrr::map_chr(title, ~franc::franc(.x, whitelist = whitelisted, min_speakers = 0))
+    )   |> 
+    # csf_data_filtered |> summarize(mean(lang_abs == "eng"), .by = year) |> arrange(desc(year)) |> print(n=30)
+    filter(lang_abs == "eng" & lang_title == "eng") |> 
+    select(-lang_abs, -lang_title)
+
+
+filter_by_years(csf_data_raw, years = years)
 
 }

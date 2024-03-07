@@ -573,3 +573,36 @@ test |> count(agency)
 
 call <- paste0("curl -X POST -F 'token=", key, "' -F 'rezim=filtr-seznam' -F 'oblast=cep' -F 'pr-kod-fix=GA103/06/0617' https://api.isvavai.cz/api.php")
       response <- system(call, intern = TRUE)
+
+funding_data |> count(agency, year) |> View()
+
+#### NWO START ####
+require(tidyverse)
+nwo_url <- "https://nwopen-api.nwo.nl/NWOpen-API/api/Projects"
+resp <- httr2::request(nwo_url) |>  httr2::req_url_query(page = 1, per_page = 100)  |>  httr2::req_perform(req)
+pages_src <- resp |> httr2::resp_body_json(simplifyVector = T, flatten = TRUE)
+page_no <- pages$meta$pages
+
+scrape_nwo <- function(page){
+nwo_url <- "https://nwopen-api.nwo.nl/NWOpen-API/api/Projects"
+req <- httr2::request(nwo_url) |>  httr2::req_url_query(page = 1, per_page = 100)  |> httr2::req_throttle(rate = 30 / 60)
+resp <- httr2::req_perform(req)
+res <- resp |> httr2::resp_body_json(simplifyVector = T, flatten = TRUE)
+res$projects |>  
+tibble::as_tibble() 
+}
+
+nwo_pages <- 1:page_no
+
+nwo_data <- purrr::map_df(nwo_pages, scrape_nwo)
+
+qs::qsave(nwo_data, "nwo_data.qs")
+
+#### NWO END ####
+test <- nwo_data |> 
+select(-products) |> 
+tidyr::unnest(project_members) |> 
+filter(role == "Project leader", .by = project_id)
+unique(test$funding_scheme)
+
+test |> filter(str_detect(funding_scheme, "Open"))
